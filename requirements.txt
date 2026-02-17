@@ -1,0 +1,16 @@
+pandas
+numpy
+torch
+mlflow
+notebook
+sklearn
+matplotlib
+pyYAML
+types-pyYAML
+python-box
+tqdm
+joblib
+Flask
+Flask-Cors
+kaggle-hub
+-e .
