@@ -1,6 +1,6 @@
 from src.TALOS.utils.common import read_yaml,create_directories
 from src.TALOS.constants import CONFIG_FILE_PATH,PARAMS_FILE_PATH,SCHEMA_FILE_PATH
-from src.TALOS.entity.config_entity import DataIngestionConfig,DataTransformationConfig,DataValidationConfig
+from src.TALOS.entity.config_entity import DataIngestionConfig,DataTransformationConfig,DataValidationConfig,ModelTrainerConfig
 class ConfigurationManager:
     def __init__(self,
         config_filepath = CONFIG_FILE_PATH,
@@ -37,4 +37,20 @@ class ConfigurationManager:
         return DataTransformationConfig(
             root_dir=config.root_dir,
             data_path=config.data_path
+        )
+
+    def get_model_train_config(self)->ModelTrainerConfig:
+        config = self.config.model_train
+        create_directories([config.root_dir])
+
+        return ModelTrainerConfig(
+            root_dir = config.root_dir,
+            data_path=config.data_path,
+            model_name = config.model_name,
+            epochs = config.epochs,
+            imgsz =  config.imgsz,
+            rect =  config.rect,
+            batch = config.batch,
+            device = config.device,
+            plots = config.plots
         )

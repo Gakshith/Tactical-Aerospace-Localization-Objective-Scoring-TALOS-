@@ -517,3 +517,324 @@ x==========x]
 [2026-02-17 19:34:47,894: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
 
 x==========x]
+[2026-02-17 20:37:28,364: INFO: main: >>>>>> stage Data Ingestion stage started <<<<<<]
+[2026-02-17 20:37:28,366: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-17 20:37:28,366: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-17 20:37:28,367: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-17 20:37:28,367: INFO: common: created directory at: artifacts]
+[2026-02-17 20:37:28,367: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-02-17 20:37:28,367: INFO: data_ingestion: Data already present at: artifacts/data_ingestion/data.zip]
+[2026-02-17 20:37:28,367: INFO: data_ingestion: Syncing data to artifacts/data_ingestion]
+[2026-02-17 20:37:32,987: INFO: main: >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x]
+[2026-02-17 20:37:32,988: INFO: main: >>>>>> stage Data Validation stage started <<<<<<]
+[2026-02-17 20:37:32,989: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-17 20:37:32,990: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-17 20:37:32,990: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-17 20:37:32,990: INFO: common: created directory at: artifacts]
+[2026-02-17 20:37:32,990: INFO: common: created directory at: artifacts/data_validation]
+[2026-02-17 20:37:32,992: INFO: main: >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x]
+[2026-02-17 20:37:32,992: INFO: main: >>>>>> stage Data Transformation stage started <<<<<<]
+[2026-02-17 20:37:32,993: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-17 20:37:32,994: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-17 20:37:32,994: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-17 20:37:32,994: INFO: common: created directory at: artifacts]
+[2026-02-17 20:37:32,994: INFO: common: created directory at: artifacts/data_transformation]
+[2026-02-17 20:37:32,994: INFO: data_transformation: Processing train split...]
+[2026-02-17 20:37:34,456: INFO: data_transformation: Processing test split...]
+[2026-02-17 20:37:34,762: INFO: data_transformation: Transformation to YOLO structure complete.]
+[2026-02-17 20:37:34,763: INFO: data_transformation: YOLO Dataset structure created.]
+[2026-02-17 20:37:34,763: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:09:18,004: INFO: main: >>>>>> stage Data Ingestion stage started <<<<<<]
+[2026-02-18 19:09:18,005: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:09:18,006: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:09:18,006: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:09:18,006: INFO: common: created directory at: artifacts]
+[2026-02-18 19:09:18,006: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-02-18 19:09:18,006: INFO: data_ingestion: Fetching aceofspades914/cgi-planes-in-satellite-imagery-w-bboxes via kagglehub...]
+[2026-02-18 19:09:59,758: INFO: data_ingestion: Dataset moved to: artifacts/data_ingestion/data.zip]
+[2026-02-18 19:09:59,758: INFO: data_ingestion: Syncing data to artifacts/data_ingestion]
+[2026-02-18 19:10:01,589: INFO: main: >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:10:01,589: INFO: main: >>>>>> stage Data Validation stage started <<<<<<]
+[2026-02-18 19:10:01,591: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:10:01,592: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:10:01,593: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:10:01,593: INFO: common: created directory at: artifacts]
+[2026-02-18 19:10:01,593: INFO: common: created directory at: artifacts/data_validation]
+[2026-02-18 19:10:01,594: INFO: main: >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:10:01,594: INFO: main: >>>>>> stage Data Transformation stage started <<<<<<]
+[2026-02-18 19:10:01,595: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:10:01,596: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:10:01,596: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:10:01,596: INFO: common: created directory at: artifacts]
+[2026-02-18 19:10:01,596: INFO: common: created directory at: artifacts/data_transformation]
+[2026-02-18 19:10:01,596: INFO: data_transformation: Processing train split...]
+[2026-02-18 19:10:02,418: INFO: data_transformation: Processing test split...]
+[2026-02-18 19:10:02,643: INFO: data_transformation: Transformation to YOLO structure complete.]
+[2026-02-18 19:10:02,644: INFO: data_transformation: YOLO Dataset structure created.]
+[2026-02-18 19:10:02,644: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:10:02,644: INFO: main: >>>>>> stage Model Train stage started <<<<<<]
+[2026-02-18 19:10:02,645: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:10:02,645: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:10:02,645: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:10:02,645: INFO: common: created directory at: artifacts]
+[2026-02-18 19:10:02,645: INFO: common: created directory at: artifacts/model_trainer]
+[2026-02-18 19:10:07,264: ERROR: main: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+]
+Traceback (most recent call last):
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/main.py", line 42, in <module>
+    data_ingestion.main()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/pipeline/stage_04_model_train.py", line 16, in main
+    model_trainer_config.model_train()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/components/model_train.py", line 9, in model_train
+    model.train(
+    ~~~~~~~~~~~^
+    data=self.config.data_path,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    plots=self.config.plots
+    ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/model.py", line 769, in train
+    self.trainer = (trainer or self._smart_load("trainer"))(overrides=args, _callbacks=self.callbacks)
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/models/yolo/detect/train.py", line 63, in __init__
+    super().__init__(cfg, overrides, _callbacks)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 128, in __init__
+    self.device = select_device(self.args.device)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/utils/torch_utils.py", line 200, in select_device
+    raise ValueError(
+    ...<7 lines>...
+    )
+ValueError: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+
+[2026-02-18 19:14:30,872: INFO: main: >>>>>> stage Data Ingestion stage started <<<<<<]
+[2026-02-18 19:14:30,874: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:14:30,874: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:14:30,874: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:14:30,874: INFO: common: created directory at: artifacts]
+[2026-02-18 19:14:30,874: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-02-18 19:14:30,874: INFO: data_ingestion: Data already present at: artifacts/data_ingestion/data.zip]
+[2026-02-18 19:14:30,875: INFO: data_ingestion: Syncing data to artifacts/data_ingestion]
+[2026-02-18 19:14:33,130: INFO: main: >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:14:33,135: INFO: main: >>>>>> stage Data Validation stage started <<<<<<]
+[2026-02-18 19:14:33,137: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:14:33,138: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:14:33,138: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:14:33,138: INFO: common: created directory at: artifacts]
+[2026-02-18 19:14:33,138: INFO: common: created directory at: artifacts/data_validation]
+[2026-02-18 19:14:33,142: INFO: main: >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:14:33,142: INFO: main: >>>>>> stage Data Transformation stage started <<<<<<]
+[2026-02-18 19:14:33,143: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:14:33,144: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:14:33,144: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:14:33,144: INFO: common: created directory at: artifacts]
+[2026-02-18 19:14:33,144: INFO: common: created directory at: artifacts/data_transformation]
+[2026-02-18 19:14:33,144: INFO: data_transformation: Processing train split...]
+[2026-02-18 19:14:33,969: INFO: data_transformation: Processing test split...]
+[2026-02-18 19:14:34,173: INFO: data_transformation: Transformation to YOLO structure complete.]
+[2026-02-18 19:14:34,174: INFO: data_transformation: YOLO Dataset structure created.]
+[2026-02-18 19:14:34,174: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:14:34,174: INFO: main: >>>>>> stage Model Train stage started <<<<<<]
+[2026-02-18 19:14:34,175: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:14:34,176: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:14:34,176: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:14:34,176: INFO: common: created directory at: artifacts]
+[2026-02-18 19:14:34,176: INFO: common: created directory at: artifacts/model_trainer]
+[2026-02-18 19:14:34,489: ERROR: main: Dataset 'artifacts/data_transformation/talos_data.yaml' error ❌ Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json']
+Traceback (most recent call last):
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 691, in get_dataset
+    data = check_det_dataset(self.args.data)
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/data/utils.py", line 462, in check_det_dataset
+    raise FileNotFoundError(m)
+FileNotFoundError: Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/main.py", line 42, in <module>
+    data_ingestion.main()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/pipeline/stage_04_model_train.py", line 16, in main
+    model_trainer_config.model_train()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/components/model_train.py", line 9, in model_train
+    model.train(
+    ~~~~~~~~~~~^
+    data=self.config.data_path,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    plots=self.config.plots
+    ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/model.py", line 769, in train
+    self.trainer = (trainer or self._smart_load("trainer"))(overrides=args, _callbacks=self.callbacks)
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/models/yolo/detect/train.py", line 63, in __init__
+    super().__init__(cfg, overrides, _callbacks)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 186, in __init__
+    self.data = self.get_dataset()
+                ~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 695, in get_dataset
+    raise RuntimeError(emojis(f"Dataset '{clean_url(self.args.data)}' error ❌ {e}")) from e
+RuntimeError: Dataset 'artifacts/data_transformation/talos_data.yaml' error ❌ Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json'
+[2026-02-18 19:24:00,325: INFO: main: >>>>>> stage Data Ingestion stage started <<<<<<]
+[2026-02-18 19:24:00,326: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:24:00,327: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:24:00,327: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:24:00,327: INFO: common: created directory at: artifacts]
+[2026-02-18 19:24:00,327: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-02-18 19:24:00,327: INFO: data_ingestion: Data already present at: artifacts/data_ingestion/data.zip]
+[2026-02-18 19:24:00,327: INFO: data_ingestion: Syncing data to artifacts/data_ingestion]
+[2026-02-18 19:24:02,664: INFO: main: >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:24:02,664: INFO: main: >>>>>> stage Data Validation stage started <<<<<<]
+[2026-02-18 19:24:02,666: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:24:02,667: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:24:02,667: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:24:02,667: INFO: common: created directory at: artifacts]
+[2026-02-18 19:24:02,667: INFO: common: created directory at: artifacts/data_validation]
+[2026-02-18 19:24:02,671: INFO: main: >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:24:02,671: INFO: main: >>>>>> stage Data Transformation stage started <<<<<<]
+[2026-02-18 19:24:02,672: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:24:02,672: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:24:02,672: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:24:02,672: INFO: common: created directory at: artifacts]
+[2026-02-18 19:24:02,672: INFO: common: created directory at: artifacts/data_transformation]
+[2026-02-18 19:24:02,672: INFO: data_transformation: Processing train split...]
+[2026-02-18 19:24:03,519: INFO: data_transformation: Processing test split...]
+[2026-02-18 19:24:03,745: INFO: data_transformation: Transformation to YOLO structure complete.]
+[2026-02-18 19:24:03,746: INFO: data_transformation: YOLO Dataset structure created.]
+[2026-02-18 19:24:03,746: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:24:03,746: INFO: main: >>>>>> stage Model Train stage started <<<<<<]
+[2026-02-18 19:24:03,747: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:24:03,748: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:24:03,748: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:24:03,748: INFO: common: created directory at: artifacts]
+[2026-02-18 19:24:03,748: INFO: common: created directory at: artifacts/model_trainer]
+[2026-02-18 19:24:04,121: ERROR: main: Dataset 'artifacts/data_transformation/talos_data.yaml' error ❌ Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json']
+Traceback (most recent call last):
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 691, in get_dataset
+    data = check_det_dataset(self.args.data)
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/data/utils.py", line 462, in check_det_dataset
+    raise FileNotFoundError(m)
+FileNotFoundError: Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/main.py", line 42, in <module>
+    data_ingestion.main()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/pipeline/stage_04_model_train.py", line 16, in main
+    model_trainer_config.model_train()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/src/TALOS/components/model_train.py", line 9, in model_train
+    model.train(
+    ~~~~~~~~~~~^
+    data=self.config.data_path,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    plots=self.config.plots
+    ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/model.py", line 769, in train
+    self.trainer = (trainer or self._smart_load("trainer"))(overrides=args, _callbacks=self.callbacks)
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/models/yolo/detect/train.py", line 63, in __init__
+    super().__init__(cfg, overrides, _callbacks)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 186, in __init__
+    self.data = self.get_dataset()
+                ~~~~~~~~~~~~~~~~^^
+  File "/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/venv/lib/python3.14/site-packages/ultralytics/engine/trainer.py", line 695, in get_dataset
+    raise RuntimeError(emojis(f"Dataset '{clean_url(self.args.data)}' error ❌ {e}")) from e
+RuntimeError: Dataset 'artifacts/data_transformation/talos_data.yaml' error ❌ Dataset 'artifacts/data_transformation/talos_data.yaml' images not found, missing path '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/artifacts/data_transformation/artifacts/data_transformation/images/val'
+Note dataset download directory is '/Users/gojuruakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/datasets'. You can update this in '/Users/gojuruakshith/Library/Application Support/Ultralytics/settings.json'
+[2026-02-18 19:27:05,044: INFO: main: >>>>>> stage Data Ingestion stage started <<<<<<]
+[2026-02-18 19:27:05,045: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:27:05,046: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:27:05,046: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:27:05,046: INFO: common: created directory at: artifacts]
+[2026-02-18 19:27:05,046: INFO: common: created directory at: artifacts/data_ingestion]
+[2026-02-18 19:27:05,046: INFO: data_ingestion: Data already present at: artifacts/data_ingestion/data.zip]
+[2026-02-18 19:27:05,046: INFO: data_ingestion: Syncing data to artifacts/data_ingestion]
+[2026-02-18 19:27:07,335: INFO: main: >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:27:07,335: INFO: main: >>>>>> stage Data Validation stage started <<<<<<]
+[2026-02-18 19:27:07,337: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:27:07,338: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:27:07,338: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:27:07,338: INFO: common: created directory at: artifacts]
+[2026-02-18 19:27:07,338: INFO: common: created directory at: artifacts/data_validation]
+[2026-02-18 19:27:07,342: INFO: main: >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:27:07,342: INFO: main: >>>>>> stage Data Transformation stage started <<<<<<]
+[2026-02-18 19:27:07,343: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:27:07,343: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:27:07,343: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:27:07,343: INFO: common: created directory at: artifacts]
+[2026-02-18 19:27:07,343: INFO: common: created directory at: artifacts/data_transformation]
+[2026-02-18 19:27:07,343: INFO: data_transformation: Processing train split...]
+[2026-02-18 19:27:08,201: INFO: data_transformation: Processing test split...]
+[2026-02-18 19:27:08,423: INFO: data_transformation: Transformation to YOLO structure complete.]
+[2026-02-18 19:27:08,424: INFO: data_transformation: YOLO Dataset structure created.]
+[2026-02-18 19:27:08,424: INFO: main: >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x]
+[2026-02-18 19:27:08,424: INFO: main: >>>>>> stage Model Train stage started <<<<<<]
+[2026-02-18 19:27:08,425: INFO: common: yaml_path: config/config.yaml loaded successfully]
+[2026-02-18 19:27:08,425: INFO: common: yaml_path: params.yaml loaded successfully]
+[2026-02-18 19:27:08,425: INFO: common: yaml_path: schema.yaml loaded successfully]
+[2026-02-18 19:27:08,425: INFO: common: created directory at: artifacts]
+[2026-02-18 19:27:08,425: INFO: common: created directory at: artifacts/model_trainer]
+[2026-02-18 19:45:03,451: INFO: main: >>>>>> stage Model Train stage completed <<<<<<
+
+x==========x]

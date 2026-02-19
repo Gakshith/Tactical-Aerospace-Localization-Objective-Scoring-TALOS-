@@ -1,4 +1,5 @@
 import os
+import yaml
 import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -64,4 +65,21 @@ class DataTransformation:
             logger.info("Transformation to YOLO structure complete.")
 
         except Exception as e:
+            raise e
+    def create_dataset_yaml(self):
+        try:
+            dataset_root = os.path.abspath(self.config.root_dir)
+            dataset_config = {
+                'path': "artifacts/data_transformation",
+                'train': 'images/train',
+                'val': 'images/val',
+                'names': {0: 'plane'}
+            }
+
+            yaml_path = os.path.join(dataset_root, 'talos_data.yaml')
+            with open(yaml_path, 'w') as f:
+                yaml.dump(dataset_config, f, default_flow_style=False)
+            logger.info("YOLO Dataset structure created.")
+        except Exception as e:
+            logger.error(f"Failed to create YAML: {e}")
             raise e

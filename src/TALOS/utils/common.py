@@ -1,4 +1,3 @@
-from box import ConfigBox
 from typing import Any
 from pathlib import Path
 from src.TALOS import logger
@@ -7,6 +6,7 @@ from ensure import ensure_annotations
 import yaml
 import joblib
 import os
+from box import ConfigBox
 import json
 from box.exceptions import BoxValueError
 

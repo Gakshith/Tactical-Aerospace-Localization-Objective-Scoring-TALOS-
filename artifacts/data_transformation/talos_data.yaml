@@ -1,0 +1,5 @@
+names:
+  0: plane
+path: artifacts/data_transformation
+train: images/train
+val: images/val

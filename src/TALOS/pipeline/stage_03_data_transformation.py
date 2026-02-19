@@ -15,6 +15,7 @@ class DataTransformationPipeline:
                 data_transformation_config = config.get_data_transformation_config()
                 data_transformation = DataTransformation(data_transformation_config)
                 data_transformation.initiate_data_transformation()
+                data_transformation.create_dataset_yaml()
         except Exception as e:
             raise e
 if __name__ == "__main__":
