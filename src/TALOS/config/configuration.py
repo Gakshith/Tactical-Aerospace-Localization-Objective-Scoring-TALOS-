@@ -1,15 +1,9 @@
 from src.TALOS.utils.common import read_yaml,create_directories
-from src.TALOS.constants import CONFIG_FILE_PATH,PARAMS_FILE_PATH,SCHEMA_FILE_PATH
-from src.TALOS.entity.config_entity import DataIngestionConfig,DataTransformationConfig,DataValidationConfig,ModelTrainerConfig
+from src.TALOS.constants import CONFIG_FILE_PATH
+from src.TALOS.entity.config_entity import DataIngestionConfig,DataTransformationConfig,DataValidationConfig,ModelTrainerConfig,ModelRunConfig
 class ConfigurationManager:
-    def __init__(self,
-        config_filepath = CONFIG_FILE_PATH,
-        params_filepath = PARAMS_FILE_PATH,
-        schema_filepath = SCHEMA_FILE_PATH):
-
+    def __init__(self,config_filepath = CONFIG_FILE_PATH):
         self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
         create_directories([self.config.artifacts_root])
 
     def get_data_ingestion_config(self)->DataIngestionConfig:
@@ -53,4 +47,14 @@ class ConfigurationManager:
             batch = config.batch,
             device = config.device,
             plots = config.plots
+        )
+
+    def get_model_run_config(self) -> ModelRunConfig:
+        config = self.config.model_run
+        create_directories([config.root_dir])
+        return ModelRunConfig(
+            root_dir=config.root_dir,
+            model_path=config.model_path,
+            source_video_path=config.source_video_path,
+            output_video_path=config.output_video_path,
         )

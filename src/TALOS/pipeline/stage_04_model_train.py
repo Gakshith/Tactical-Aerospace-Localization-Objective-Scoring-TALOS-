@@ -14,7 +14,7 @@ class ModelTrainTrainingPipeline:
         model_trainer_config = config.get_model_train_config()
         model_trainer_config = ModelTrain(config=model_trainer_config)
         model_trainer_config.model_train()
-
+        model_trainer_config.move_trained_weights()
 
 if __name__ == '__main__':
     try:

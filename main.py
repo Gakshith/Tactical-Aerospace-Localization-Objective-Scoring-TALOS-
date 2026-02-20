@@ -3,6 +3,7 @@ from src.TALOS.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipe
 from src.TALOS.pipeline.stage_02_data_validation import DataValidationTrainingPipeline
 from src.TALOS.pipeline.stage_03_data_transformation import DataTransformationPipeline
 from src.TALOS.pipeline.stage_04_model_train import ModelTrainTrainingPipeline
+from src.TALOS.pipeline.stage_05_model_run import ModelRunTrainingPipeline
 
 STAGE_NAME = "Data Ingestion stage"
 try:
@@ -39,6 +40,16 @@ STAGE_NAME = "Model Train stage"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
    data_ingestion = ModelTrainTrainingPipeline()
+   data_ingestion.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+STAGE_NAME = "Model Run stage"
+try:
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   data_ingestion = ModelRunTrainingPipeline()
    data_ingestion.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:

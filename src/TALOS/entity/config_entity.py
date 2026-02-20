@@ -32,3 +32,10 @@ class ModelTrainerConfig:
   batch: int
   device: str
   plots: bool
+
+@dataclass(frozen=True)
+class ModelRunConfig:
+    root_dir : Path
+    model_path: Path
+    source_video_path: Path
+    output_video_path: Path
