@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from src.TALOS.config.configuration import (ConfigurationManager)
 from src.TALOS.components.model_train import ModelTrain
 from src.TALOS import logger
@@ -13,7 +15,10 @@ class ModelTrainTrainingPipeline:
         config = ConfigurationManager()
         model_trainer_config = config.get_model_train_config()
         model_trainer_config = ModelTrain(config=model_trainer_config)
-        model_trainer_config.model_train()
+        if os.path.exists(Path("runs")):
+            pass
+        else:
+            model_trainer_config.model_train()
         model_trainer_config.move_trained_weights()
 
 if __name__ == '__main__':

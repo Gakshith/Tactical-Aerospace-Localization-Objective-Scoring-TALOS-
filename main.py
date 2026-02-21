@@ -49,8 +49,8 @@ except Exception as e:
 STAGE_NAME = "Model Run stage"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-   data_ingestion = ModelRunTrainingPipeline()
-   data_ingestion.main()
+   model_run = ModelRunTrainingPipeline()
+   model_run.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
         logger.exception(e)

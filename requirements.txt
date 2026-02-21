@@ -1,9 +1,7 @@
 pandas
 numpy
 torch
-mlflow
 notebook
-sklearn
 matplotlib
 pyYAML
 types-pyYAML
@@ -12,5 +10,9 @@ tqdm
 joblib
 Flask
 Flask-Cors
-kaggle-hub
--e .
+kagglehub
+ultralytics
+numpy
+opencv-python
+scipy
+pandas

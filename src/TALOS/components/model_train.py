@@ -2,6 +2,7 @@ from ultralytics import YOLO
 from src.TALOS.entity.config_entity import ModelTrainerConfig
 from pathlib import Path
 import os
+import pandas as pd
 import shutil
 from src.TALOS import logger
 class ModelTrain:
@@ -21,7 +22,7 @@ class ModelTrain:
 
     def move_trained_weights(self):
         try:
-            source_path = Path("runs/detect/train3/weights/best.pt")
+            source_path = Path("runs/detect/train/weights/best.pt")
             target_dir = Path(self.config.root_dir)
             os.makedirs(target_dir, exist_ok=True)
             target_path = target_dir / "best.pt"

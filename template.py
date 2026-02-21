@@ -21,11 +21,10 @@ list_of_files = [
     f"src/{project_name}/constants/__init__.py",
     f"src/{project_name}/models/__init__.py"
     "config/config.yaml",
-    "params.yaml",
-    "schema.yaml",
     "main.py",
     "app.py",
     "Dockerfile",
+    f"dags/talos_dag.py"
     "requirements.txt",
     "setup.py",
     "research/trials.ipynb",
