@@ -1,118 +1,133 @@
-# TALOS: Tactical Aerospace Localization & Objective Scoring
+# TALOS — Tactical Aerospace Localization & Objective Scoring
 
-TALOS (Tactical Aerospace Localization & Objective Scoring) is an end-to-end tactical surveillance pipeline engineered for satellite and aerial imagery. It transforms raw pixels into actionable intelligence by fusing YOLOv11 object detection with a Kalman Filter and the Hungarian Algorithm for persistent multi-object tracking.
+TALOS finds aircraft in overhead imagery, follows each one across frames, and ranks them by how threatening their motion looks relative to a protected point.
 
-The system’s core is a predictive Threat Assessment Engine that ranks targets in real time. By calculating temporal urgency (Time-to-Impact), directional intent vectors, and spatial proximity, TALOS continuously updates a dynamic risk score for every detected aircraft. Designed for low-latency environments, it provides a robust framework for autonomous aerospace monitoring and predictive threat analysis.
+It is three pieces chained together:
 
+1. **Detect** — a fine-tuned YOLO26s model finds every aircraft in a frame.
+2. **Track** — a Kalman filter per aircraft plus Hungarian assignment keeps a stable ID on each one.
+3. **Score** — a threat engine turns each track's position, velocity and filter confidence into a risk score between 0 and 1.
 
-##  Overview
+The output is an annotated video and a CSV log of the highest-risk tracks.
 
-Modern aerospace monitoring requires more than object detection. TALOS transforms raw surveillance feeds into actionable intelligence through:
+## Demo
 
-- High-precision aircraft detection  
-- Persistent identity tracking  
-- Predictive threat scoring  
-- Structured analytical logging  
-
----
-
-## Project Demonstration
-
-Below is the comparison between the raw surveillance feed and the processed tactical output.
-
-| **Raw Input Feed** | **TALOS Tactical Output** |
+| Raw input | TALOS output |
 | :---: | :---: |
-| *Original Satellite Footage* | *Detection, Tracking & Threat Analysis Overlay* |
+| ![Raw overhead clip](docs/media/raw-input.gif) | ![Detections, track IDs and risk scores](docs/media/talos-output.gif) |
 
----
+Each box carries a track ID and its current risk score. The red box is the highest-risk aircraft in that frame; the rest are green.
 
-## System Architecture
+The clip is a 5-second, 1280×720, 25 fps synthetic test video (125 frames). TALOS processes recorded video offline: on a laptop CPU this clip takes about 25 seconds, roughly 5 frames per second.
 
-### 1) Detection Engine — YOLOv11
+## How it works
 
-- Custom-trained YOLOv11 model  
-- Optimized for small-object detection in high-resolution satellite imagery   
----
+### Detection
 
-### 2) Tracking Engine — Kalman Filter + Hungarian Algorithm
+| | |
+| --- | --- |
+| Model | YOLO26s (Ultralytics), fine-tuned from `yolo26s.pt` |
+| Dataset | [CGI Planes in Satellite Imagery](https://www.kaggle.com/datasets/aceofspades914/cgi-planes-in-satellite-imagery-w-bboxes) — 400 training and 100 validation images, one class (`plane`) |
+| Training | 1 epoch, image size 1024, batch 8, CPU (about 16 minutes) |
+| Validation | mAP50 **0.921**, mAP50-95 **0.572**, precision 0.869, recall 0.834 |
 
-TALOS uses a dual-stage data association pipeline:
+Annotations ship as Pascal VOC XML; the transformation stage converts them to YOLO format. Detections below 0.5 confidence are dropped at inference.
 
-- **Kalman Filter**
-  - Constant velocity motion model  
-  - Predicts next position and velocity  
+### Tracking
 
-- **Hungarian Algorithm (Linear Sum Assignment)**
-  - Minimizes global Euclidean distance  
-  - Optimal detection-to-track matching  
-  - Maintains persistent object IDs  
+Every aircraft gets its own Kalman filter with a constant-velocity motion model over the state
 
----
+$$x = [\,c_x,\ c_y,\ v_x,\ v_y,\ w,\ h\,]$$
 
-### 3) Threat Assessment Engine
+On each frame all filters predict forward, then the Hungarian algorithm (`scipy.optimize.linear_sum_assignment`) matches predictions to new detections by minimising the total Euclidean distance over $(c_x, c_y, w, h)$. A match is accepted only if its cost is under 150 px. Matched tracks are corrected with the detection; unmatched detections start new tracks.
 
-The system calculates a dynamic risk score $S$ for every tracked object. This allows the pipeline to prioritize targets that pose the most immediate tactical threat.
+### Threat scoring
 
-#### Tactical Formulas
+Each track is scored against a protected origin — currently the top-left corner of the frame, `(0, 0)`. With $d$ the distance to the origin and $v_{close}$ the component of velocity pointing at it:
 
-* **Time-to-Impact (TTI) — Urgency Estimation** Measures how soon a target will reach the protected origin based on its current closing velocity.
-  $$TTI = \frac{d}{v_{close}}$$
-  $$\text{Urgency} = e^{-\left(\frac{TTI}{\tau}\right)}$$
-  *(Where $\tau$ is the sensitivity constant set to 5.0)*
+| Term | Formula | Meaning |
+| --- | --- | --- |
+| Urgency | $e^{-TTI/\tau}$, where $TTI = d / v_{close}$ and $\tau = 5$ | How soon it would arrive. Zero unless it is closing. |
+| Proximity | $e^{-d/800}$ | How close it already is. |
+| Intent | $\max(0,\ \cos\theta)$ between velocity and the direction to the origin | Whether it is heading at the origin. |
+| Certainty | $e^{-\mathrm{Tr}(P_{pos})/100}$ | How settled the filter's position estimate is. |
 
-* **Intent Vector Analysis — Directional Intent** Uses Cosine Similarity to determine if the aircraft's velocity vector $\vec{V}$ is aligned with the direction vector $\vec{D}$ toward the origin.
-  $$\text{Intent} = \max\left(0, \frac{\vec{V} \cdot \vec{D}}{\|\vec{V}\| \|\vec{D}\|}\right)$$
+$$S = 0.4\,\text{Urgency} + 0.3\,\text{Proximity} + 0.2\,\text{Intent} + 0.1\,\text{Certainty}$$
 
-* **Proximity Score — Distance-based Risk** An exponential escalation based purely on the Euclidean distance $d$ from the origin.
-  $$\text{Proximity} = e^{-\left(\frac{d}{\sigma}\right)}$$
+All distances and speeds are in pixels, not ground units.
 
-* **Certainty Score — Reliability Weight** Uses the **Trace of the Kalman Filter Covariance Matrix ($P$)** to reward stable, long-term tracks and filter out transient "flicker" detections.
-  $$\text{Certainty} = e^{-\left(\frac{\text{Tr}(P)}{\lambda}\right)}$$
+## Run it
 
-#### Final Scoring Logic
-Outputs are frame-level and continuously updated using a weighted fusion of the metrics above:
-
-$$S = (0.4 \times \text{Urgency}) + (0.3 \times \text{Proximity}) + (0.2 \times \text{Intent}) + (0.1 \times \text{Certainty})$$
-
----
-
-## Project Structure
-
-1. Update `config/config.yaml`
-2. Update `src/TALOS/entity/`
-3. Update `src/TALOS/config/`
-4. Update `src/TALOS/components/`
-5. Update `src/TALOS/pipeline/`
-6. Update `main.py` 
-
-After changes, run:
+Requires Python 3.11 or newer.
 
 ```bash
-python3 main.py
-
- ---
-
-##  Getting Started
-
-### Prerequisites
-- Python 3.12+
-- NVIDIA GPU / Apple Silicon (MPS) / CPU
-
-### Installation
-
-```bash
-git clone https://github.com/Gakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-
-cd TALOS
+git clone https://github.com/Gakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-.git
+cd Tactical-Aerospace-Localization-Objective-Scoring-TALOS-
 pip install -r requirements.txt
+```
 
-## How to Run
+Put the video you want analysed at `source_video/input.mp4`, then run the whole pipeline:
 
-### 1)Add Your Video
-Place your video inside the `source_video/` folder and rename it to: input.mp4
-### 2) Run the Pipeline : python3 main.py
-### 3) Get the Results :After execution, outputs will be available in:
-artifacts/model_run/ with output.mp4 file
-output.mp4 — Processed tactical video
-alos_threat_analysis.csv — Threat analysis log
+```bash
+python main.py
+```
 
+The first run downloads the dataset through `kagglehub` and trains the detector, so it takes a while. Trained weights are not stored in the repository.
 
+Results land in `artifacts/model_run/`:
+
+| File | Contents |
+| --- | --- |
+| `Output.mp4` | The input video with boxes, track IDs and risk scores drawn on |
+| `talos_threat_analysis.csv` | The five highest-risk tracks every 30 frames: `frame, id, score, tti` |
+
+A `tti` of `999` means the track is not closing on the origin.
+
+To re-run only the tracking and scoring on a new video, once `artifacts/model_trainer/best.pt` exists:
+
+```bash
+python -m src.TALOS.pipeline.stage_05_model_run
+```
+
+## Pipeline stages
+
+`main.py` runs five stages in order. Paths and training settings live in [`config/config.yaml`](config/config.yaml).
+
+| # | Stage | What it does | Writes to |
+| --- | --- | --- | --- |
+| 1 | Data ingestion | Downloads the Kaggle dataset | `artifacts/data_ingestion/` |
+| 2 | Data validation | Checks every image has a matching annotation file | `artifacts/data_validation/status.txt` |
+| 3 | Data transformation | Converts VOC XML to YOLO labels and writes the dataset YAML | `artifacts/data_transformation/` |
+| 4 | Model training | Fine-tunes YOLO26s and keeps the best weights | `artifacts/model_trainer/best.pt` |
+| 5 | Model run | Detects, tracks and scores the input video | `artifacts/model_run/` |
+
+Stage 4 skips training when a `runs/` folder already exists, and collects weights from `runs/detect/train/`. Delete `runs/` to retrain from scratch.
+
+## Repository layout
+
+```
+config/config.yaml        paths and training settings
+main.py                   runs all five stages
+src/TALOS/
+  components/             the logic for each stage
+  pipeline/               one runnable entry point per stage
+  config/  entity/        typed configuration
+  utils/                  YAML, JSON and filesystem helpers
+research/                 notebooks each stage was prototyped in
+dags/talos_dag.py         the same five stages as an Airflow DAG
+airflow/                  docker-compose stack for Airflow
+Dockerfile                container that runs main.py
+.github/workflows/        CI checks, plus a manual build-and-deploy to AWS ECR/EC2
+```
+
+## Known limitations
+
+- **Tracks never retire.** A track that loses its aircraft stays on screen at its last position, which can leave a second box over the same plane. Frames with no detections skip the predict step entirely.
+- **Fixed frame rate.** The filter assumes 30 fps regardless of the video's real frame rate, so estimated speeds are off by that ratio.
+- **Fixed origin.** The protected point is hard-coded to the frame's top-left corner.
+- **Lightly trained detector.** One epoch on 500 computer-generated images; expect weaker results on real satellite footage.
+- **Deployment is not wired up.** The Airflow stack does not yet mount this repo's `dags/` and `src/`, and the AWS delivery jobs need repository secrets that are not configured.
+
+## License
+
+[MIT](LICENSE)

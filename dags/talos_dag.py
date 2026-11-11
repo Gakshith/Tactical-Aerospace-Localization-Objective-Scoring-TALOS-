@@ -2,8 +2,6 @@ from airflow import DAG
 from airflow.decorators import task
 from datetime import datetime
 
-from sympy.physics.units import year
-
 from src.TALOS.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from src.TALOS.pipeline.stage_02_data_validation import DataValidationTrainingPipeline
 from src.TALOS.pipeline.stage_03_data_transformation import DataTransformationPipeline

@@ -19,12 +19,12 @@ list_of_files = [
     f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/entity/config_entity.py",
     f"src/{project_name}/constants/__init__.py",
-    f"src/{project_name}/models/__init__.py"
+    f"src/{project_name}/models/__init__.py",
     "config/config.yaml",
     "main.py",
     "app.py",
     "Dockerfile",
-    f"dags/talos_dag.py"
+    "dags/talos_dag.py",
     "requirements.txt",
     "setup.py",
     "research/trials.ipynb",

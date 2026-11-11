@@ -1,3 +1,4 @@
+import os
 import cv2
 import torch
 import numpy as np
@@ -174,5 +175,6 @@ class ModelRun:
         out.release()
 
         if self.threat_history_log:
-            pd.DataFrame(self.threat_history_log).to_csv("talos_threat_analysis.csv", index=False)
-            print("Successfully saved threat log to CSV.")
+            csv_path = os.path.join(self.config.root_dir, "talos_threat_analysis.csv")
+            pd.DataFrame(self.threat_history_log).to_csv(csv_path, index=False)
+            print(f"Successfully saved threat log to {csv_path}")

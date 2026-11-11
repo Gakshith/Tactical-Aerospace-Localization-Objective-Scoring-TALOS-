@@ -6,6 +6,10 @@ on:
       - main
     paths-ignore:
       - 'README.md'
+      - 'docs/**'
+  # The ECR/EC2 delivery jobs only run when started by hand, and need the
+  # AWS_* and ECR_* repository secrets to be configured first.
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -17,21 +21,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Lint code
-        run: echo "Linting repository"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Run unit tests
-        run: echo "Running unit tests"
+      - name: Byte-compile sources
+        run: python -m compileall -q main.py template.py src dags
+
+      - name: Lint for syntax errors and undefined names
+        run: |
+          pip install ruff
+          ruff check --select E9,F63,F7,F82 main.py template.py src dags
 
   build-and-push-ecr-image:
     name: Continuous Delivery
     needs: integration
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Utilities
         run: |
@@ -65,10 +77,11 @@ jobs:
 
   Continuous-Deployment:
     needs: build-and-push-ecr-image
+    if: github.event_name == 'workflow_dispatch'
     runs-on: self-hosted
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
