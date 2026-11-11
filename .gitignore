@@ -25,3 +25,4 @@ airflow/.env
 .idea/
 .vscode/
 .DS_Store
+.talos_source

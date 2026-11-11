@@ -106,9 +106,14 @@ def run_metadata(config: dict) -> dict:
 
     cfg_bytes = json.dumps(config, sort_keys=True).encode()
     import hashlib
+    sha, dirty = git("rev-parse", "HEAD"), bool(git("status", "--porcelain"))
+    stamp = Path(".talos_source")  # written by scripts/sync_polaris.sh where .git is absent
+    if sha == "unknown" and stamp.exists():
+        kv = dict(line.split("=", 1) for line in stamp.read_text().split())
+        sha, dirty = kv.get("git_sha", "unknown"), kv.get("git_dirty_files", "1") != "0"
     return {
-        "git_sha": git("rev-parse", "HEAD"),
-        "git_dirty": bool(git("status", "--porcelain")),
+        "git_sha": sha,
+        "git_dirty": dirty,
         "config_hash": hashlib.sha256(cfg_bytes).hexdigest()[:12],
         "config": config,
         "host": platform.node(),

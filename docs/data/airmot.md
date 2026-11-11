@@ -202,6 +202,12 @@ The secondary sources give different video counts for AIR-MOT: 59 (Wan et al.) a
 
 **No official train/test split is published.** The README, repo files and issues give none. Issue [#5](https://github.com/HeQibin/TGraM/issues/5) claims the original 70-video folder held "only the training set"; the folder is now dead, so this cannot be checked. In AIR-MOT-100, the 31 videos with empty gt might be a withheld test set, but nothing states this. Any split we use is ours to define.
 
+**TALOS split (frozen 2026-11-11, [`configs/splits/airmot.json`](../../configs/splits/airmot.json)).** The 69 annotated videos are split by video, 47 / 11 / 11 for train / val / test, with seed 0. The split is stratified so every part gets its share of the rare cases: videos with an aircraft moving more than 100 px (7 / 2 / 2), other aircraft videos (15 / 3 / 3), and ship-only videos (25 / 6 / 6). Test holds 35 aircraft tracks (4 moving more than 20 px) and 69 ship tracks (15 moving). Tracking is reported per class. The threat-warning evaluation uses both classes, because aircraft alone have too few movers.
+
+**Decision (2026-11-11):** the project owner approved AIR-MOT-100 as the primary dataset despite the unverified uploader and the missing license. VISO remains the cross-dataset check. Every result citing AIR-MOT names this release.
+
+**Frame rate used:** 10 fps, assumed (see above). Any number in seconds or m/s inherits this assumption and says so.
+
 ## Anomalies [M]
 
 - **31/100 videos have no annotations** (listed above).
