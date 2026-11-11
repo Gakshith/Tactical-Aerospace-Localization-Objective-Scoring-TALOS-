@@ -7,7 +7,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 {
   echo "git_sha=$(git rev-parse HEAD)"
-  echo "git_dirty_files=$(git status --porcelain | wc -l | tr -d ' ')"
+  echo "git_dirty_files=$(git status --porcelain --untracked-files=no | wc -l | tr -d ' ')"
   echo "synced_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 } > .talos_source
 rsync -az --exclude .git --exclude .venv --exclude artifacts --exclude source_video \
