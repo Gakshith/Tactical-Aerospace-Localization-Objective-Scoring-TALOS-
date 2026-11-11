@@ -114,3 +114,19 @@ def test_registry_and_param_validation():
     assert isinstance(make(fps=10), TalosTracker)
     with pytest.raises(TypeError):
         make(fps=10, not_a_param=1)
+
+
+def test_calibration_recovers_injected_jitter():
+    from src.TALOS.detect.cache import degrade
+    from src.TALOS.track.calibrate import fit, residuals
+    rows, gt = [], []
+    for f in range(1, 101):
+        for k in range(10):
+            x, s = 60 * k + 10, 12 + 4 * k            # sizes 12..48 px
+            rows.append([f, x, 50, x + s, 50 + s, 1.0])
+            gt.append([f, k + 1, x, 50, s, s, 1, 1, 1])
+    dets = degrade(np.array(rows, np.float32), (1920, 1080), jitter=2.0, seed=0)
+    cal = fit(residuals(dets, np.array(gt, float)))
+    # injected noise is a flat 2 px at every size; IoU>=0.5 matching trims tails slightly
+    assert 1.6 < cal["meas_pos_min"] < 2.3
+    assert all(1.6 < b["sigma_px"] < 2.4 for b in cal["bins"])
