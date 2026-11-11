@@ -1,0 +1,45 @@
+{
+  "run_id": "d2-before-v1-plane-test",
+  "git_sha": "2e2afd5ec1882e11b713d9a9f55d832efb497b1f",
+  "git_dirty": false,
+  "config_hash": "1cd4689f351b",
+  "config": {
+    "bench": "AIRMOT_plane",
+    "split": "test",
+    "detector": "v1_cgi",
+    "trackers": [
+      "v1"
+    ],
+    "params": {},
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-005",
+      "airmot-044",
+      "airmot-046",
+      "airmot-050",
+      "airmot-057"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 0.0,
+      "DetA": 0.0,
+      "HOTA": 0.0,
+      "IDSW": 0.0,
+      "MOTA": 0.0,
+      "IDF1": 0.0,
+      "IDs": 0.0,
+      "GT_IDs": 35.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 1449,
+      "track_seconds": 0.0053,
+      "track_ms_per_frame": 0.0037
+    }
+  }
+}
