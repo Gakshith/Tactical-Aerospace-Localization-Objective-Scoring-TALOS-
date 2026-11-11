@@ -1,0 +1,468 @@
+{
+  "fps_assumed": 10.0,
+  "skipped_unannotated": [
+    "1",
+    "2",
+    "9",
+    "10",
+    "34",
+    "69",
+    "70",
+    "71",
+    "72",
+    "73",
+    "74",
+    "75",
+    "76",
+    "77",
+    "78",
+    "79",
+    "80",
+    "81",
+    "82",
+    "83",
+    "84",
+    "85",
+    "86",
+    "87",
+    "88",
+    "89",
+    "90",
+    "91",
+    "92",
+    "93",
+    "94"
+  ],
+  "sequences": {
+    "plane": [
+      {
+        "seq": "airmot-003",
+        "frames": 143,
+        "tracks": 1,
+        "boxes": 143
+      },
+      {
+        "seq": "airmot-004",
+        "frames": 143,
+        "tracks": 1,
+        "boxes": 143
+      },
+      {
+        "seq": "airmot-005",
+        "frames": 143,
+        "tracks": 6,
+        "boxes": 858
+      },
+      {
+        "seq": "airmot-006",
+        "frames": 143,
+        "tracks": 1,
+        "boxes": 110
+      },
+      {
+        "seq": "airmot-007",
+        "frames": 143,
+        "tracks": 17,
+        "boxes": 2431
+      },
+      {
+        "seq": "airmot-008",
+        "frames": 143,
+        "tracks": 14,
+        "boxes": 1892
+      },
+      {
+        "seq": "airmot-011",
+        "frames": 143,
+        "tracks": 5,
+        "boxes": 715
+      },
+      {
+        "seq": "airmot-029",
+        "frames": 326,
+        "tracks": 3,
+        "boxes": 978
+      },
+      {
+        "seq": "airmot-030",
+        "frames": 326,
+        "tracks": 7,
+        "boxes": 1091
+      },
+      {
+        "seq": "airmot-031",
+        "frames": 326,
+        "tracks": 12,
+        "boxes": 2791
+      },
+      {
+        "seq": "airmot-032",
+        "frames": 326,
+        "tracks": 6,
+        "boxes": 1956
+      },
+      {
+        "seq": "airmot-035",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 44
+      },
+      {
+        "seq": "airmot-036",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-039",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-041",
+        "frames": 327,
+        "tracks": 3,
+        "boxes": 981
+      },
+      {
+        "seq": "airmot-042",
+        "frames": 327,
+        "tracks": 2,
+        "boxes": 650
+      },
+      {
+        "seq": "airmot-043",
+        "frames": 327,
+        "tracks": 21,
+        "boxes": 6754
+      },
+      {
+        "seq": "airmot-044",
+        "frames": 327,
+        "tracks": 4,
+        "boxes": 1025
+      },
+      {
+        "seq": "airmot-045",
+        "frames": 327,
+        "tracks": 16,
+        "boxes": 5044
+      },
+      {
+        "seq": "airmot-046",
+        "frames": 327,
+        "tracks": 23,
+        "boxes": 7111
+      },
+      {
+        "seq": "airmot-047",
+        "frames": 327,
+        "tracks": 9,
+        "boxes": 2696
+      },
+      {
+        "seq": "airmot-048",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 18
+      },
+      {
+        "seq": "airmot-049",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 134
+      },
+      {
+        "seq": "airmot-050",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 7
+      },
+      {
+        "seq": "airmot-052",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 5
+      },
+      {
+        "seq": "airmot-053",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-054",
+        "frames": 326,
+        "tracks": 19,
+        "boxes": 6194
+      },
+      {
+        "seq": "airmot-055",
+        "frames": 326,
+        "tracks": 10,
+        "boxes": 3260
+      },
+      {
+        "seq": "airmot-056",
+        "frames": 326,
+        "tracks": 11,
+        "boxes": 3156
+      },
+      {
+        "seq": "airmot-057",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 187
+      },
+      {
+        "seq": "airmot-064",
+        "frames": 72,
+        "tracks": 12,
+        "boxes": 864
+      },
+      {
+        "seq": "airmot-065",
+        "frames": 72,
+        "tracks": 4,
+        "boxes": 288
+      }
+    ],
+    "ship": [
+      {
+        "seq": "airmot-012",
+        "frames": 325,
+        "tracks": 129,
+        "boxes": 41152
+      },
+      {
+        "seq": "airmot-013",
+        "frames": 325,
+        "tracks": 9,
+        "boxes": 2579
+      },
+      {
+        "seq": "airmot-014",
+        "frames": 325,
+        "tracks": 4,
+        "boxes": 851
+      },
+      {
+        "seq": "airmot-015",
+        "frames": 325,
+        "tracks": 13,
+        "boxes": 3724
+      },
+      {
+        "seq": "airmot-016",
+        "frames": 325,
+        "tracks": 27,
+        "boxes": 7742
+      },
+      {
+        "seq": "airmot-017",
+        "frames": 325,
+        "tracks": 1,
+        "boxes": 325
+      },
+      {
+        "seq": "airmot-018",
+        "frames": 326,
+        "tracks": 14,
+        "boxes": 4564
+      },
+      {
+        "seq": "airmot-019",
+        "frames": 326,
+        "tracks": 16,
+        "boxes": 3033
+      },
+      {
+        "seq": "airmot-020",
+        "frames": 326,
+        "tracks": 3,
+        "boxes": 902
+      },
+      {
+        "seq": "airmot-021",
+        "frames": 326,
+        "tracks": 9,
+        "boxes": 2269
+      },
+      {
+        "seq": "airmot-022",
+        "frames": 326,
+        "tracks": 11,
+        "boxes": 3470
+      },
+      {
+        "seq": "airmot-023",
+        "frames": 326,
+        "tracks": 22,
+        "boxes": 7088
+      },
+      {
+        "seq": "airmot-024",
+        "frames": 326,
+        "tracks": 10,
+        "boxes": 3002
+      },
+      {
+        "seq": "airmot-025",
+        "frames": 326,
+        "tracks": 6,
+        "boxes": 1748
+      },
+      {
+        "seq": "airmot-026",
+        "frames": 326,
+        "tracks": 4,
+        "boxes": 921
+      },
+      {
+        "seq": "airmot-027",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 250
+      },
+      {
+        "seq": "airmot-028",
+        "frames": 326,
+        "tracks": 13,
+        "boxes": 4238
+      },
+      {
+        "seq": "airmot-033",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-037",
+        "frames": 326,
+        "tracks": 2,
+        "boxes": 481
+      },
+      {
+        "seq": "airmot-038",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 171
+      },
+      {
+        "seq": "airmot-040",
+        "frames": 326,
+        "tracks": 3,
+        "boxes": 978
+      },
+      {
+        "seq": "airmot-050",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-051",
+        "frames": 326,
+        "tracks": 4,
+        "boxes": 1304
+      },
+      {
+        "seq": "airmot-052",
+        "frames": 326,
+        "tracks": 1,
+        "boxes": 326
+      },
+      {
+        "seq": "airmot-058",
+        "frames": 326,
+        "tracks": 7,
+        "boxes": 1346
+      },
+      {
+        "seq": "airmot-059",
+        "frames": 326,
+        "tracks": 11,
+        "boxes": 2734
+      },
+      {
+        "seq": "airmot-060",
+        "frames": 326,
+        "tracks": 11,
+        "boxes": 2734
+      },
+      {
+        "seq": "airmot-061",
+        "frames": 326,
+        "tracks": 9,
+        "boxes": 2838
+      },
+      {
+        "seq": "airmot-062",
+        "frames": 326,
+        "tracks": 14,
+        "boxes": 4317
+      },
+      {
+        "seq": "airmot-063",
+        "frames": 326,
+        "tracks": 174,
+        "boxes": 52615
+      },
+      {
+        "seq": "airmot-066",
+        "frames": 72,
+        "tracks": 68,
+        "boxes": 4896
+      },
+      {
+        "seq": "airmot-067",
+        "frames": 70,
+        "tracks": 10,
+        "boxes": 700
+      },
+      {
+        "seq": "airmot-068",
+        "frames": 70,
+        "tracks": 87,
+        "boxes": 6090
+      },
+      {
+        "seq": "airmot-095",
+        "frames": 326,
+        "tracks": 8,
+        "boxes": 2103
+      },
+      {
+        "seq": "airmot-096",
+        "frames": 326,
+        "tracks": 18,
+        "boxes": 5584
+      },
+      {
+        "seq": "airmot-097",
+        "frames": 326,
+        "tracks": 2,
+        "boxes": 652
+      },
+      {
+        "seq": "airmot-098",
+        "frames": 326,
+        "tracks": 4,
+        "boxes": 456
+      },
+      {
+        "seq": "airmot-099",
+        "frames": 326,
+        "tracks": 8,
+        "boxes": 2575
+      },
+      {
+        "seq": "airmot-100",
+        "frames": 326,
+        "tracks": 257,
+        "boxes": 83652
+      }
+    ]
+  }
+}
