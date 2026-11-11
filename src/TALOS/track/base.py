@@ -41,7 +41,7 @@ def register(name: str):
 
 def get(name: str) -> TrackerFactory:
     # importing the modules fills REGISTRY; kept lazy so optional deps stay optional
-    from src.TALOS.track import v1  # noqa: F401
+    from src.TALOS.track import talos_track, v1  # noqa: F401
     try:
         from src.TALOS.track import external  # noqa: F401
     except ModuleNotFoundError as e:

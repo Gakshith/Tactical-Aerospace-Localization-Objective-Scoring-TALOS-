@@ -74,7 +74,10 @@ def main() -> None:
     ap.add_argument("--split", required=True, choices=["train", "val", "test"])
     ap.add_argument("--detector", required=True)
     ap.add_argument("--trackers", nargs="+", required=True)
-    ap.add_argument("--params", default="{}", help='JSON {tracker: {param: value}}')
+    ap.add_argument("--params", default="{}",
+                    help='JSON {tracker: {param: value}}. A tracker may be listed as '
+                         '"<factory>:<variant>" (e.g. talos:no-gate) to run one factory '
+                         'under several configs; params are keyed by the full name.')
     ap.add_argument("--min-conf", type=float, default=0.0)
     ap.add_argument("--run-id", required=True)
     ap.add_argument("--det-root", type=Path, default=DATA / "dets")
@@ -103,7 +106,7 @@ def main() -> None:
 
     timing = {}
     for name in a.trackers:
-        factory = get(name)
+        factory = get(name.split(":", 1)[0])
         total_s, total_f = 0.0, 0
         for s in seqs:
             info = read_seqinfo(DATA / "mot" / f"{a.bench}-all" / s)
