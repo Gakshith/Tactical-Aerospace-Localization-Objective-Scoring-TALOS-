@@ -1,0 +1,110 @@
+{
+  "run_id": "d2-oracle-all-ship-val",
+  "git_sha": "2c31d1795df9f0a89d34d80aca57916f0192b746",
+  "git_dirty": false,
+  "config_hash": "fc84b948ec3a",
+  "config": {
+    "bench": "AIRMOT_ship",
+    "split": "val",
+    "detector": "oracle",
+    "trackers": [
+      "v1",
+      "sort",
+      "bytetrack",
+      "ocsort",
+      "botsort"
+    ],
+    "params": {},
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-021",
+      "airmot-024",
+      "airmot-027",
+      "airmot-061",
+      "airmot-067",
+      "airmot-099"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 96.339,
+      "DetA": 94.363,
+      "HOTA": 95.314,
+      "IDSW": 0.0,
+      "MOTA": 97.404,
+      "IDF1": 98.719,
+      "IDs": 47.0,
+      "GT_IDs": 47.0
+    },
+    "sort": {
+      "AssA": 98.902,
+      "DetA": 99.175,
+      "HOTA": 99.038,
+      "IDSW": 1.0,
+      "MOTA": 99.166,
+      "IDF1": 99.43,
+      "IDs": 48.0,
+      "GT_IDs": 47.0
+    },
+    "bytetrack": {
+      "AssA": 99.292,
+      "DetA": 99.587,
+      "HOTA": 99.44,
+      "IDSW": 1.0,
+      "MOTA": 99.579,
+      "IDF1": 99.63,
+      "IDs": 48.0,
+      "GT_IDs": 47.0
+    },
+    "ocsort": {
+      "AssA": 99.221,
+      "DetA": 99.501,
+      "HOTA": 99.361,
+      "IDSW": 1.0,
+      "MOTA": 99.493,
+      "IDF1": 99.586,
+      "IDs": 48.0,
+      "GT_IDs": 47.0
+    },
+    "botsort": {
+      "AssA": 99.647,
+      "DetA": 99.957,
+      "HOTA": 99.802,
+      "IDSW": 1.0,
+      "MOTA": 99.948,
+      "IDF1": 99.807,
+      "IDs": 48.0,
+      "GT_IDs": 47.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 1700,
+      "track_seconds": 0.8521,
+      "track_ms_per_frame": 0.5012
+    },
+    "sort": {
+      "frames": 1700,
+      "track_seconds": 0.3768,
+      "track_ms_per_frame": 0.2216
+    },
+    "bytetrack": {
+      "frames": 1700,
+      "track_seconds": 0.3956,
+      "track_ms_per_frame": 0.2327
+    },
+    "ocsort": {
+      "frames": 1700,
+      "track_seconds": 0.5786,
+      "track_ms_per_frame": 0.3403
+    },
+    "botsort": {
+      "frames": 1700,
+      "track_seconds": 0.6078,
+      "track_ms_per_frame": 0.3576
+    }
+  }
+}

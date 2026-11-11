@@ -1,0 +1,109 @@
+{
+  "run_id": "d2-oracle-all-plane-val",
+  "git_sha": "2c31d1795df9f0a89d34d80aca57916f0192b746",
+  "git_dirty": false,
+  "config_hash": "fc6689b30cfe",
+  "config": {
+    "bench": "AIRMOT_plane",
+    "split": "val",
+    "detector": "oracle",
+    "trackers": [
+      "v1",
+      "sort",
+      "bytetrack",
+      "ocsort",
+      "botsort"
+    ],
+    "params": {},
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-004",
+      "airmot-036",
+      "airmot-043",
+      "airmot-053",
+      "airmot-054"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 99.151,
+      "DetA": 99.076,
+      "HOTA": 99.113,
+      "IDSW": 0.0,
+      "MOTA": 100.0,
+      "IDF1": 100.0,
+      "IDs": 43.0,
+      "GT_IDs": 43.0
+    },
+    "sort": {
+      "AssA": 99.374,
+      "DetA": 99.374,
+      "HOTA": 99.374,
+      "IDSW": 0.0,
+      "MOTA": 99.374,
+      "IDF1": 99.686,
+      "IDs": 43.0,
+      "GT_IDs": 43.0
+    },
+    "bytetrack": {
+      "AssA": 99.687,
+      "DetA": 99.687,
+      "HOTA": 99.687,
+      "IDSW": 0.0,
+      "MOTA": 99.687,
+      "IDF1": 99.843,
+      "IDs": 43.0,
+      "GT_IDs": 43.0
+    },
+    "ocsort": {
+      "AssA": 99.658,
+      "DetA": 99.658,
+      "HOTA": 99.658,
+      "IDSW": 0.0,
+      "MOTA": 99.658,
+      "IDF1": 99.829,
+      "IDs": 43.0,
+      "GT_IDs": 43.0
+    },
+    "botsort": {
+      "AssA": 99.985,
+      "DetA": 99.985,
+      "HOTA": 99.985,
+      "IDSW": 0.0,
+      "MOTA": 99.985,
+      "IDF1": 99.993,
+      "IDs": 43.0,
+      "GT_IDs": 43.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 1448,
+      "track_seconds": 0.967,
+      "track_ms_per_frame": 0.6678
+    },
+    "sort": {
+      "frames": 1448,
+      "track_seconds": 0.4085,
+      "track_ms_per_frame": 0.2821
+    },
+    "bytetrack": {
+      "frames": 1448,
+      "track_seconds": 0.4267,
+      "track_ms_per_frame": 0.2947
+    },
+    "ocsort": {
+      "frames": 1448,
+      "track_seconds": 0.6139,
+      "track_ms_per_frame": 0.424
+    },
+    "botsort": {
+      "frames": 1448,
+      "track_seconds": 0.6575,
+      "track_ms_per_frame": 0.4541
+    }
+  }
+}
