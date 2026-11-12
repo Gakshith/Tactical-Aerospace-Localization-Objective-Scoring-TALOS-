@@ -13,6 +13,23 @@ recorded in meta as ``v1_conf`` and applied at evaluation time.
 ``--imgsz`` is optional: when omitted, Ultralytics uses the checkpoint's
 training imgsz (that is how v1 ran). The imgsz actually used is read back from
 the predictor and recorded.
+
+Modes. ``--mode full`` (default) runs the detector on the whole frame.
+``--mode tiled`` runs sliced inference (``tiled.py``): ``--tile`` px tiles at
+``--overlap``, native resolution (``--imgsz`` defaults to ``--tile``), merged
+back to frame pixels; ``--with-full-frame`` adds one downscaled whole-frame pass
+at ``--full-imgsz``. In tiled mode ``--batch`` counts tiles per GPU call.
+
+Several classes in one pass. ``--classes 0:AIRMOT_plane,1:AIRMOT_ship`` maps
+model class ids to bench names (COCO: ``4:AIRMOT_plane,8:AIRMOT_ship``) and
+writes one cache per bench; bench dirs are ``--mot-root/<bench>-all``. Each
+sequence present in any bench is run once. Without ``--classes`` the old
+single-bench flags (``--bench --bench-dir --cls``) behave as before.
+
+    python -m src.TALOS.detect.run_detector --weights ~/talos/weights/yolo26s.pt \
+        --name coco_y26s_tiled --mode tiled --tile 640 --overlap 0.2 \
+        --classes 4:AIRMOT_plane,8:AIRMOT_ship --mot-root ~/talos/data/mot \
+        --split val --end2end true --out-root ~/talos/data/dets
 """
 from __future__ import annotations
 
@@ -31,6 +48,7 @@ import torch
 
 from src.TALOS.data.mot import read_seqinfo
 from src.TALOS.detect import cache
+from src.TALOS.detect.tiled import TiledDetector, UltralyticsBackend
 
 
 def sha256(path: Path) -> str:
@@ -49,16 +67,26 @@ def frame_paths(seq_dir: Path) -> list[Path]:
     return frames
 
 
-def resolve_seqs(a) -> list[str]:
-    present = sorted(p.name for p in a.bench_dir.iterdir() if (p / "seqinfo.ini").exists())
+def resolve_seqs(a, bench_dir: Path, strict: bool = True) -> list[str]:
+    present = sorted(p.name for p in bench_dir.iterdir() if (p / "seqinfo.ini").exists())
     if a.seqs:
         missing = set(a.seqs) - set(present)
-        if missing:
-            raise SystemExit(f"not in {a.bench_dir}: {sorted(missing)}")
-        return sorted(a.seqs)
+        if missing and strict:
+            raise SystemExit(f"not in {bench_dir}: {sorted(missing)}")
+        return sorted(set(a.seqs) & set(present))
     split = json.loads(Path(a.split_file).read_text())["split"][a.split]
     # the split covers every annotated video; a per-class bench holds only those with that class
     return [s for s in sorted(split) if s in present]
+
+
+def parse_classes(spec: str) -> dict[int, str]:
+    out = {}
+    for item in spec.split(","):
+        cid, bench = item.split(":")
+        out[int(cid)] = bench.strip()
+    if len(set(out.values())) != len(out):
+        raise SystemExit(f"--classes maps two ids to one bench: {spec}")
+    return out
 
 
 @contextmanager
@@ -76,8 +104,11 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--weights", type=Path, required=True)
     ap.add_argument("--name", required=True, help="detector name in the cache")
-    ap.add_argument("--bench-dir", type=Path, required=True, help="dir holding <seq>/seqinfo.ini")
-    ap.add_argument("--bench", required=True, help="bench name in the cache, e.g. AIRMOT_plane")
+    ap.add_argument("--bench-dir", type=Path, help="dir holding <seq>/seqinfo.ini (single-bench mode)")
+    ap.add_argument("--bench", help="bench name in the cache, e.g. AIRMOT_plane (single-bench mode)")
+    ap.add_argument("--classes", help="model class id -> bench, e.g. 4:AIRMOT_plane,8:AIRMOT_ship; "
+                                      "one cache per bench (replaces --bench/--cls)")
+    ap.add_argument("--mot-root", type=Path, help="with --classes: bench dirs are <mot-root>/<bench>-all")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--seqs", nargs="+")
     g.add_argument("--split", choices=["train", "val", "test"])
@@ -85,9 +116,17 @@ def main() -> None:
     ap.add_argument("--conf", type=float, default=0.1, help="save threshold")
     ap.add_argument("--v1-conf", type=float, default=0.5, help="operating threshold recorded in meta")
     ap.add_argument("--imgsz", type=int, default=None, help="omit to use the checkpoint default")
-    ap.add_argument("--cls", type=int, default=0, help="class id to keep")
+    ap.add_argument("--cls", type=int, default=0, help="class id to keep (single-bench mode)")
+    ap.add_argument("--mode", choices=["full", "tiled"], default="full")
+    ap.add_argument("--tile", type=int, default=640, help="tiled: tile size, px")
+    ap.add_argument("--overlap", type=float, default=0.2, help="tiled: overlap fraction between tiles")
+    ap.add_argument("--with-full-frame", action="store_true", help="tiled: add a downscaled whole-frame pass")
+    ap.add_argument("--full-imgsz", type=int, default=None, help="tiled: imgsz of that pass (default = imgsz)")
+    ap.add_argument("--max-det", type=int, default=300, help="max boxes per image (per tile in tiled mode)")
+    ap.add_argument("--gpu-tiling", action="store_true",
+                    help="tiled: crop tiles on the GPU and pass a tensor (no net speed gain measured; default off)")
     ap.add_argument("--out-root", type=Path, required=True)
-    ap.add_argument("--batch", type=int, default=16)
+    ap.add_argument("--batch", type=int, default=16, help="frames per call (full) / tiles per call (tiled)")
     ap.add_argument("--half", action="store_true", help="fp16 (v1 ran fp32)")
     ap.add_argument("--end2end", choices=["auto", "true", "false"], default="auto",
                     help="YOLO26 head. ultralytics 8.4.210 loads v1's checkpoint with end2end=False "
@@ -95,112 +134,178 @@ def main() -> None:
                          "reproducing v1 needs 'true'")
     a = ap.parse_args()
 
-    from ultralytics import YOLO
     import ultralytics
 
     assert torch.cuda.is_available(), "CUDA not available"
     device = "cuda:0"  # the one GPU Slurm gave us
-    seqs = resolve_seqs(a)
-    print(f"[detect] {a.name} on {a.bench} {a.split or 'seqs'}: {len(seqs)} seqs", flush=True)
 
-    model = YOLO(str(a.weights))
-    kw = dict(conf=a.conf, device=device, verbose=False, half=a.half)
-    if a.imgsz:
-        kw["imgsz"] = a.imgsz
-    if a.end2end != "auto":
-        kw["end2end"] = a.end2end == "true"
+    # ---- which classes go to which bench, and where each bench lives
+    if a.classes:
+        class_map = parse_classes(a.classes)
+        if a.mot_root is None and not (a.bench_dir and len(class_map) == 1):
+            raise SystemExit("--classes needs --mot-root (or one class and --bench-dir)")
+        bench_dirs = {b: (a.mot_root / f"{b}-all" if a.mot_root else a.bench_dir) for b in class_map.values()}
+    else:
+        if not (a.bench and a.bench_dir):
+            raise SystemExit("give --bench and --bench-dir, or --classes and --mot-root")
+        class_map = {a.cls: a.bench}
+        bench_dirs = {a.bench: a.bench_dir}
+    bench_of = class_map  # model class id -> bench
+    bench_seqs = {b: resolve_seqs(a, d, strict=len(bench_dirs) == 1) for b, d in bench_dirs.items()}
+    if a.seqs:
+        missing = set(a.seqs) - set().union(*bench_seqs.values())
+        if missing:
+            raise SystemExit(f"in no bench: {sorted(missing)}")
+    seqs = sorted(set().union(*bench_seqs.values()))
+    # one frame source per sequence; benches share the images (img1 symlinks to the same raw video)
+    seq_dir = {}
+    for s in seqs:
+        dirs = [bench_dirs[b] / s for b in bench_dirs if s in bench_seqs[b]]
+        imgs = {(d / read_seqinfo(d).img_dir).resolve() for d in dirs}
+        if len(imgs) != 1:
+            raise SystemExit(f"{s}: benches point at different images {sorted(map(str, imgs))}")
+        seq_dir[s] = dirs[0]
+    print(f"[detect] {a.name} ({a.mode}) {a.split or 'seqs'}: {len(seqs)} seqs; "
+          + ", ".join(f"cls {c}->{b} ({len(bench_seqs[b])} seqs)" for c, b in bench_of.items()), flush=True)
+
+    e2e = None if a.end2end == "auto" else a.end2end == "true"
+    if a.mode == "full":
+        det = UltralyticsBackend(a.weights, imgsz=a.imgsz, conf=a.conf, end2end=e2e, device=device,
+                                 half=a.half, classes=sorted(bench_of), max_det=a.max_det)
+        frames_per_call = a.batch
+    else:
+        det = TiledDetector(a.weights, tile=a.tile, overlap=a.overlap, imgsz=a.imgsz, conf=a.conf, end2end=e2e,
+                            device=device, batch=a.batch, with_full_frame=a.with_full_frame,
+                            full_imgsz=a.full_imgsz, half=a.half, classes=sorted(bench_of), max_det=a.max_det,
+                            gpu_tiling=a.gpu_tiling)
+        info0 = read_seqinfo(seq_dir[seqs[0]])
+        n_tiles = len(det.grid(info0.width, info0.height))
+        frames_per_call = max(1, -(-a.batch // n_tiles))
 
     # warm-up (cudnn autotune, lazy init) so timing reflects steady state
-    first = cv2.imread(str(frame_paths(a.bench_dir / seqs[0])[0]))
+    first = cv2.imread(str(frame_paths(seq_dir[seqs[0]])[0]))
     for _ in range(3):
-        model.predict([first] * a.batch, **kw)
+        det.predict([first] * frames_per_call) if a.mode == "tiled" else det([first] * frames_per_call)
     torch.cuda.synchronize()
-    imgsz_used = model.predictor.imgsz  # after check_imgsz; args.imgsz is the raw value
-    if isinstance(imgsz_used, (list, tuple)):
-        imgsz_used = [int(v) for v in imgsz_used]
-    # the override is consumed by the model, not kept in predictor.args, and the head's own
-    # attribute stays False on 8.4.210; record the value we passed (None = library default)
-    head_e2e = kw.get("end2end")
-    print(f"[detect] imgsz used: {imgsz_used}  head end2end: {head_e2e}  "
-          f"(ckpt overrides: {model.overrides})", flush=True)
+    desc = det.describe()
+    if a.mode == "tiled":
+        det.timing = {k: 0 * v for k, v in det.timing.items()}
+        for bk in (det.backend, det.full_backend):
+            if isinstance(bk, UltralyticsBackend):
+                bk.speed_ms = {k: 0.0 for k in bk.speed_ms}
+                bk.images_seen = 0
+        tb = desc["tile_backend"]
+        imgsz_used, head_e2e = tb["imgsz_used"], tb["head_end2end_active"]
+    else:
+        det.speed_ms = {k: 0.0 for k in det.speed_ms}
+        det.images_seen = 0
+        imgsz_used, head_e2e = desc["imgsz_used"], desc["head_end2end_active"]
+    if e2e is None and head_e2e is False:
+        print("[detect] WARNING: --end2end auto ran a NMS head; YOLO26 checkpoints on ultralytics 8.4.210 "
+              "need --end2end true", flush=True)
+    print(f"[detect] imgsz used: {imgsz_used}  end2end arg: {e2e}  head end2end active: {head_e2e}  "
+          f"frames/call: {frames_per_call}", flush=True)
 
     per_seq = {}
     tot_frames, t_pred, t_all = 0, 0.0, 0.0
-    us = {"preprocess": 0.0, "inference": 0.0, "postprocess": 0.0}
     t_job = time.perf_counter()
     for seq in seqs:
-        frames = frame_paths(a.bench_dir / seq)
-        rows = []
+        frames = frame_paths(seq_dir[seq])
+        rows = {b: [] for b in bench_dirs}
         t0 = time.perf_counter()
         sp = 0.0
-        for s in range(0, len(frames), a.batch):
-            imgs = [cv2.imread(str(p)) for p in frames[s:s + a.batch]]
+        for s in range(0, len(frames), frames_per_call):
+            imgs = [cv2.imread(str(p)) for p in frames[s:s + frames_per_call]]
             if any(im is None for im in imgs):
-                raise FileNotFoundError(frames[s:s + a.batch])
+                raise FileNotFoundError(frames[s:s + frames_per_call])
             torch.cuda.synchronize()
             tp = time.perf_counter()
-            res = model.predict(imgs, **kw)
+            res = det.predict(imgs) if a.mode == "tiled" else det(imgs)
             torch.cuda.synchronize()
             sp += time.perf_counter() - tp
-            for j, r in enumerate(res):
-                for k in us:
-                    us[k] += r.speed[k]
-                b = r.boxes
-                if b is None or len(b) == 0:
+            for j, d in enumerate(res):
+                if len(d) == 0:
                     continue
-                keep = (b.cls == a.cls).cpu().numpy()
-                xyxy = b.xyxy.cpu().numpy()[keep]
-                cf = b.conf.cpu().numpy()[keep]
                 f = s + j + 1
-                rows.append(np.column_stack([np.full(len(cf), f), xyxy, cf]))
+                for cid, b in bench_of.items():
+                    m = d[:, 5] == cid
+                    if m.any():
+                        rows[b].append(np.column_stack([np.full(int(m.sum()), f), d[m, :5]]))
         dt = time.perf_counter() - t0
-        dets = np.concatenate(rows) if rows else np.zeros((0, 6), np.float32)
-        p = cache.save(a.out_root, a.name, a.bench, seq, dets)
-        n05 = int((dets[:, 5] >= a.v1_conf).sum()) if len(dets) else 0
-        per_seq[seq] = {"frames": len(frames), "dets": len(dets), f"dets_ge_{a.v1_conf:g}": n05,
-                        "predict_ms_per_frame": round(1000 * sp / len(frames), 3),
+        per_seq[seq] = {"frames": len(frames), "predict_ms_per_frame": round(1000 * sp / len(frames), 3),
                         "e2e_ms_per_frame": round(1000 * dt / len(frames), 3)}
+        for b in bench_dirs:
+            if seq not in bench_seqs[b]:
+                continue
+            dets = np.concatenate(rows[b]) if rows[b] else np.zeros((0, 6), np.float32)
+            p = cache.save(a.out_root, a.name, b, seq, dets)
+            n05 = int((dets[:, 5] >= a.v1_conf).sum()) if len(dets) else 0
+            per_seq[seq][b] = {"dets": len(dets), f"dets_ge_{a.v1_conf:g}": n05}
+            print(f"[detect] {seq} {b}: {len(frames)} frames, {len(dets)} dets (>= {a.v1_conf:g}: {n05}) -> {p}",
+                  flush=True)
         tot_frames += len(frames)
         t_pred += sp
         t_all += dt
-        print(f"[detect] {seq}: {len(frames)} frames, {len(dets)} dets (>= {a.v1_conf:g}: {n05}), "
-              f"{1000 * sp / len(frames):.1f} ms/f predict, {1000 * dt / len(frames):.1f} ms/f e2e -> {p}", flush=True)
+        print(f"[detect] {seq}: {1000 * sp / len(frames):.1f} ms/f predict, {1000 * dt / len(frames):.1f} ms/f e2e",
+              flush=True)
 
-    run = {
-        "bench": a.bench, "bench_dir": str(a.bench_dir), "split": a.split, "seqs": seqs,
+    nf = max(tot_frames, 1)
+    timing = {
         "total_frames": tot_frames, "wall_time_s": round(time.perf_counter() - t_job, 2),
-        "batch": a.batch, "half": a.half,
-        "mean_ms_per_frame_predict": round(1000 * t_pred / max(tot_frames, 1), 3),
-        "mean_ms_per_frame_e2e": round(1000 * t_all / max(tot_frames, 1), 3),
-        "ultralytics_speed_ms_per_frame": {k: round(v / max(tot_frames, 1), 3) for k, v in us.items()},
-        "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
-        "finished": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-        "per_seq": per_seq,
+        "batch": a.batch, "frames_per_call": frames_per_call, "half": a.half,
+        "mean_ms_per_frame_predict": round(1000 * t_pred / nf, 3),
+        "mean_ms_per_frame_e2e": round(1000 * t_all / nf, 3),
     }
+    backends = [det] if a.mode == "full" else [x for x in (det.backend, det.full_backend) if x is not None]
+    timing["ultralytics_speed_ms_per_frame"] = {
+        k: round(sum(bk.speed_ms[k] for bk in backends) / nf, 3) for k in ("preprocess", "inference", "postprocess")}
+    if a.mode == "tiled":
+        timing["tiled_breakdown_ms_per_frame"] = {
+            "tile_predict": round(1000 * det.timing["tile_infer_s"] / nf, 3),
+            "full_frame_predict": round(1000 * det.timing["full_infer_s"] / nf, 3),
+            "merge": round(1000 * det.timing["merge_s"] / nf, 3),
+            "tiles_per_frame": round(det.timing["tiles"] / nf, 3)}
+    finished = time.strftime("%Y-%m-%dT%H:%M:%S%z")
     common = {
         "detector": a.name,
         "weights": str(a.weights.resolve()), "weights_sha256": sha256(a.weights),
-        "save_conf": a.conf, "v1_conf": a.v1_conf, "class_kept": a.cls,
+        "mode": a.mode,
+        "classes_map": {str(c): b for c, b in bench_of.items()},
+        "save_conf": a.conf, "v1_conf": a.v1_conf,
         "imgsz_arg": a.imgsz, "imgsz_used": imgsz_used,
         "end2end_arg": a.end2end, "head_end2end_used": head_e2e,
-        "predict_kwargs": {k: v for k, v in kw.items() if k != "device"},
+        "max_det": a.max_det,
+        "predict_kwargs": desc.get("predict_kwargs") or desc["tile_backend"]["predict_kwargs"],
+        "tiling": {k: v for k, v in desc.items() if k not in ("tile_backend",)} if a.mode == "tiled" else None,
         "ultralytics": ultralytics.__version__, "torch": torch.__version__,
         "cuda": torch.version.cuda, "gpu": torch.cuda.get_device_name(0),
         "frame_index": "1-based position in sorted img1/*<imExt>, == seqLength",
         "cache_format": "<root>/<detector>/<bench>/<seq>.npy, (N,6) [frame,x1,y1,x2,y2,conf]",
     }
+    if len(bench_of) == 1 and not a.classes:
+        common["class_kept"] = a.cls  # legacy key
     meta_path = a.out_root / a.name / "meta.json"
     with locked(a.out_root / a.name / ".meta.lock"):
         meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
-        old = {k: meta.get(k) for k in ("weights_sha256", "save_conf", "imgsz_used", "head_end2end_used")}
-        if meta and any(old[k] != common[k] for k in old):
-            raise SystemExit(f"meta.json disagrees with this run: {old}")
+        guard = ("weights_sha256", "save_conf", "imgsz_used", "head_end2end_used", "mode", "tiling", "classes_map")
+        defaults = {"mode": "full"}  # caches written before modes existed were full-frame
+        clash = {k: (meta.get(k, defaults.get(k)), common[k]) for k in guard
+                 if meta and (k in meta or k in defaults) and meta.get(k, defaults.get(k)) != common[k]}
+        if clash:
+            raise SystemExit(f"meta.json disagrees with this run (old, new): {clash}")
         meta.update(common)
-        meta.setdefault("runs", {})[f"{a.bench}/{a.split or 'seqs'}"] = run
+        for b in bench_dirs:
+            bs = bench_seqs[b]
+            meta.setdefault("runs", {})[f"{b}/{a.split or 'seqs'}"] = {
+                "bench": b, "bench_dir": str(bench_dirs[b]), "split": a.split, "seqs": bs,
+                "frames": sum(per_seq[s]["frames"] for s in bs),
+                "job_seqs": seqs, "job_timing": timing,
+                "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "finished": finished,
+                "per_seq": {s: {k: v for k, v in per_seq[s].items() if k not in bench_dirs or k == b}
+                            for s in bs}}
         cache.write_meta(a.out_root, a.name, meta)
-    print(f"[detect] done: {tot_frames} frames, predict {run['mean_ms_per_frame_predict']} ms/f, "
-          f"e2e {run['mean_ms_per_frame_e2e']} ms/f, meta -> {meta_path}", flush=True)
-
+    print(f"[detect] done: {tot_frames} frames, predict {timing['mean_ms_per_frame_predict']} ms/f, "
+          f"e2e {timing['mean_ms_per_frame_e2e']} ms/f, meta -> {meta_path}", flush=True)
 
 if __name__ == "__main__":
     main()
