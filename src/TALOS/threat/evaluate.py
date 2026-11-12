@@ -187,7 +187,8 @@ def summarise(events, n_zones, fa_rate, cfg) -> dict:
             rel.append({"bin": f"{lo:.1f}-{hi:.1f}", "mean_p": round(float(p[m].mean()), 3),
                         "observed": round(float(y[m].mean()), 3), "n": int(m.sum())})
             ece += m.mean() * abs(p[m].mean() - y[m].mean())
-    out["v2_calibration"] = {"ece": round(float(ece), 4), "reliability": rel}
+    brier = float(np.mean((p - y) ** 2))
+    out["v2_calibration"] = {"ece": round(float(ece), 4), "brier": round(brier, 5), "reliability": rel}
     return out
 
 
