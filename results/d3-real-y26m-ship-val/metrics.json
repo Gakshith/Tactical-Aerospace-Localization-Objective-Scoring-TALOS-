@@ -1,0 +1,152 @@
+{
+  "run_id": "d3-real-y26m-ship-val",
+  "git_sha": "53a8a9b53c0311daddeb1f92e5dbc14f8231f56f",
+  "git_dirty": false,
+  "config_hash": "0b3ae56a77cb",
+  "config": {
+    "bench": "AIRMOT_ship",
+    "split": "val",
+    "detector": "y26m_t640",
+    "trackers": [
+      "v1",
+      "sort",
+      "bytetrack",
+      "ocsort",
+      "botsort",
+      "talos",
+      "talos:coast"
+    ],
+    "params": {
+      "talos": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427
+      },
+      "talos:coast": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "coast_output": true
+      }
+    },
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-021",
+      "airmot-024",
+      "airmot-027",
+      "airmot-061",
+      "airmot-067",
+      "airmot-099"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 71.313,
+      "DetA": 16.88,
+      "HOTA": 34.52,
+      "IDSW": 3.0,
+      "MOTA": -12.885,
+      "IDF1": 32.66,
+      "IDs": 33.0,
+      "GT_IDs": 47.0
+    },
+    "sort": {
+      "AssA": 54.49,
+      "DetA": 26.806,
+      "HOTA": 37.96,
+      "IDSW": 150.0,
+      "MOTA": -32.216,
+      "IDF1": 42.648,
+      "IDs": 201.0,
+      "GT_IDs": 47.0
+    },
+    "bytetrack": {
+      "AssA": 77.898,
+      "DetA": 8.329,
+      "HOTA": 25.467,
+      "IDSW": 12.0,
+      "MOTA": 4.452,
+      "IDF1": 17.697,
+      "IDs": 9.0,
+      "GT_IDs": 47.0
+    },
+    "ocsort": {
+      "AssA": 54.832,
+      "DetA": 4.937,
+      "HOTA": 16.439,
+      "IDSW": 12.0,
+      "MOTA": 4.281,
+      "IDF1": 10.543,
+      "IDs": 18.0,
+      "GT_IDs": 47.0
+    },
+    "botsort": {
+      "AssA": 78.821,
+      "DetA": 8.561,
+      "HOTA": 25.971,
+      "IDSW": 0.0,
+      "MOTA": 9.12,
+      "IDF1": 18.387,
+      "IDs": 7.0,
+      "GT_IDs": 47.0
+    },
+    "talos": {
+      "AssA": 68.4,
+      "DetA": 18.338,
+      "HOTA": 35.399,
+      "IDSW": 36.0,
+      "MOTA": 12.747,
+      "IDF1": 35.915,
+      "IDs": 22.0,
+      "GT_IDs": 47.0
+    },
+    "talos:coast": {
+      "AssA": 70.665,
+      "DetA": 18.529,
+      "HOTA": 36.16,
+      "IDSW": 3.0,
+      "MOTA": 11.673,
+      "IDF1": 36.904,
+      "IDs": 22.0,
+      "GT_IDs": 47.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 1700,
+      "track_seconds": 0.3248,
+      "track_ms_per_frame": 0.191
+    },
+    "sort": {
+      "frames": 1700,
+      "track_seconds": 0.6282,
+      "track_ms_per_frame": 0.3695
+    },
+    "bytetrack": {
+      "frames": 1700,
+      "track_seconds": 0.1596,
+      "track_ms_per_frame": 0.0939
+    },
+    "ocsort": {
+      "frames": 1700,
+      "track_seconds": 0.1978,
+      "track_ms_per_frame": 0.1164
+    },
+    "botsort": {
+      "frames": 1700,
+      "track_seconds": 0.1649,
+      "track_ms_per_frame": 0.097
+    },
+    "talos": {
+      "frames": 1700,
+      "track_seconds": 0.3498,
+      "track_ms_per_frame": 0.2057
+    },
+    "talos:coast": {
+      "frames": 1700,
+      "track_seconds": 0.3528,
+      "track_ms_per_frame": 0.2075
+    }
+  }
+}
