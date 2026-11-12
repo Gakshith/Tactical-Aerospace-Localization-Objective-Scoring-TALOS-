@@ -12,7 +12,10 @@
 #     DATA_YAML=$HOME/talos/data/yolo/airmot_t640/data.yaml sbatch --export=ALL jobs/train_det.sbatch
 # Env: DATA_YAML, NAME (required); MODEL (file in $WEIGHTS or a path, yolo26s.pt),
 #      IMGSZ (640), EPOCHS (100), BATCH (32), PATIENCE (20), WORKERS (12),
-#      DEGREES (0), SCALE (0.3), CACHE (false|ram|disk), SEED (0).
+#      DEGREES (0), SCALE (0.3), CACHE (false|ram|disk), SEED (0),
+#      OPTIMIZER (auto), LR0 (0.01), COS_LR (false), FREEZE (0 = none; 10 = backbone).
+#      Regularised recipe used after the first runs overfit the 47 training scenes:
+#        OPTIMIZER=AdamW LR0=0.001 COS_LR=true FREEZE=10 EPOCHS=40 PATIENCE=15
 # Output: ~/talos/runs/det/<NAME>/  (weights/best.pt, results.csv, args.yaml,
 #         best_summary.json, val_e2e/ and gpu_mem.csv).
 #
@@ -37,7 +40,8 @@ MODEL="${MODEL:-yolo26s.pt}"
 export DATA_YAML NAME MODEL
 export IMGSZ="${IMGSZ:-640}" EPOCHS="${EPOCHS:-100}" BATCH="${BATCH:-32}" PATIENCE="${PATIENCE:-20}"
 export WORKERS="${WORKERS:-12}" DEGREES="${DEGREES:-0}" SCALE="${SCALE:-0.3}" CACHE="${CACHE:-false}"
-export SEED="${SEED:-0}"
+export SEED="${SEED:-0}" OPTIMIZER="${OPTIMIZER:-auto}" LR0="${LR0:-0.01}"
+export COS_LR="${COS_LR:-false}" FREEZE="${FREEZE:-0}"
 export PROJECT="$TALOS/runs/det"
 RUN_DIR="$PROJECT/$NAME"
 [ -e "$RUN_DIR" ] && { echo "refusing: $RUN_DIR exists"; exit 1; }
@@ -71,6 +75,8 @@ model.train(
     nms=False,  # end2end head for every val during training (see header)
     flipud=0.5, fliplr=0.5, degrees=float(E["DEGREES"]), scale=float(E["SCALE"]),
     mosaic=1.0, close_mosaic=10, plots=True, verbose=True,
+    optimizer=E["OPTIMIZER"], lr0=float(E["LR0"]), cos_lr=E["COS_LR"].lower() == "true",
+    freeze=int(E["FREEZE"]) or None,
 )
 train_s = time.time() - t0
 peak_reserved = torch.cuda.max_memory_reserved() / 2**30
@@ -97,7 +103,8 @@ e2e = YOLO(str(best_pt)).val(nms=False, name="val_e2e", **common)
 o2m = YOLO(str(best_pt)).val(nms=None, name="val_o2m_nms", **common)
 
 summary = {
-    "name": name, "model": E["MODEL"], "data": E["DATA_YAML"], "imgsz": int(E["IMGSZ"]),
+    "name": name, "model": E["MODEL"], "optimizer": E["OPTIMIZER"], "lr0": float(E["LR0"]),
+    "cos_lr": E["COS_LR"], "freeze": int(E["FREEZE"]), "data": E["DATA_YAML"], "imgsz": int(E["IMGSZ"]),
     "batch": int(E["BATCH"]), "epochs_max": int(E["EPOCHS"]), "patience": int(E["PATIENCE"]),
     "epochs_run": len(rows), "best_epoch": int(float(best["epoch"])),
     "best_epoch_row": best, "train_wall_s": round(train_s, 1),

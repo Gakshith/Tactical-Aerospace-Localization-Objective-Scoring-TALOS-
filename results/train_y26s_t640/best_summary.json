@@ -1,0 +1,79 @@
+{
+  "name": "y26s_t640",
+  "model": "~/talos/weights/yolo26s.pt",
+  "data": "~/talos/data/yolo/airmot_t640/data.yaml",
+  "imgsz": 640,
+  "batch": 64,
+  "epochs_max": 100,
+  "patience": 20,
+  "epochs_run": 31,
+  "best_epoch": 11,
+  "best_epoch_row": {
+    "epoch": "11",
+    "time": "365.877",
+    "train/box_loss": "1.62569",
+    "train/cls_loss": "0.72006",
+    "train/l1_loss": "0.00206",
+    "metrics/precision(B)": "0.7518",
+    "metrics/recall(B)": "0.56737",
+    "metrics/mAP50(B)": "0.62881",
+    "metrics/mAP50-95(B)": "0.34357",
+    "val/box_loss": "1.96114",
+    "val/cls_loss": "1.89249",
+    "val/l1_loss": "0.00441",
+    "lr/pg0": "0.02703",
+    "lr/pg1": "0.00901",
+    "lr/pg2": "0.02703",
+    "lr/pg3": "0.00901",
+    "lr/pg4": "0.02703",
+    "lr/pg5": "0.00901",
+    "lr/pg6": "0.02703",
+    "lr/pg7": "0.00901"
+  },
+  "train_wall_s": 1014.5,
+  "train_wall_h": 0.28,
+  "peak_cuda_reserved_gib": 23.05,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "weights": "~/talos/runs/det/y26s_t640/weights/best.pt",
+  "val_end2end": {
+    "plane": {
+      "P": 0.8738986493708539,
+      "R": 0.6974169741697417,
+      "mAP50": 0.8211325526135017,
+      "mAP50-95": 0.5100701647838568
+    },
+    "ship": {
+      "P": 0.6252544167578473,
+      "R": 0.43760307861462344,
+      "mAP50": 0.4353553838270839,
+      "mAP50-95": 0.17588429438302972
+    },
+    "all": {
+      "P": 0.7495765330643507,
+      "R": 0.5675100263921826,
+      "mAP50": 0.6282439682202928,
+      "mAP50-95": 0.34297722958344334
+    }
+  },
+  "val_one2many_nms_crosscheck": {
+    "plane": {
+      "P": 0.8948666006620061,
+      "R": 0.7531775317753178,
+      "mAP50": 0.8505644559194803,
+      "mAP50-95": 0.5419032394829004
+    },
+    "ship": {
+      "P": 0.6098969762183724,
+      "R": 0.5010869573720328,
+      "mAP50": 0.4791914569976472,
+      "mAP50-95": 0.21215225962669604
+    },
+    "all": {
+      "P": 0.7523817884401892,
+      "R": 0.6271322445736753,
+      "mAP50": 0.6648779564585637,
+      "mAP50-95": 0.3770277495547982
+    }
+  },
+  "note": "tile-level val (val split tiles), end2end head (nms=False); test split never read"
+}
