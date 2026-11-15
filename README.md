@@ -1,5 +1,7 @@
 # TALOS — Tactical Aerospace Localization & Objective Scoring
 
+[![CI](https://github.com/Gakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/actions/workflows/ci.yml/badge.svg)](https://github.com/Gakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-/actions/workflows/ci.yml)
+
 TALOS detects aircraft and ships in satellite video, keeps a stable ID on each one, and estimates the probability that each will enter a protected zone within the next 10 seconds. An operator gets a warning before the zone is reached.
 
 **Live demo:** [huggingface.co/spaces/dustin-demo/talos-satellite-tracking](https://huggingface.co/spaces/dustin-demo/talos-satellite-tracking). It shows 8 clips from VISO, a satellite dataset the model never trained on, with the misses included.
@@ -182,8 +184,19 @@ Dynamic INT8 quantization made the CPU slower, so it is not used. Tracking and t
 ```bash
 git clone https://github.com/Gakshith/Tactical-Aerospace-Localization-Objective-Scoring-TALOS-.git
 cd Tactical-Aerospace-Localization-Objective-Scoring-TALOS-
-pip install -r requirements.txt
+pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cpu
+pip install -r env/requirements-cpu.txt
+bash env/patch_trackeval.sh "$(python -c 'import sys; print(sys.prefix)')"   # NumPy 2 fix for TrackEval
 ```
+
+Or use the Docker image (CPU), which every push to `main` rebuilds and tests:
+
+```bash
+docker run --rm ghcr.io/gakshith/talos:latest        # README check + tests
+docker build -t talos .                             # or build it yourself
+```
+
+GPU pins (CUDA 12.8, as used on Polaris) are in [`env/requirements-v2.txt`](env/requirements-v2.txt).
 
 Whole pipeline on a video or a folder of frames:
 
@@ -205,7 +218,7 @@ The benchmark, tuning and export runs are Slurm jobs in [`jobs/`](jobs/) (SFSU P
 | `run_e2e.sbatch`, `e2e_cpu_ort.sbatch` | End-to-end timing |
 | `space_examples.sbatch` | Renders the demo clips |
 
-Tests: `python -m pytest tests` (95 tests).
+Tests: `python -m pytest tests`. CI runs them, and `python scripts/readme_tables.py --check`, on every push and pull request.
 
 ## Repository layout
 
