@@ -214,3 +214,16 @@ The SatVideoDT numbering (1–100, 32,825 frames [S]) is a different numbering f
 3. MOT, SOT, COCO and VOC all contain the same 1,913 plane frames. There is no held-out plane data inside VISO.
 4. Image sizes vary from 220 to 1454 px per side. Sequence 001 is 1025×1025.
 5. One sequence (039) has duplicate-id label errors that would penalize a correct tracker.
+
+## How TALOS uses VISO (added 2026-11-14)
+
+**VISO labels only moving objects.** In `plane/039`, parked aircraft on the apron have no boxes, while the two moving aircraft (one on the runway, one taxiing) do. A detector that correctly finds parked planes is charged with false positives. Precision, MOTA and HOTA on VISO therefore understate any general aircraft detector, and are not reported as cross-dataset results.
+
+Uses that stay fair:
+- **Detection recall** on the labelled (moving) aircraft.
+- **Threat-model evaluation** on the ground-truth trajectories. All 9 plane tracks move, which suits it well.
+- **Tracking identity on matched objects,** read with the precision caveat above.
+
+**Conversion.** `src/TALOS/data/convert_viso.py` writes `VISO_plane-all` (6 sequences, 9 tracks, 2,266 boxes) and `VISO_ship-all` (2 sequences, 4 tracks, 1,182 boxes) at the stated 10 fps.
+- **Duplicate rows:** the four duplicated (frame, id) rows are repaired by keeping the row nearest the track. Two rows were dropped in `viso-039` and two in `viso-045`; they are listed in `data_meta/viso_convert_report.json`.
+- **Label check:** checked by eye on `viso-039` (frames 11 and 121); both boxes follow their aircraft.
