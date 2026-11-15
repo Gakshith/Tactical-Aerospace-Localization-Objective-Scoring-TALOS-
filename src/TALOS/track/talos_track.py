@@ -27,6 +27,13 @@ is produced by switching flags, never by maintaining parallel code.
                 by one fitted to real data.
   coast_output  report a lost track's predicted box for up to
                 ``coast_frames`` frames, filling short detector misses.
+  dedup         one object, one track: an unmatched detection that overlaps an
+                existing track (IoU >= ``dup_iou``) does not start a new one,
+                and when two live tracks overlap that much the younger is
+                dropped (ByteTrack's remove_duplicate_stracks). Without it a
+                detector's stray second box on an aircraft spawns a twin track
+                and the two trade the detection back and forth, each trade an
+                ID switch.
 
 State is x = [cx, cy, vx, vy, w, h] (pixels, pixels/s) with a constant-
 velocity model for the centre and a random walk for the size.
@@ -58,6 +65,8 @@ class Config:
     two_stage: bool = True
     reupdate: bool = True
     coast_output: bool = False
+    dedup: bool = True
+    dup_iou: float = 0.5
     # lifecycle
     n_init: int = 3
     max_age_s: float = 2.0
@@ -95,6 +104,16 @@ def xyxy_to_z(b: np.ndarray) -> np.ndarray:
     b = np.asarray(b, dtype=float).reshape(-1, 4)
     w, h = b[:, 2] - b[:, 0], b[:, 3] - b[:, 1]
     return np.column_stack([b[:, 0] + w / 2, b[:, 1] + h / 2, w, h])
+
+
+def _iou(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    x1 = np.maximum(a[:, None, 0], b[None, :, 0])
+    y1 = np.maximum(a[:, None, 1], b[None, :, 1])
+    x2 = np.minimum(a[:, None, 2], b[None, :, 2])
+    y2 = np.minimum(a[:, None, 3], b[None, :, 3])
+    inter = np.clip(x2 - x1, 0, None) * np.clip(y2 - y1, 0, None)
+    area = lambda r: (r[:, 2] - r[:, 0]) * (r[:, 3] - r[:, 1])
+    return inter / (area(a)[:, None] + area(b)[None, :] - inter + 1e-9)
 
 
 def z_to_xyxy(z: np.ndarray) -> np.ndarray:
@@ -238,8 +257,15 @@ class TalosTracker:
             for i, j in pairs2:
                 self._apply(rest[i], lo[j, :4], lo[j, 4])
 
-        for j in sorted(un_d):
+        births = sorted(un_d)
+        if cfg.dedup and births and self.tracks:
+            live = np.array([z_to_xyxy(H @ t.x)[0] for t in self.tracks])
+            ov = _iou(hi[births, :4], live).max(axis=1)
+            births = [j for j, o in zip(births, ov) if o < cfg.dup_iou]
+        for j in births:
             self._new_track(hi[j, :4], hi[j, 4])
+        if cfg.dedup:
+            self._remove_duplicates()
 
         # lifecycle
         alive = []
@@ -257,6 +283,22 @@ class TalosTracker:
         self.tracks = alive
 
         return self._output()
+
+    def _remove_duplicates(self) -> None:
+        live = [t for t in self.tracks if t.state != TENTATIVE]
+        if len(live) < 2:
+            return
+        boxes = np.array([z_to_xyxy(H @ t.x)[0] for t in live])
+        iou = _iou(boxes, boxes)
+        np.fill_diagonal(iou, 0)
+        drop = set()
+        for i, j in zip(*np.nonzero(np.triu(iou) >= self.cfg.dup_iou)):
+            a, b = live[i], live[j]
+            # keep the track with more history; ties keep the lower (older) id
+            younger = b if (a.hits, -a.id) >= (b.hits, -b.id) else a
+            drop.add(younger.id)
+        if drop:
+            self.tracks = [t for t in self.tracks if t.id not in drop]
 
     def _output(self) -> np.ndarray:
         out = []

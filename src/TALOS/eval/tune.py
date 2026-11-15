@@ -66,6 +66,7 @@ SPACES: dict[str, dict[str, list]] = {
         "accel_std": [5.0, 10.0, 20.0, 40.0],
         "coast_output": [False, True],
         "coast_frames": [1, 3, 5],
+        "dup_iou": [0.3, 0.5, 0.7],
     },
 }
 

@@ -5,7 +5,8 @@
     "maha_gate": false,
     "two_stage": false,
     "reupdate": false,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a1-lifecycle": {
     "lifecycle": true,
@@ -13,7 +14,8 @@
     "maha_gate": false,
     "two_stage": false,
     "reupdate": false,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a2-real-dt": {
     "lifecycle": true,
@@ -21,7 +23,8 @@
     "maha_gate": false,
     "two_stage": false,
     "reupdate": false,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a3-maha-gate": {
     "lifecycle": true,
@@ -29,7 +32,8 @@
     "maha_gate": true,
     "two_stage": false,
     "reupdate": false,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a4-two-stage": {
     "lifecycle": true,
@@ -37,7 +41,8 @@
     "maha_gate": true,
     "two_stage": true,
     "reupdate": false,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a5-reupdate": {
     "lifecycle": true,
@@ -45,7 +50,8 @@
     "maha_gate": true,
     "two_stage": true,
     "reupdate": true,
-    "coast_output": false
+    "coast_output": false,
+    "dedup": false
   },
   "talos:a6-coast-out": {
     "lifecycle": true,
@@ -53,6 +59,16 @@
     "maha_gate": true,
     "two_stage": true,
     "reupdate": true,
-    "coast_output": true
+    "coast_output": true,
+    "dedup": false
+  },
+  "talos:a7-dedup": {
+    "lifecycle": true,
+    "real_dt": true,
+    "maha_gate": true,
+    "two_stage": true,
+    "reupdate": true,
+    "coast_output": true,
+    "dedup": true
   }
 }

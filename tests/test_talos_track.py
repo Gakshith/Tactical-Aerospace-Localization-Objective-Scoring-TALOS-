@@ -130,3 +130,20 @@ def test_calibration_recovers_injected_jitter():
     # injected noise is a flat 2 px at every size; IoU>=0.5 matching trims tails slightly
     assert 1.6 < cal["meas_pos_min"] < 2.3
     assert all(1.6 < b["sigma_px"] < 2.4 for b in cal["bins"])
+
+
+def test_dedup_stops_twin_tracks_on_one_object():
+    """A detector that sometimes adds a shifted second box on the same object
+    must not create a twin track that steals the ID back and forth."""
+    def frames():
+        out = []
+        for f in range(30):
+            dets = [box(100 + 2 * f, 100, s=30)]
+            if f % 3 == 1:
+                dets.append(box(104 + 2 * f, 103, s=30, conf=0.85))  # stray duplicate
+            out.append(np.array(dets, np.float32))
+        return out
+    on = run_sequence(TalosTracker(10, Config(n_init=1)), frames())
+    off = run_sequence(TalosTracker(10, Config(n_init=1, dedup=False)), frames())
+    assert len(np.unique(on.rows[:, 1])) == 1
+    assert len(np.unique(off.rows[:, 1])) > 1
