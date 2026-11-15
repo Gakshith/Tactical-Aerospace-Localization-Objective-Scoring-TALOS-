@@ -20,7 +20,9 @@ import time
 from pathlib import Path
 
 import cv2
-import gradio as gr
+
+os.environ.setdefault("GRADIO_ANALYTICS_ENABLED", "False")   # no usage telemetry from this demo
+import gradio as gr  # noqa: E402
 import numpy as np
 
 from src.TALOS.detect.tiled import TiledDetector
@@ -53,7 +55,7 @@ def h264(src: Path, dst: Path) -> Path:
     ff = shutil.which("ffmpeg")
     if ff is None:
         return src
-    subprocess.run([ff, "-y", "-loglevel", "error", "-i", str(src), "-c:v", "libx264", "-pix_fmt", "yuv420p",
+    subprocess.run([ff, "-y", "-loglevel", "error", "-i", str(src), "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-pix_fmt", "yuv420p",
                     "-crf", "26", "-movflags", "+faststart", str(dst)], check=True)
     return dst
 

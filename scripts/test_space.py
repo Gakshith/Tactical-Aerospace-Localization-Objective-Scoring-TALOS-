@@ -43,7 +43,7 @@ def main() -> None:
     tmp = Path(tempfile.mkdtemp())
     up = tmp / "upload.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", "10", "-i", str(a.clip_frames / "%06d.jpg"),
-                    "-frames:v", "60", "-c:v", "libx264", "-pix_fmt", "yuv420p", str(up)], check=True)
+                    "-frames:v", "60", "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-pix_fmt", "yuv420p", str(up)], check=True)
     zx, zy, zr = (float(v) for v in a.zone.split(","))
     t = time.time()
     out, note, alerts = app.run_clip(str(up), zx, zy, zr, progress=lambda *x, **k: None)

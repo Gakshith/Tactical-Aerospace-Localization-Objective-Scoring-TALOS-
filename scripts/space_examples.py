@@ -140,7 +140,7 @@ def main() -> None:
             others = sorted({(x["class"], x["id"]) for x in alerts} - ({match} if match else set()))
             dst = a.out / seq.name
             dst.mkdir(parents=True, exist_ok=True)
-            subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", str(work / "annotated.mp4"), "-c:v", "libx264",
+            subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", str(work / "annotated.mp4"), "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264",
                             "-pix_fmt", "yuv420p", "-crf", "26", "-preset", "slow", "-movflags", "+faststart",
                             str(dst / "annotated.mp4")], check=True)
             shutil.copy(work / "alerts.jsonl", dst / "alerts.jsonl")
