@@ -249,7 +249,9 @@ h2{font-weight:400;font-size:clamp(26px,3vw,36px);line-height:1.1;letter-spacing
 .vd{grid-column:2/4;font-size:13px;color:var(--ink-2);line-height:1.35}
 .clip{display:grid;grid-template-rows:auto auto}
 .clip[hidden]{display:none}
-.frame{background:#0d0e10;border-radius:var(--radius) var(--radius) 0 0;display:flex;align-items:center;justify-content:center;min-height:300px;aspect-ratio:16/9;overflow:hidden}
+.player>.card{min-width:0}
+.frame{background:#0d0e10;border-radius:var(--radius) var(--radius) 0 0;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;width:100%;overflow:hidden}
+@media (min-width:901px){.frame{min-height:300px}}
 .frame video{max-width:100%;max-height:100%;display:block}
 .clip-body{padding:20px 22px 22px;display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:start}
 .verdict{margin:0 0 14px;font-size:20px;letter-spacing:-.015em;line-height:1.25}
