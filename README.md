@@ -232,19 +232,22 @@ Tests: `python -m pytest tests`. CI runs them, and `python scripts/readme_tables
 src/TALOS/
   data/       AIR-MOT and VISO converters to MOTChallenge format, frozen split
   detect/     tiled detector, ONNX Runtime backend, export, detection cache
-  track/      TALOS-Track, baselines (via roboflow trackers), v1 wrapper, noise calibration
+  track/      TALOS-Track, baselines (via roboflow trackers), v1 baseline, noise calibration
   threat/     zone-entry probability and its evaluation
   eval/       TrackEval runner, benchmark and tuning harness, detector metrics
   pipeline/   run.py: video in, tracks + alerts out
 configs/      tuned settings, split, ablation configs
+data_meta/    dataset conversion reports and the per-video track list used for the split
+docs/data/    dataset notes: format, fixes, caveats
+env/          pinned environments (GPU on Polaris, CPU for CI and Docker)
 jobs/         Slurm scripts
 results/      every metrics file the README reads
-space/        Gradio app (tested; Hugging Face hosts Gradio only on PRO)
 scripts/      README tables, static Space builder, sync, reports
+space/        Gradio app (tested; Hugging Face hosts Gradio only on PRO)
 tests/
 ```
 
-v1 (a fine-tuned YOLO26s on 500 synthetic images, a fixed-gate tracker, a hand-weighted score, run on one synthetic clip) is kept in `src/TALOS/components/` and appears in the tables as "TALOS v1".
+v1 (a fine-tuned YOLO26s on 500 synthetic images, a fixed-gate tracker, a hand-weighted score, run on one synthetic clip) is kept verbatim in `src/TALOS/track/v1_legacy.py` and appears in the tables as "TALOS v1".
 
 ## Limits
 

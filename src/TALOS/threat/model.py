@@ -104,7 +104,7 @@ def entry_probability(x: np.ndarray, P: np.ndarray, zone: Zone,
 def v1_score(x: np.ndarray, P: np.ndarray, zone: Zone, tau: float = 5.0,
              prox_scale: float = 800.0, trace_scale: float = 100.0,
              fps: float = 10.0) -> float:
-    """v1's risk score (model_run.ThreatAssessmentEngine) with the zone centre
+    """v1's risk score (v1_legacy.ThreatAssessmentEngine) with the zone centre
     as origin. v1 measured velocity in px/frame, so it is converted back."""
     pos, vel = np.asarray(x[:2], float), np.asarray(x[2:4], float) / fps
     vec = zone.centre - pos
