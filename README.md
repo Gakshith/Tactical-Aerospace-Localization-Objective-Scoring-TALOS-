@@ -198,6 +198,12 @@ docker build -t talos .                             # or build it yourself
 
 GPU pins (CUDA 12.8, as used on Polaris) are in [`env/requirements-v2.txt`](env/requirements-v2.txt).
 
+Download the detector (ONNX, 38 MB, YOLO26s fine-tuned on AIR-MOT tiles):
+
+```bash
+curl -LO https://huggingface.co/spaces/dustin-demo/talos-satellite-tracking/resolve/main/models/talos_y26s_t1024.onnx
+```
+
 Whole pipeline on a video or a folder of frames:
 
 ```bash
