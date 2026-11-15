@@ -1,0 +1,170 @@
+{
+  "run_id": "final-test-y26s1024-ship",
+  "git_sha": "853b6842b7330e2aae6815202fda3b7e73b12ffb",
+  "git_dirty": false,
+  "config_hash": "4b21ceae806c",
+  "config": {
+    "bench": "AIRMOT_ship",
+    "split": "test",
+    "detector": "y26s_t1024",
+    "trackers": [
+      "v1",
+      "sort",
+      "bytetrack",
+      "ocsort",
+      "botsort",
+      "talos"
+    ],
+    "params": {
+      "sort": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "bytetrack": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "ocsort": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 120
+      },
+      "botsort": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 5
+      },
+      "talos": {
+        "meas_pos_min": 0.695,
+        "meas_pos_frac": 0.0667,
+        "high_conf": 0.6,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 1.0,
+        "gate_p": 0.99,
+        "accel_std": 5.0,
+        "coast_output": true,
+        "coast_frames": 1,
+        "dup_iou": 0.7
+      }
+    },
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-014",
+      "airmot-028",
+      "airmot-050",
+      "airmot-060",
+      "airmot-062",
+      "airmot-095",
+      "airmot-096"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 71.332,
+      "DetA": 32.735,
+      "HOTA": 48.061,
+      "IDSW": 5.0,
+      "MOTA": -7.269,
+      "IDF1": 59.561,
+      "IDs": 121.0,
+      "GT_IDs": 69.0
+    },
+    "sort": {
+      "AssA": 54.232,
+      "DetA": 33.984,
+      "HOTA": 42.573,
+      "IDSW": 118.0,
+      "MOTA": 8.46,
+      "IDF1": 50.572,
+      "IDs": 208.0,
+      "GT_IDs": 69.0
+    },
+    "bytetrack": {
+      "AssA": 69.81,
+      "DetA": 38.778,
+      "HOTA": 51.746,
+      "IDSW": 17.0,
+      "MOTA": 29.092,
+      "IDF1": 66.735,
+      "IDs": 111.0,
+      "GT_IDs": 69.0
+    },
+    "ocsort": {
+      "AssA": 62.038,
+      "DetA": 36.838,
+      "HOTA": 47.509,
+      "IDSW": 31.0,
+      "MOTA": 34.104,
+      "IDF1": 63.612,
+      "IDs": 126.0,
+      "GT_IDs": 69.0
+    },
+    "botsort": {
+      "AssA": 69.397,
+      "DetA": 39.938,
+      "HOTA": 52.328,
+      "IDSW": 7.0,
+      "MOTA": 38.555,
+      "IDF1": 68.378,
+      "IDs": 89.0,
+      "GT_IDs": 69.0
+    },
+    "talos": {
+      "AssA": 69.691,
+      "DetA": 40.68,
+      "HOTA": 52.921,
+      "IDSW": 12.0,
+      "MOTA": 37.627,
+      "IDF1": 68.84,
+      "IDs": 100.0,
+      "GT_IDs": 69.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 2281,
+      "track_seconds": 1.6514,
+      "track_ms_per_frame": 0.724
+    },
+    "sort": {
+      "frames": 2281,
+      "track_seconds": 0.8925,
+      "track_ms_per_frame": 0.3913
+    },
+    "bytetrack": {
+      "frames": 2281,
+      "track_seconds": 0.8387,
+      "track_ms_per_frame": 0.3677
+    },
+    "ocsort": {
+      "frames": 2281,
+      "track_seconds": 1.2613,
+      "track_ms_per_frame": 0.553
+    },
+    "botsort": {
+      "frames": 2281,
+      "track_seconds": 1.156,
+      "track_ms_per_frame": 0.5068
+    },
+    "talos": {
+      "frames": 2281,
+      "track_seconds": 1.7031,
+      "track_ms_per_frame": 0.7466
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "fps": 10.0,
+  "sequences": {
+    "VISO_plane": [
+      {
+        "seq": "viso-039",
+        "format": "B",
+        "frames": 180,
+        "size": [
+          1454,
+          750
+        ],
+        "tracks": 2,
+        "boxes": 357
+      },
+      {
+        "seq": "viso-040",
+        "format": "A",
+        "frames": 250,
+        "size": [
+          701,
+          489
+        ],
+        "tracks": 1,
+        "boxes": 250
+      },
+      {
+        "seq": "viso-041",
+        "format": "B",
+        "frames": 325,
+        "size": [
+          1283,
+          521
+        ],
+        "tracks": 1,
+        "boxes": 324
+      },
+      {
+        "seq": "viso-042",
+        "format": "B",
+        "frames": 300,
+        "size": [
+          900,
+          600
+        ],
+        "tracks": 2,
+        "boxes": 373
+      },
+      {
+        "seq": "viso-043",
+        "format": "A",
+        "frames": 358,
+        "size": [
+          543,
+          285
+        ],
+        "tracks": 1,
+        "boxes": 358
+      },
+      {
+        "seq": "viso-044",
+        "format": "B",
+        "frames": 500,
+        "size": [
+          1024,
+          1080
+        ],
+        "tracks": 2,
+        "boxes": 604
+      }
+    ],
+    "VISO_ship": [
+      {
+        "seq": "viso-045",
+        "format": "B",
+        "frames": 320,
+        "size": [
+          1345,
+          451
+        ],
+        "tracks": 3,
+        "boxes": 882
+      },
+      {
+        "seq": "viso-047",
+        "format": "A",
+        "frames": 300,
+        "size": [
+          512,
+          512
+        ],
+        "tracks": 1,
+        "boxes": 300
+      }
+    ]
+  },
+  "dropped_rows": {
+    "viso-039": [
+      {
+        "frame": 5,
+        "id": 1,
+        "dropped_xywh": [
+          1072.0,
+          249.0,
+          29.0,
+          31.0
+        ]
+      },
+      {
+        "frame": 129,
+        "id": 1,
+        "dropped_xywh": [
+          1169.0,
+          271.0,
+          29.0,
+          29.0
+        ]
+      }
+    ],
+    "viso-045": [
+      {
+        "frame": 8,
+        "id": 2,
+        "dropped_xywh": [
+          1220.0,
+          304.0,
+          36.0,
+          26.0
+        ]
+      },
+      {
+        "frame": 87,
+        "id": 2,
+        "dropped_xywh": [
+          1244.0,
+          319.0,
+          26.0,
+          20.0
+        ]
+      }
+    ]
+  }
+}

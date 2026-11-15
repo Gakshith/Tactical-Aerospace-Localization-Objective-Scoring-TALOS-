@@ -1,0 +1,246 @@
+[
+  {
+    "seq": "viso-039",
+    "class": "plane",
+    "size": [
+      1454,
+      750
+    ],
+    "frames": 180,
+    "fps": 10.0,
+    "gt_tracks": 2,
+    "zone": {
+      "centre": [
+        776.0,
+        376.0
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": [
+      "plane",
+      1
+    ],
+    "gt_entry_frame": 78,
+    "first_alert_frame": 5,
+    "other_alerting_tracks": [],
+    "lead_s": 7.3,
+    "alerts": 79,
+    "recall_iou0.3": 0.905,
+    "a100_ms_per_frame": 19.536,
+    "verdict": "warned 7.3 s before it entered the zone"
+  },
+  {
+    "seq": "viso-042",
+    "class": "plane",
+    "size": [
+      900,
+      600
+    ],
+    "frames": 300,
+    "fps": 10.0,
+    "gt_tracks": 2,
+    "zone": {
+      "centre": [
+        354.5,
+        230.0
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": [
+      "plane",
+      9
+    ],
+    "gt_entry_frame": 55,
+    "first_alert_frame": 5,
+    "other_alerting_tracks": [],
+    "lead_s": 5.0,
+    "alerts": 103,
+    "recall_iou0.3": 0.954,
+    "a100_ms_per_frame": 14.639,
+    "verdict": "warned 5.0 s before it entered the zone"
+  },
+  {
+    "seq": "viso-043",
+    "class": "plane",
+    "size": [
+      543,
+      285
+    ],
+    "frames": 358,
+    "fps": 10.0,
+    "gt_tracks": 1,
+    "zone": {
+      "centre": [
+        78.0,
+        201.5
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": [
+      "plane",
+      5
+    ],
+    "gt_entry_frame": 51,
+    "first_alert_frame": 5,
+    "other_alerting_tracks": [],
+    "lead_s": 4.6,
+    "alerts": 114,
+    "recall_iou0.3": 0.989,
+    "a100_ms_per_frame": 24.288,
+    "verdict": "warned 4.6 s before it entered the zone"
+  },
+  {
+    "seq": "viso-040",
+    "class": "plane",
+    "size": [
+      701,
+      489
+    ],
+    "frames": 250,
+    "fps": 10.0,
+    "gt_tracks": 1,
+    "zone": {
+      "centre": [
+        493.5,
+        344.5
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": [
+      "plane",
+      59
+    ],
+    "gt_entry_frame": 52,
+    "first_alert_frame": 153,
+    "other_alerting_tracks": [
+      [
+        "plane",
+        52
+      ]
+    ],
+    "lead_s": -10.1,
+    "alerts": 8,
+    "recall_iou0.3": 0.416,
+    "a100_ms_per_frame": 8.418,
+    "verdict": "late: first alert 10.1 s after it entered the zone"
+  },
+  {
+    "seq": "viso-041",
+    "class": "plane",
+    "size": [
+      1283,
+      521
+    ],
+    "frames": 325,
+    "fps": 10.0,
+    "gt_tracks": 1,
+    "zone": {
+      "centre": [
+        447.0,
+        139.0
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": [
+      "plane",
+      7
+    ],
+    "gt_entry_frame": 73,
+    "first_alert_frame": null,
+    "other_alerting_tracks": [],
+    "lead_s": null,
+    "alerts": 0,
+    "recall_iou0.3": 0.398,
+    "a100_ms_per_frame": 7.775,
+    "verdict": "missed: tracked, but no alert before it entered the zone"
+  },
+  {
+    "seq": "viso-044",
+    "class": "plane",
+    "size": [
+      1024,
+      1080
+    ],
+    "frames": 500,
+    "fps": 10.0,
+    "gt_tracks": 2,
+    "zone": {
+      "centre": [
+        840.0,
+        487.0
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 2
+    },
+    "matched_track": null,
+    "gt_entry_frame": 466,
+    "first_alert_frame": null,
+    "other_alerting_tracks": [],
+    "lead_s": null,
+    "alerts": 0,
+    "recall_iou0.3": 0.0,
+    "a100_ms_per_frame": 12.355,
+    "verdict": "missed: the detector never found the labelled object"
+  },
+  {
+    "seq": "viso-045",
+    "class": "ship",
+    "size": [
+      1345,
+      451
+    ],
+    "frames": 320,
+    "fps": 10.0,
+    "gt_tracks": 3,
+    "zone": {
+      "centre": [
+        705.0,
+        143.5
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": null,
+    "gt_entry_frame": 47,
+    "first_alert_frame": null,
+    "other_alerting_tracks": [],
+    "lead_s": null,
+    "alerts": 0,
+    "recall_iou0.3": 0.0,
+    "a100_ms_per_frame": 6.154,
+    "verdict": "missed: the detector never found the labelled object"
+  },
+  {
+    "seq": "viso-047",
+    "class": "ship",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 300,
+    "fps": 10.0,
+    "gt_tracks": 1,
+    "zone": {
+      "centre": [
+        219.5,
+        134.5
+      ],
+      "radius": 25.0,
+      "placed_on_gt_track": 1
+    },
+    "matched_track": null,
+    "gt_entry_frame": 23,
+    "first_alert_frame": null,
+    "other_alerting_tracks": [],
+    "lead_s": null,
+    "alerts": 0,
+    "recall_iou0.3": 0.0,
+    "a100_ms_per_frame": 6.136,
+    "verdict": "missed: the detector never found the labelled object"
+  }
+]

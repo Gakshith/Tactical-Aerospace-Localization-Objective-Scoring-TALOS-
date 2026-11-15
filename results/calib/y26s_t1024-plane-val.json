@@ -1,0 +1,46 @@
+{
+  "bench": "AIRMOT_plane",
+  "split": "val",
+  "detector": "y26s_t1024",
+  "meas_pos_min": 1.622,
+  "meas_pos_frac": 0.0412,
+  "bins": [
+    {
+      "size_px": 16.0,
+      "sigma_px": 2.529,
+      "n": 1991
+    },
+    {
+      "size_px": 33.0,
+      "sigma_px": 1.862,
+      "n": 2023
+    },
+    {
+      "size_px": 41.0,
+      "sigma_px": 2.1,
+      "n": 2607
+    },
+    {
+      "size_px": 43.0,
+      "sigma_px": 2.028,
+      "n": 2287
+    },
+    {
+      "size_px": 61.0,
+      "sigma_px": 1.622,
+      "n": 1917
+    },
+    {
+      "size_px": 66.0,
+      "sigma_px": 2.414,
+      "n": 2245
+    }
+  ],
+  "median_bias_cx_cy_w_h": [
+    -0.151,
+    0.772,
+    1.196,
+    1.002
+  ],
+  "n_matched": 10516
+}

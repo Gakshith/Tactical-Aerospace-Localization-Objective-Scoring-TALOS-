@@ -1,0 +1,105 @@
+{
+  "n_events": 38363,
+  "n_positive_events": 1968,
+  "zones": {
+    "on-path": 129,
+    "near-miss": 129
+  },
+  "config": {
+    "horizon_s": 10.0,
+    "fps": 10.0,
+    "accel_std": 20.0,
+    "n_samples": 512,
+    "seed": 0
+  },
+  "v2_entry_prob": {
+    "auroc": 0.9041,
+    "avg_precision": 0.5826,
+    "threshold_at_5pct_false_alarms": 0.1816,
+    "entries_warned": "120/128",
+    "median_lead_s": 7.85
+  },
+  "v1_score": {
+    "auroc": 0.8265,
+    "avg_precision": 0.4671,
+    "threshold_at_5pct_false_alarms": 0.5425,
+    "entries_warned": "118/128",
+    "median_lead_s": 8.4
+  },
+  "v2_calibration": {
+    "ece": 0.0335,
+    "reliability": [
+      {
+        "bin": "0.0-0.1",
+        "mean_p": 0.024,
+        "observed": 0.008,
+        "n": 30318
+      },
+      {
+        "bin": "0.1-0.2",
+        "mean_p": 0.14,
+        "observed": 0.06,
+        "n": 5217
+      },
+      {
+        "bin": "0.2-0.3",
+        "mean_p": 0.242,
+        "observed": 0.322,
+        "n": 1315
+      },
+      {
+        "bin": "0.3-0.4",
+        "mean_p": 0.344,
+        "observed": 0.581,
+        "n": 568
+      },
+      {
+        "bin": "0.4-0.5",
+        "mean_p": 0.447,
+        "observed": 0.602,
+        "n": 347
+      },
+      {
+        "bin": "0.5-0.6",
+        "mean_p": 0.546,
+        "observed": 0.706,
+        "n": 180
+      },
+      {
+        "bin": "0.6-0.7",
+        "mean_p": 0.654,
+        "observed": 0.793,
+        "n": 140
+      },
+      {
+        "bin": "0.7-0.8",
+        "mean_p": 0.744,
+        "observed": 0.802,
+        "n": 111
+      },
+      {
+        "bin": "0.8-0.9",
+        "mean_p": 0.848,
+        "observed": 0.829,
+        "n": 82
+      },
+      {
+        "bin": "0.9-1.0",
+        "mean_p": 0.958,
+        "observed": 0.776,
+        "n": 85
+      }
+    ]
+  },
+  "benches": [
+    "AIRMOT_plane",
+    "AIRMOT_ship"
+  ],
+  "splits": [
+    "train",
+    "val"
+  ],
+  "radius_px": 25.0,
+  "lead_s": 8.0,
+  "fps_assumed": 10.0
+}

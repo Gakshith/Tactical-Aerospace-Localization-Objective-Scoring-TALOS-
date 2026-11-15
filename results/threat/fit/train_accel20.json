@@ -1,0 +1,105 @@
+{
+  "n_events": 33065,
+  "n_positive_events": 1600,
+  "zones": {
+    "on-path": 104,
+    "near-miss": 104
+  },
+  "config": {
+    "horizon_s": 10.0,
+    "fps": 10.0,
+    "accel_std": 20.0,
+    "n_samples": 512,
+    "seed": 0
+  },
+  "v2_entry_prob": {
+    "auroc": 0.9649,
+    "avg_precision": 0.6103,
+    "threshold_at_5pct_false_alarms": 0.1836,
+    "entries_warned": "104/104",
+    "median_lead_s": 7.9
+  },
+  "v1_score": {
+    "auroc": 0.8881,
+    "avg_precision": 0.4821,
+    "threshold_at_5pct_false_alarms": 0.5442,
+    "entries_warned": "102/104",
+    "median_lead_s": 8.45
+  },
+  "v2_calibration": {
+    "ece": 0.0386,
+    "brier": 0.02952,
+    "reliability": [
+      {
+        "bin": "0.0-0.1",
+        "mean_p": 0.027,
+        "observed": 0.002,
+        "n": 25910
+      },
+      {
+        "bin": "0.1-0.2",
+        "mean_p": 0.139,
+        "observed": 0.065,
+        "n": 4617
+      },
+      {
+        "bin": "0.2-0.3",
+        "mean_p": 0.24,
+        "observed": 0.316,
+        "n": 1142
+      },
+      {
+        "bin": "0.3-0.4",
+        "mean_p": 0.344,
+        "observed": 0.529,
+        "n": 527
+      },
+      {
+        "bin": "0.4-0.5",
+        "mean_p": 0.447,
+        "observed": 0.604,
+        "n": 313
+      },
+      {
+        "bin": "0.5-0.6",
+        "mean_p": 0.541,
+        "observed": 0.695,
+        "n": 174
+      },
+      {
+        "bin": "0.6-0.7",
+        "mean_p": 0.645,
+        "observed": 0.715,
+        "n": 123
+      },
+      {
+        "bin": "0.7-0.8",
+        "mean_p": 0.744,
+        "observed": 0.827,
+        "n": 104
+      },
+      {
+        "bin": "0.8-0.9",
+        "mean_p": 0.847,
+        "observed": 0.756,
+        "n": 82
+      },
+      {
+        "bin": "0.9-1.0",
+        "mean_p": 0.962,
+        "observed": 0.795,
+        "n": 73
+      }
+    ]
+  },
+  "benches": [
+    "AIRMOT_plane",
+    "AIRMOT_ship"
+  ],
+  "splits": [
+    "train"
+  ],
+  "radius_px": 25.0,
+  "lead_s": 8.0,
+  "fps_assumed": 10.0
+}

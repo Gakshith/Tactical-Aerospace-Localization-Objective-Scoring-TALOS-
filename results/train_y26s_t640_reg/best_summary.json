@@ -1,0 +1,78 @@
+{
+  "name": "y26s_t640_reg",
+  "model": "~/talos/weights/yolo26s.pt",
+  "optimizer": "AdamW",
+  "lr0": 0.001,
+  "cos_lr": "true",
+  "freeze": 10,
+  "data": "~/talos/data/yolo/airmot_t640/data.yaml",
+  "imgsz": 640,
+  "batch": 64,
+  "epochs_max": 40,
+  "patience": 15,
+  "epochs_run": 17,
+  "best_epoch": 2,
+  "best_epoch_row": {
+    "epoch": "2",
+    "time": "57.9369",
+    "train/box_loss": "2.05751",
+    "train/cls_loss": "1.14041",
+    "train/l1_loss": "0.00295",
+    "metrics/precision(B)": "0.69379",
+    "metrics/recall(B)": "0.59907",
+    "metrics/mAP50(B)": "0.62642",
+    "metrics/mAP50-95(B)": "0.35479",
+    "val/box_loss": "1.82934",
+    "val/cls_loss": "1.69648",
+    "val/l1_loss": "0.00385",
+    "lr/pg0": "0.000663488",
+    "lr/pg1": "0.000663488",
+    "lr/pg2": "0.0342133"
+  },
+  "train_wall_s": 414.8,
+  "train_wall_h": 0.12,
+  "peak_cuda_reserved_gib": 15.8,
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "weights": "~/talos/runs/det/y26s_t640_reg/weights/best.pt",
+  "val_end2end": {
+    "plane": {
+      "P": 0.8855578720656826,
+      "R": 0.7170140778878499,
+      "mAP50": 0.8278232029298973,
+      "mAP50-95": 0.5188596220308285
+    },
+    "ship": {
+      "P": 0.5040002691423934,
+      "R": 0.4804837822979659,
+      "mAP50": 0.4236485657339689,
+      "mAP50-95": 0.1913288691365515
+    },
+    "all": {
+      "P": 0.694779070604038,
+      "R": 0.5987489300929079,
+      "mAP50": 0.6257358843319332,
+      "mAP50-95": 0.35509424558368996
+    }
+  },
+  "val_one2many_nms_crosscheck": {
+    "plane": {
+      "P": 0.9115759068662963,
+      "R": 0.7425174251742518,
+      "mAP50": 0.8432025953446758,
+      "mAP50-95": 0.5137239103462574
+    },
+    "ship": {
+      "P": 0.5744745453562591,
+      "R": 0.5121081754368052,
+      "mAP50": 0.4729615626076437,
+      "mAP50-95": 0.19305112762572316
+    },
+    "all": {
+      "P": 0.7430252261112777,
+      "R": 0.6273128003055285,
+      "mAP50": 0.6580820789761598,
+      "mAP50-95": 0.35338751898599036
+    }
+  },
+  "note": "tile-level val (val split tiles), end2end head (nms=False); test split never read"
+}

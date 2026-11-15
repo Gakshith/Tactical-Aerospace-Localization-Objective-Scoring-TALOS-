@@ -1,0 +1,34 @@
+# TALOS v2 — top-level pins (Polaris, Python 3.12, uv). Full lock: requirements-v2.lock
+# Node: A100 80GB PCIe, driver 610.57.04 (CUDA 13.3 UMD) — runs CUDA 12.8 wheels.
+#
+# Recreate:
+#   uv venv --python 3.12 ~/talos/.venv
+#   uv pip install --python ~/talos/.venv/bin/python torch==2.11.0+cu128 torchvision==0.26.0+cu128 \
+#       --index-url https://download.pytorch.org/whl/cu128
+#   uv pip install --python ~/talos/.venv/bin/python -r env/requirements-v2.txt
+#   bash env/patch_trackeval.sh ~/talos/.venv     # np.float/np.int/np.bool -> builtins (NumPy 2)
+# Exact replay instead: uv pip sync --python ~/talos/.venv/bin/python env/requirements-v2.lock \
+#       --extra-index-url https://download.pytorch.org/whl/cu128   (then run the patch)
+
+# torch==2.11.0+cu128          (install from the cu128 index, above)
+# torchvision==0.26.0+cu128
+ultralytics==8.4.210
+trackeval @ git+https://github.com/JonathonLuiten/TrackEval@12c8791b303e0a0b50f753af204249e622d0281a
+trackers==2.7.0
+supervision==0.31.7
+sahi==0.14.0
+opencv-python-headless==5.0.0.93
+numpy==2.5.4
+scipy==1.18.1
+pandas==3.1.1
+pyarrow==26.0.1
+onnx==1.23.2
+onnxruntime-gpu==1.31.1
+gdown==6.5.1
+pyyaml==6.0.3
+python-box==8.0.0
+ensure==1.0.4
+tqdm==4.70.1
+pytest==9.2.0
+pycocotools==2.0.11   # silences TrackEval's BURST import warning
+tabulate==0.10.0      # same

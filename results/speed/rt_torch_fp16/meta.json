@@ -1,0 +1,256 @@
+{
+  "detector": "rt_torch_fp16",
+  "weights": "~/talos/weights/export/y26s_t1024.pt",
+  "weights_sha256": "72e36b28087f0d53dccbb12e87ed3be286b9bd37a2aabc9d0ccaeacdf458ca41",
+  "mode": "tiled",
+  "classes_map": {
+    "0": "AIRMOT_plane",
+    "1": "AIRMOT_ship"
+  },
+  "save_conf": 0.1,
+  "v1_conf": 0.25,
+  "imgsz_arg": 1024,
+  "imgsz_used": [
+    1024,
+    1024
+  ],
+  "end2end_arg": "true",
+  "head_end2end_used": true,
+  "max_det": 300,
+  "predict_kwargs": {
+    "conf": 0.1,
+    "verbose": false,
+    "max_det": 300,
+    "half": true,
+    "imgsz": 1024,
+    "end2end": true,
+    "classes": [
+      0,
+      1
+    ]
+  },
+  "tiling": {
+    "tile": 1024,
+    "overlap": 0.2,
+    "imgsz": 1024,
+    "batch_tiles": 64,
+    "gpu_tiling": false,
+    "with_full_frame": false,
+    "full_imgsz": null,
+    "merge": {
+      "rule": "class-aware greedy clusters, uncut-first; dup = IoU or mutual centre containment; cut fragment = IoS or centre inside; union of cut continuations; cross-source only",
+      "iou_thr": 0.5,
+      "ios_thr": 0.6,
+      "span_iou": 0.5,
+      "edge_margin_px": 3.0
+    }
+  },
+  "ultralytics": "8.4.210",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "frame_index": "1-based position in sorted img1/*<imExt>, == seqLength",
+  "cache_format": "<root>/<detector>/<bench>/<seq>.npy, (N,6) [frame,x1,y1,x2,y2,conf]",
+  "runs": {
+    "AIRMOT_plane/val": {
+      "bench": "AIRMOT_plane",
+      "bench_dir": "~/talos/data/mot/AIRMOT_plane-all",
+      "split": "val",
+      "seqs": [
+        "airmot-004",
+        "airmot-036",
+        "airmot-043",
+        "airmot-053",
+        "airmot-054"
+      ],
+      "frames": 1448,
+      "job_seqs": [
+        "airmot-004",
+        "airmot-021",
+        "airmot-024",
+        "airmot-027",
+        "airmot-036",
+        "airmot-043",
+        "airmot-053",
+        "airmot-054",
+        "airmot-061",
+        "airmot-067",
+        "airmot-099"
+      ],
+      "job_timing": {
+        "total_frames": 3148,
+        "wall_time_s": 84.46,
+        "batch": 64,
+        "frames_per_call": 11,
+        "half": true,
+        "mean_ms_per_frame_predict": 22.214,
+        "mean_ms_per_frame_e2e": 26.779,
+        "ultralytics_speed_ms_per_frame": {
+          "preprocess": 7.623,
+          "inference": 11.635,
+          "postprocess": 0.917
+        },
+        "tiled_breakdown_ms_per_frame": {
+          "tile_predict": 20.635,
+          "full_frame_predict": 0.0,
+          "merge": 1.56,
+          "tiles_per_frame": 6.0
+        }
+      },
+      "slurm_job_id": "54478",
+      "finished": "2026-11-15T13:51:49-0800",
+      "per_seq": {
+        "airmot-004": {
+          "frames": 143,
+          "predict_ms_per_frame": 20.233,
+          "e2e_ms_per_frame": 25.152,
+          "AIRMOT_plane": {
+            "dets": 144,
+            "dets_ge_0.25": 143
+          }
+        },
+        "airmot-036": {
+          "frames": 326,
+          "predict_ms_per_frame": 19.371,
+          "e2e_ms_per_frame": 23.662,
+          "AIRMOT_plane": {
+            "dets": 1097,
+            "dets_ge_0.25": 539
+          }
+        },
+        "airmot-043": {
+          "frames": 327,
+          "predict_ms_per_frame": 25.618,
+          "e2e_ms_per_frame": 30.356,
+          "AIRMOT_plane": {
+            "dets": 9395,
+            "dets_ge_0.25": 8183
+          }
+        },
+        "airmot-053": {
+          "frames": 326,
+          "predict_ms_per_frame": 19.907,
+          "e2e_ms_per_frame": 23.862,
+          "AIRMOT_plane": {
+            "dets": 776,
+            "dets_ge_0.25": 596
+          }
+        },
+        "airmot-054": {
+          "frames": 326,
+          "predict_ms_per_frame": 21.071,
+          "e2e_ms_per_frame": 26.103,
+          "AIRMOT_plane": {
+            "dets": 5570,
+            "dets_ge_0.25": 3934
+          }
+        }
+      }
+    },
+    "AIRMOT_ship/val": {
+      "bench": "AIRMOT_ship",
+      "bench_dir": "~/talos/data/mot/AIRMOT_ship-all",
+      "split": "val",
+      "seqs": [
+        "airmot-021",
+        "airmot-024",
+        "airmot-027",
+        "airmot-061",
+        "airmot-067",
+        "airmot-099"
+      ],
+      "frames": 1700,
+      "job_seqs": [
+        "airmot-004",
+        "airmot-021",
+        "airmot-024",
+        "airmot-027",
+        "airmot-036",
+        "airmot-043",
+        "airmot-053",
+        "airmot-054",
+        "airmot-061",
+        "airmot-067",
+        "airmot-099"
+      ],
+      "job_timing": {
+        "total_frames": 3148,
+        "wall_time_s": 84.46,
+        "batch": 64,
+        "frames_per_call": 11,
+        "half": true,
+        "mean_ms_per_frame_predict": 22.214,
+        "mean_ms_per_frame_e2e": 26.779,
+        "ultralytics_speed_ms_per_frame": {
+          "preprocess": 7.623,
+          "inference": 11.635,
+          "postprocess": 0.917
+        },
+        "tiled_breakdown_ms_per_frame": {
+          "tile_predict": 20.635,
+          "full_frame_predict": 0.0,
+          "merge": 1.56,
+          "tiles_per_frame": 6.0
+        }
+      },
+      "slurm_job_id": "54478",
+      "finished": "2026-11-15T13:51:49-0800",
+      "per_seq": {
+        "airmot-021": {
+          "frames": 326,
+          "predict_ms_per_frame": 27.707,
+          "e2e_ms_per_frame": 32.818,
+          "AIRMOT_ship": {
+            "dets": 17702,
+            "dets_ge_0.25": 10074
+          }
+        },
+        "airmot-024": {
+          "frames": 326,
+          "predict_ms_per_frame": 20.513,
+          "e2e_ms_per_frame": 23.811,
+          "AIRMOT_ship": {
+            "dets": 6073,
+            "dets_ge_0.25": 3779
+          }
+        },
+        "airmot-027": {
+          "frames": 326,
+          "predict_ms_per_frame": 21.249,
+          "e2e_ms_per_frame": 26.44,
+          "AIRMOT_ship": {
+            "dets": 9655,
+            "dets_ge_0.25": 3296
+          }
+        },
+        "airmot-061": {
+          "frames": 326,
+          "predict_ms_per_frame": 20.399,
+          "e2e_ms_per_frame": 24.352,
+          "AIRMOT_ship": {
+            "dets": 3421,
+            "dets_ge_0.25": 2547
+          }
+        },
+        "airmot-067": {
+          "frames": 70,
+          "predict_ms_per_frame": 44.154,
+          "e2e_ms_per_frame": 48.347,
+          "AIRMOT_ship": {
+            "dets": 4133,
+            "dets_ge_0.25": 2335
+          }
+        },
+        "airmot-099": {
+          "frames": 326,
+          "predict_ms_per_frame": 20.239,
+          "e2e_ms_per_frame": 25.68,
+          "AIRMOT_ship": {
+            "dets": 5758,
+            "dets_ge_0.25": 3915
+          }
+        }
+      }
+    }
+  }
+}

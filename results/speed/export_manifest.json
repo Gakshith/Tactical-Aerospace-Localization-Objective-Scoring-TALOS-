@@ -1,0 +1,258 @@
+{
+  "source_pt": {
+    "file": "y26s_t1024.pt",
+    "sha256": "72e36b28087f0d53dccbb12e87ed3be286b9bd37a2aabc9d0ccaeacdf458ca41"
+  },
+  "onnx": {
+    "file": "y26s_t1024.onnx",
+    "bytes": 38485435,
+    "sha256": "b663b69852c42916f685c5251c93fab6874e3741f65997b8954789c5ced2ef55",
+    "opset": {
+      "ai.onnx": 18
+    },
+    "ir_version": 8,
+    "producer": "pytorch 2.11.0",
+    "inputs": [
+      {
+        "name": "images",
+        "dtype": "FLOAT",
+        "shape": [
+          "batch",
+          3,
+          "height",
+          "width"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "output0",
+        "dtype": "FLOAT",
+        "shape": [
+          "batch",
+          300,
+          6
+        ]
+      }
+    ],
+    "metadata": {
+      "description": "Ultralytics YOLO26s model trained on ~/talos/data/yolo/airmot_t1024/data.yaml",
+      "author": "Ultralytics",
+      "date": "2026-11-15T13:40:29.967009-08:00",
+      "version": "8.4.210",
+      "license": "AGPL-3.0 License (https://ultralytics.com/license)",
+      "docs": "https://docs.ultralytics.com",
+      "stride": "32",
+      "task": "detect",
+      "head": "Detect",
+      "batch": "1",
+      "imgsz": "[1024, 1024]",
+      "names": "{0: 'plane', 1: 'ship'}",
+      "args": "{'data': None, 'batch': 1, 'fraction': 1.0, 'quantize': None, 'nms': False, 'dynamic': True, 'simplify': True, 'opset': 18}",
+      "channels": "3",
+      "end2end": "True"
+    },
+    "nodes": 487,
+    "has_TopK": true,
+    "quant_ops": {},
+    "export_s": 5.2,
+    "export_args": {
+      "format": "onnx",
+      "imgsz": 1024,
+      "opset": 18,
+      "nms": false,
+      "dynamic": true,
+      "simplify": true
+    },
+    "ultralytics": "8.4.210",
+    "torch": "2.11.0+cu128"
+  },
+  "onnx_u8": {
+    "file": "y26s_t1024_u8.onnx",
+    "bytes": 38414482,
+    "sha256": "03a6f0d26db73279bec0ebe9ac65fe6380eea794ba06666212db1f69c73f40a0",
+    "opset": {
+      "ai.onnx": 18
+    },
+    "ir_version": 8,
+    "producer": "pytorch 2.11.0",
+    "inputs": [
+      {
+        "name": "images_u8",
+        "dtype": "UINT8",
+        "shape": [
+          "batch",
+          1024,
+          1024,
+          3
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "output0",
+        "dtype": "FLOAT",
+        "shape": [
+          "batch",
+          300,
+          6
+        ]
+      }
+    ],
+    "metadata": {
+      "description": "Ultralytics YOLO26s model trained on ~/talos/data/yolo/airmot_t1024/data.yaml",
+      "author": "Ultralytics",
+      "date": "2026-11-15T13:40:29.967009-08:00",
+      "version": "8.4.210",
+      "license": "AGPL-3.0 License (https://ultralytics.com/license)",
+      "docs": "https://docs.ultralytics.com",
+      "stride": "32",
+      "task": "detect",
+      "head": "Detect",
+      "batch": "1",
+      "imgsz": "[1024, 1024]",
+      "names": "{0: 'plane', 1: 'ship'}",
+      "args": "{'data': None, 'batch': 1, 'fraction': 1.0, 'quantize': None, 'nms': False, 'dynamic': True, 'simplify': True, 'opset': 18}",
+      "channels": "3",
+      "end2end": "True",
+      "talos_preprocess": "fused: uint8 BHWC BGR -> float BCHW RGB /255 (letterbox outside)"
+    },
+    "nodes": 491,
+    "has_TopK": true,
+    "quant_ops": {}
+  },
+  "onnx_int8dyn": {
+    "file": "y26s_t1024_int8dyn.onnx",
+    "bytes": 9920063,
+    "sha256": "e37a78e1b46583953135b36b1f4907b9082241cf3a85396adf36725ea5cf8377",
+    "opset": {
+      "ai.onnx": 18,
+      "ai.onnx.preview.training": 1,
+      "ai.onnx.preview": 1,
+      "ai.onnx.training": 1,
+      "org.pytorch.aten": 1,
+      "com.microsoft.nchwc": 1,
+      "com.microsoft.experimental": 1,
+      "ai.onnx.ml": 5,
+      "com.microsoft": 1
+    },
+    "ir_version": 8,
+    "producer": "onnx.quantize 0.1.0",
+    "inputs": [
+      {
+        "name": "images",
+        "dtype": "FLOAT",
+        "shape": [
+          "batch",
+          3,
+          "height",
+          "width"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "output0",
+        "dtype": "FLOAT",
+        "shape": [
+          "batch",
+          300,
+          6
+        ]
+      }
+    ],
+    "metadata": {
+      "onnx.infer": "onnxruntime.quant",
+      "onnx.quant.pre_process": "onnxruntime.quant",
+      "args": "{'data': None, 'batch': 1, 'fraction': 1.0, 'quantize': None, 'nms': False, 'dynamic': True, 'simplify': True, 'opset': 18}",
+      "names": "{0: 'plane', 1: 'ship'}",
+      "imgsz": "[1024, 1024]",
+      "end2end": "True",
+      "channels": "3",
+      "batch": "1",
+      "head": "Detect",
+      "stride": "32",
+      "author": "Ultralytics",
+      "description": "Ultralytics YOLO26s model trained on ~/talos/data/yolo/airmot_t1024/data.yaml",
+      "license": "AGPL-3.0 License (https://ultralytics.com/license)",
+      "task": "detect",
+      "date": "2026-11-15T13:40:29.967009-08:00",
+      "version": "8.4.210",
+      "docs": "https://docs.ultralytics.com"
+    },
+    "nodes": 1083,
+    "has_TopK": true,
+    "quant_ops": {
+      "DynamicQuantizeLinear": 92,
+      "ConvInteger": 102
+    }
+  },
+  "engine_fp16": {
+    "file": "y26s_t1024.engine",
+    "bytes": 23039712,
+    "sha256": "ebecb7a7ca7da92b63d51a22f7d7830414db6ed7a9ae70aa805eb51afc5ada3f",
+    "export_s": 471.0,
+    "tensorrt": "10.16.1.11",
+    "export_args": {
+      "format": "engine",
+      "imgsz": 1024,
+      "quantize": 16,
+      "nms": false,
+      "dynamic": true,
+      "batch": 64
+    },
+    "intermediate_onnx": {
+      "file": "y26s_t1024_engine_src.onnx",
+      "bytes": 38485457,
+      "sha256": "5996695cea5e18b480c278b9f48f85de4e610822b8b965c30efb9bccc2dc6fe0",
+      "opset": {
+        "ai.onnx": 18
+      },
+      "ir_version": 8,
+      "producer": "pytorch 2.11.0",
+      "inputs": [
+        {
+          "name": "images",
+          "dtype": "FLOAT",
+          "shape": [
+            "batch",
+            3,
+            "height",
+            "width"
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output0",
+          "dtype": "FLOAT",
+          "shape": [
+            "batch",
+            300,
+            6
+          ]
+        }
+      ],
+      "metadata": {
+        "description": "Ultralytics YOLO26s model trained on ~/talos/data/yolo/airmot_t1024/data.yaml",
+        "author": "Ultralytics",
+        "date": "2026-11-15T13:40:39.348554-08:00",
+        "version": "8.4.210",
+        "license": "AGPL-3.0 License (https://ultralytics.com/license)",
+        "docs": "https://docs.ultralytics.com",
+        "stride": "32",
+        "task": "detect",
+        "head": "Detect",
+        "batch": "64",
+        "imgsz": "[1024, 1024]",
+        "names": "{0: 'plane', 1: 'ship'}",
+        "args": "{'data': None, 'batch': 64, 'fraction': 1.0, 'quantize': 16, 'nms': False, 'dynamic': True, 'simplify': True, 'opset': None, 'workspace': None}",
+        "channels": "3",
+        "end2end": "True"
+      },
+      "nodes": 487,
+      "has_TopK": true,
+      "quant_ops": {}
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "frames": 40,
+  "ms_per_frame": {
+    "decode": 32.556,
+    "detect": 336.311,
+    "track": 1.534,
+    "threat": 0.602,
+    "render": 0.0,
+    "total": 371.003
+  },
+  "fps_end_to_end": 2.7,
+  "host": "lmn01",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "detector": {
+    "backend": "onnx",
+    "tile": 1024,
+    "overlap": 0.2,
+    "imgsz": 1024,
+    "batch_tiles": 64,
+    "gpu_tiling": false,
+    "with_full_frame": false,
+    "full_imgsz": null,
+    "merge": {
+      "rule": "class-aware greedy clusters, uncut-first; dup = IoU or mutual centre containment; cut fragment = IoS or centre inside; union of cut continuations; cross-source only",
+      "iou_thr": 0.5,
+      "ios_thr": 0.6,
+      "span_iou": 0.5,
+      "edge_margin_px": 3.0
+    },
+    "tile_backend": {
+      "runtime": "onnxruntime",
+      "onnxruntime": "1.31.1",
+      "model": "y26s_t1024_u8.onnx",
+      "provider": "cpu",
+      "active_providers": [
+        "CPUExecutionProvider"
+      ],
+      "fp16": false,
+      "threads": 32,
+      "input": "images_u8",
+      "input_layout": "uint8 BHWC BGR (fused preprocess)",
+      "fixed_batch": null,
+      "imgsz_arg": 1024,
+      "imgsz_used": [
+        1024,
+        1024
+      ],
+      "end2end_arg": true,
+      "head_end2end_active": true,
+      "output_topk": 300,
+      "predict_kwargs": {
+        "conf": 0.1,
+        "max_det": 300
+      }
+    }
+  }
+}

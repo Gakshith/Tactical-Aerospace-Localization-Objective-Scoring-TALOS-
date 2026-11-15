@@ -1,0 +1,47 @@
+{
+  "frames": 40,
+  "ms_per_frame": {
+    "decode": 47.434,
+    "detect": 879.574,
+    "track": 1.611,
+    "threat": 4.761,
+    "render": 0.0,
+    "total": 933.38
+  },
+  "fps_end_to_end": 1.07,
+  "host": "lmn01",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "detector": {
+    "tile": 1024,
+    "overlap": 0.2,
+    "imgsz": 1024,
+    "batch_tiles": 64,
+    "gpu_tiling": false,
+    "with_full_frame": false,
+    "full_imgsz": null,
+    "merge": {
+      "rule": "class-aware greedy clusters, uncut-first; dup = IoU or mutual centre containment; cut fragment = IoS or centre inside; union of cut continuations; cross-source only",
+      "iou_thr": 0.5,
+      "ios_thr": 0.6,
+      "span_iou": 0.5,
+      "edge_margin_px": 3.0
+    },
+    "tile_backend": {
+      "imgsz_arg": 1024,
+      "imgsz_used": [
+        1024,
+        1024
+      ],
+      "end2end_arg": true,
+      "head_end2end_active": true,
+      "predict_kwargs": {
+        "conf": 0.1,
+        "verbose": false,
+        "max_det": 300,
+        "imgsz": 1024,
+        "end2end": true
+      }
+    }
+  }
+}

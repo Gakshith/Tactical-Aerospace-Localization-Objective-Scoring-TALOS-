@@ -1,0 +1,228 @@
+{
+  "run_id": "d3-ablation-calib-noisy-plane-val",
+  "git_sha": "efb9b20034e40caced7de41f77fbc4b2ec383587",
+  "git_dirty": false,
+  "config_hash": "237a748cebb1",
+  "config": {
+    "bench": "AIRMOT_plane",
+    "split": "val",
+    "detector": "oracle-noisy",
+    "trackers": [
+      "bytetrack",
+      "talos:a0-base",
+      "talos:a1-lifecycle",
+      "talos:a2-real-dt",
+      "talos:a3-maha-gate",
+      "talos:a4-two-stage",
+      "talos:a5-reupdate",
+      "talos:a6-coast-out"
+    ],
+    "params": {
+      "talos:a0-base": {
+        "lifecycle": false,
+        "real_dt": false,
+        "maha_gate": false,
+        "two_stage": false,
+        "reupdate": false,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a1-lifecycle": {
+        "lifecycle": true,
+        "real_dt": false,
+        "maha_gate": false,
+        "two_stage": false,
+        "reupdate": false,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a2-real-dt": {
+        "lifecycle": true,
+        "real_dt": true,
+        "maha_gate": false,
+        "two_stage": false,
+        "reupdate": false,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a3-maha-gate": {
+        "lifecycle": true,
+        "real_dt": true,
+        "maha_gate": true,
+        "two_stage": false,
+        "reupdate": false,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a4-two-stage": {
+        "lifecycle": true,
+        "real_dt": true,
+        "maha_gate": true,
+        "two_stage": true,
+        "reupdate": false,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a5-reupdate": {
+        "lifecycle": true,
+        "real_dt": true,
+        "maha_gate": true,
+        "two_stage": true,
+        "reupdate": true,
+        "coast_output": false,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      },
+      "talos:a6-coast-out": {
+        "lifecycle": true,
+        "real_dt": true,
+        "maha_gate": true,
+        "two_stage": true,
+        "reupdate": true,
+        "coast_output": true,
+        "meas_pos_min": 1.815,
+        "meas_pos_frac": 0.0401
+      }
+    },
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-004",
+      "airmot-036",
+      "airmot-043",
+      "airmot-053",
+      "airmot-054"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "bytetrack": {
+      "AssA": 54.463,
+      "DetA": 57.768,
+      "HOTA": 55.431,
+      "IDSW": 69.0,
+      "MOTA": 67.947,
+      "IDF1": 68.516,
+      "IDs": 92.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a0-base": {
+      "AssA": 61.518,
+      "DetA": 31.112,
+      "HOTA": 43.425,
+      "IDSW": 569.0,
+      "MOTA": -42.924,
+      "IDF1": 46.186,
+      "IDs": 142.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a1-lifecycle": {
+      "AssA": 34.152,
+      "DetA": 41.66,
+      "HOTA": 37.257,
+      "IDSW": 818.0,
+      "MOTA": 42.167,
+      "IDF1": 51.33,
+      "IDs": 40.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a2-real-dt": {
+      "AssA": 25.232,
+      "DetA": 41.32,
+      "HOTA": 31.837,
+      "IDSW": 835.0,
+      "MOTA": 41.621,
+      "IDF1": 40.392,
+      "IDs": 50.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a3-maha-gate": {
+      "AssA": 42.64,
+      "DetA": 40.977,
+      "HOTA": 41.439,
+      "IDSW": 475.0,
+      "MOTA": 44.117,
+      "IDF1": 60.207,
+      "IDs": 57.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a4-two-stage": {
+      "AssA": 58.252,
+      "DetA": 56.687,
+      "HOTA": 56.85,
+      "IDSW": 635.0,
+      "MOTA": 62.679,
+      "IDF1": 72.925,
+      "IDs": 61.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a5-reupdate": {
+      "AssA": 57.612,
+      "DetA": 56.564,
+      "HOTA": 56.479,
+      "IDSW": 772.0,
+      "MOTA": 61.53,
+      "IDF1": 72.22,
+      "IDs": 65.0,
+      "GT_IDs": 43.0
+    },
+    "talos:a6-coast-out": {
+      "AssA": 66.431,
+      "DetA": 57.155,
+      "HOTA": 61.112,
+      "IDSW": 183.0,
+      "MOTA": 64.382,
+      "IDF1": 76.921,
+      "IDs": 65.0,
+      "GT_IDs": 43.0
+    }
+  },
+  "timing": {
+    "bytetrack": {
+      "frames": 1448,
+      "track_seconds": 0.4039,
+      "track_ms_per_frame": 0.279
+    },
+    "talos:a0-base": {
+      "frames": 1448,
+      "track_seconds": 0.5535,
+      "track_ms_per_frame": 0.3822
+    },
+    "talos:a1-lifecycle": {
+      "frames": 1448,
+      "track_seconds": 0.3813,
+      "track_ms_per_frame": 0.2633
+    },
+    "talos:a2-real-dt": {
+      "frames": 1448,
+      "track_seconds": 0.3804,
+      "track_ms_per_frame": 0.2627
+    },
+    "talos:a3-maha-gate": {
+      "frames": 1448,
+      "track_seconds": 0.5768,
+      "track_ms_per_frame": 0.3983
+    },
+    "talos:a4-two-stage": {
+      "frames": 1448,
+      "track_seconds": 0.811,
+      "track_ms_per_frame": 0.5601
+    },
+    "talos:a5-reupdate": {
+      "frames": 1448,
+      "track_seconds": 0.9763,
+      "track_ms_per_frame": 0.6742
+    },
+    "talos:a6-coast-out": {
+      "frames": 1448,
+      "track_seconds": 1.0164,
+      "track_ms_per_frame": 0.702
+    }
+  }
+}

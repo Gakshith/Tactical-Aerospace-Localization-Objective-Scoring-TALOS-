@@ -1,0 +1,179 @@
+{
+  "split": "val",
+  "ref": "rt_torch_fp32",
+  "tolerance": {
+    "ap50_abs": 0.005,
+    "boxes_frac": 0.01
+  },
+  "what": "tiled YOLO26s (1024 tiles, 6 per 1920x1080 frame) + merge, AIR-MOT val, one GPU",
+  "rows": [
+    {
+      "variant": "rt_ort_cuda_fp32",
+      "backend": "onnx",
+      "detail": "cuda",
+      "gpu": "NVIDIA A100 80GB PCIe",
+      "frames": 3148,
+      "detect_ms_per_frame": 81.97,
+      "fps_detect": 12.2,
+      "classes": {
+        "plane": {
+          "ap50": 0.77743,
+          "dets_all": 16984
+        },
+        "ship": {
+          "ap50": 0.44053,
+          "dets_all": 46642
+        }
+      },
+      "fp16": false,
+      "parity_vs_ref": {
+        "plane": {
+          "d_ap50": -7e-05,
+          "d_boxes_frac": 0.00012,
+          "ok": true
+        },
+        "ship": {
+          "d_ap50": -0.0001,
+          "d_boxes_frac": 0.00043,
+          "ok": true
+        }
+      },
+      "parity_ok": true,
+      "speedup_vs_ref": 0.33
+    },
+    {
+      "variant": "rt_ort_trt_fp16",
+      "backend": "onnx",
+      "detail": "tensorrt",
+      "gpu": "NVIDIA A100 80GB PCIe",
+      "frames": 3148,
+      "detect_ms_per_frame": 12.725,
+      "fps_detect": 78.6,
+      "classes": {
+        "plane": {
+          "ap50": 0.77757,
+          "dets_all": 16971
+        },
+        "ship": {
+          "ap50": 0.43991,
+          "dets_all": 46731
+        }
+      },
+      "fp16": true,
+      "parity_vs_ref": {
+        "plane": {
+          "d_ap50": 7e-05,
+          "d_boxes_frac": -0.00065,
+          "ok": true
+        },
+        "ship": {
+          "d_ap50": -0.00072,
+          "d_boxes_frac": 0.00234,
+          "ok": true
+        }
+      },
+      "parity_ok": true,
+      "speedup_vs_ref": 2.11
+    },
+    {
+      "variant": "rt_torch_fp16",
+      "backend": "torch",
+      "detail": "fp16",
+      "gpu": "NVIDIA A100 80GB PCIe",
+      "frames": 3148,
+      "detect_ms_per_frame": 22.214,
+      "fps_detect": 45.0,
+      "classes": {
+        "plane": {
+          "ap50": 0.7776,
+          "dets_all": 16982
+        },
+        "ship": {
+          "ap50": 0.44003,
+          "dets_all": 46742
+        }
+      },
+      "parity_vs_ref": {
+        "plane": {
+          "d_ap50": 0.0001,
+          "d_boxes_frac": 0.0,
+          "ok": true
+        },
+        "ship": {
+          "d_ap50": -0.0006,
+          "d_boxes_frac": 0.00257,
+          "ok": true
+        }
+      },
+      "parity_ok": true,
+      "speedup_vs_ref": 1.21
+    },
+    {
+      "variant": "rt_torch_fp32",
+      "backend": "torch",
+      "detail": "fp32",
+      "gpu": "NVIDIA A100 80GB PCIe",
+      "frames": 3148,
+      "detect_ms_per_frame": 26.881,
+      "fps_detect": 37.2,
+      "classes": {
+        "plane": {
+          "ap50": 0.7775,
+          "dets_all": 16982
+        },
+        "ship": {
+          "ap50": 0.44063,
+          "dets_all": 46622
+        }
+      },
+      "parity_vs_ref": {
+        "plane": {
+          "d_ap50": 0.0,
+          "d_boxes_frac": 0.0,
+          "ok": true
+        },
+        "ship": {
+          "d_ap50": 0.0,
+          "d_boxes_frac": 0.0,
+          "ok": true
+        }
+      },
+      "parity_ok": true,
+      "speedup_vs_ref": 1.0
+    },
+    {
+      "variant": "rt_trt_fp16",
+      "backend": "trt",
+      "detail": "fp32",
+      "gpu": "NVIDIA A100 80GB PCIe",
+      "frames": 3148,
+      "detect_ms_per_frame": 15.962,
+      "fps_detect": 62.6,
+      "classes": {
+        "plane": {
+          "ap50": 0.77778,
+          "dets_all": 16972
+        },
+        "ship": {
+          "ap50": 0.43993,
+          "dets_all": 46762
+        }
+      },
+      "fp16": null,
+      "parity_vs_ref": {
+        "plane": {
+          "d_ap50": 0.00028,
+          "d_boxes_frac": -0.00059,
+          "ok": true
+        },
+        "ship": {
+          "d_ap50": -0.0007,
+          "d_boxes_frac": 0.003,
+          "ok": true
+        }
+      },
+      "parity_ok": true,
+      "speedup_vs_ref": 1.68
+    }
+  ]
+}

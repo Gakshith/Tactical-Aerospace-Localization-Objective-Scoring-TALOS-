@@ -1,0 +1,105 @@
+{
+  "n_events": 5298,
+  "n_positive_events": 368,
+  "zones": {
+    "on-path": 25,
+    "near-miss": 25
+  },
+  "config": {
+    "horizon_s": 10.0,
+    "fps": 10.0,
+    "accel_std": 20.0,
+    "n_samples": 512,
+    "seed": 0
+  },
+  "v2_entry_prob": {
+    "auroc": 0.8133,
+    "avg_precision": 0.5682,
+    "threshold_at_5pct_false_alarms": 0.1808,
+    "entries_warned": "19/24",
+    "median_lead_s": 8.3
+  },
+  "v1_score": {
+    "auroc": 0.7356,
+    "avg_precision": 0.4219,
+    "threshold_at_5pct_false_alarms": 0.5479,
+    "entries_warned": "19/24",
+    "median_lead_s": 8.3
+  },
+  "v2_calibration": {
+    "ece": 0.027,
+    "brier": 0.04563,
+    "reliability": [
+      {
+        "bin": "0.0-0.1",
+        "mean_p": 0.021,
+        "observed": 0.021,
+        "n": 4023
+      },
+      {
+        "bin": "0.1-0.2",
+        "mean_p": 0.139,
+        "observed": 0.061,
+        "n": 858
+      },
+      {
+        "bin": "0.2-0.3",
+        "mean_p": 0.24,
+        "observed": 0.352,
+        "n": 199
+      },
+      {
+        "bin": "0.3-0.4",
+        "mean_p": 0.344,
+        "observed": 0.575,
+        "n": 80
+      },
+      {
+        "bin": "0.4-0.5",
+        "mean_p": 0.44,
+        "observed": 0.87,
+        "n": 54
+      },
+      {
+        "bin": "0.5-0.6",
+        "mean_p": 0.543,
+        "observed": 0.846,
+        "n": 26
+      },
+      {
+        "bin": "0.6-0.7",
+        "mean_p": 0.656,
+        "observed": 0.684,
+        "n": 19
+      },
+      {
+        "bin": "0.7-0.8",
+        "mean_p": 0.744,
+        "observed": 0.762,
+        "n": 21
+      },
+      {
+        "bin": "0.8-0.9",
+        "mean_p": 0.842,
+        "observed": 1.0,
+        "n": 8
+      },
+      {
+        "bin": "0.9-1.0",
+        "mean_p": 0.954,
+        "observed": 0.9,
+        "n": 10
+      }
+    ]
+  },
+  "benches": [
+    "AIRMOT_plane",
+    "AIRMOT_ship"
+  ],
+  "splits": [
+    "val"
+  ],
+  "radius_px": 25.0,
+  "lead_s": 8.0,
+  "fps_assumed": 10.0
+}

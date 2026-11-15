@@ -1,0 +1,149 @@
+{
+  "AIRMOT_plane": {
+    "detector": "y26s_t512x2",
+    "bench": "AIRMOT_plane",
+    "iou_thr": 0.5,
+    "conf": 0.25,
+    "min_conf_for_ap": 0.1,
+    "size_bins_px_maxwh": {
+      "lt16": [
+        0,
+        16
+      ],
+      "16to32": [
+        16,
+        32
+      ],
+      "gt32": [
+        32,
+        null
+      ]
+    },
+    "matching": "per frame, greedy by conf, IoU>=0.5; AP all-point interpolated",
+    "detector_meta": {
+      "weights": "~/talos/runs/det/y26s_t512x2/weights/best.pt",
+      "weights_sha256": "60f3324b8591612c594c17596fcdd8284204a6b9176ad42f2e1b97b55ed0d879",
+      "imgsz_used": [
+        1024,
+        1024
+      ],
+      "save_conf": 0.1,
+      "v1_conf": 0.5,
+      "ultralytics": "8.4.210",
+      "torch": "2.11.0+cu128",
+      "gpu": "NVIDIA A100 80GB PCIe"
+    },
+    "splits": {
+      "val": {
+        "seqs": [
+          "airmot-004",
+          "airmot-036",
+          "airmot-043",
+          "airmot-053",
+          "airmot-054"
+        ],
+        "frames": 1448,
+        "gt_boxes": 13743,
+        "dets_all": 16086,
+        "at_conf_0.25": {
+          "dets": 12623,
+          "tp": 9611,
+          "fp": 3012,
+          "fn": 4132,
+          "precision": 0.76139,
+          "recall": 0.69934,
+          "f1": 0.72904
+        },
+        "ap50": 0.70493,
+        "pr_by_conf": {
+          "0.1": {
+            "dets": 16086,
+            "tp": 10335,
+            "fp": 5751,
+            "fn": 3408,
+            "precision": 0.64248,
+            "recall": 0.75202,
+            "f1": 0.69295
+          },
+          "0.25": {
+            "dets": 12623,
+            "tp": 9611,
+            "fp": 3012,
+            "fn": 4132,
+            "precision": 0.76139,
+            "recall": 0.69934,
+            "f1": 0.72904
+          },
+          "0.5": {
+            "dets": 10087,
+            "tp": 8585,
+            "fp": 1502,
+            "fn": 5158,
+            "precision": 0.8511,
+            "recall": 0.62468,
+            "f1": 0.72052
+          }
+        },
+        "recall_by_size": {
+          "lt16": {
+            "gt_boxes": 2282,
+            "recall_at_0.25": 0.05083,
+            "recall_at_min_conf": 0.12138
+          },
+          "16to32": {
+            "gt_boxes": 3586,
+            "recall_at_0.25": 0.51088,
+            "recall_at_min_conf": 0.6266
+          },
+          "gt32": {
+            "gt_boxes": 7875,
+            "recall_at_0.25": 0.97308,
+            "recall_at_min_conf": 0.99187
+          }
+        },
+        "per_seq": {
+          "airmot-004": {
+            "frames": 143,
+            "gt_boxes": 143,
+            "ap50": 0.98538,
+            "dets": 146,
+            "precision": 0.96575,
+            "recall": 0.98601
+          },
+          "airmot-036": {
+            "frames": 326,
+            "gt_boxes": 326,
+            "ap50": 0.89015,
+            "dets": 727,
+            "precision": 0.42091,
+            "recall": 0.93865
+          },
+          "airmot-043": {
+            "frames": 327,
+            "gt_boxes": 6754,
+            "ap50": 0.97915,
+            "dets": 7864,
+            "precision": 0.83469,
+            "recall": 0.97187
+          },
+          "airmot-053": {
+            "frames": 326,
+            "gt_boxes": 326,
+            "ap50": 0.99988,
+            "dets": 550,
+            "precision": 0.59273,
+            "recall": 1.0
+          },
+          "airmot-054": {
+            "frames": 326,
+            "gt_boxes": 6194,
+            "ap50": 0.34335,
+            "dets": 3336,
+            "precision": 0.68165,
+            "recall": 0.36713
+          }
+        }
+      }
+    }
+  }
+}
