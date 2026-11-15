@@ -68,6 +68,39 @@ def stage_gt(bench: str, split: str, seqs: list[str], gt_root: Path) -> None:
             os.symlink(DATA / "mot" / f"{bench}-all" / s, link)
 
 
+def evaluate_trackers(bench: str, split: str, detector: str, trackers: list[str], params: dict,
+                      out: Path, det_root: Path = DATA / "dets", min_conf: float = 0.0,
+                      num_cores: int = 8) -> tuple[dict, dict, list[str]]:
+    """Run trackers over cached detections of one split and score them.
+    Returns (scores, timing, seqs); MOT output stays under ``out/trk``."""
+    seqs = bench_seqs(bench, split)
+    if not seqs:
+        raise SystemExit(f"no {bench} sequences in split {split}")
+    if detector in ("oracle", "oracle-noisy"):
+        ensure_oracle(bench, seqs, det_root, detector)
+    gt_root = out / "gt"
+    stage_gt(bench, split, seqs, gt_root)
+    trk_root = out / "trk"
+    timing = {}
+    cached = {}
+    for name in trackers:
+        factory = get(name.split(":", 1)[0])
+        total_s, total_f = 0.0, 0
+        for s in seqs:
+            info = read_seqinfo(DATA / "mot" / f"{bench}-all" / s)
+            if s not in cached:
+                cached[s] = (info, frames_from_cache(det_root, detector, bench, s, info.length, min_conf))
+            res = run_sequence(factory(fps=info.fps, **params.get(name, {})), cached[s][1])
+            write_mot(trk_root / f"{bench}-{split}" / name / "data" / f"{s}.txt", res.rows)
+            total_s += res.seconds
+            total_f += res.n_frames
+        timing[name] = {"frames": total_f, "track_seconds": round(total_s, 4),
+                        "track_ms_per_frame": round(1000 * total_s / max(total_f, 1), 4)}
+    scores = run_trackeval(gt_root, trk_root, bench, split, trackers, seqs, num_cores=num_cores)
+    shutil.rmtree(gt_root)  # only symlinks; GT stays in DATA
+    return scores, timing, seqs
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--bench", required=True)
@@ -91,40 +124,16 @@ def main() -> None:
             f.write(f"- {a.run_id}: {a.bench} test, detector={a.detector}, trackers={a.trackers}\n")
 
     params = json.loads(a.params)
-    seqs = bench_seqs(a.bench, a.split)
-    if not seqs:
-        raise SystemExit(f"no {a.bench} sequences in split {a.split}")
-    if a.detector in ("oracle", "oracle-noisy"):
-        ensure_oracle(a.bench, seqs, a.det_root, a.detector)
-
     out = a.out_root / a.run_id
     if out.exists():
         raise SystemExit(f"{out} exists; run ids are never reused")
-    gt_root = out / "gt"
-    stage_gt(a.bench, a.split, seqs, gt_root)
-    trk_root = out / "trk"
-
-    timing = {}
-    for name in a.trackers:
-        factory = get(name.split(":", 1)[0])
-        total_s, total_f = 0.0, 0
-        for s in seqs:
-            info = read_seqinfo(DATA / "mot" / f"{a.bench}-all" / s)
-            frames = frames_from_cache(a.det_root, a.detector, a.bench, s, info.length, a.min_conf)
-            res = run_sequence(factory(fps=info.fps, **params.get(name, {})), frames)
-            write_mot(trk_root / f"{a.bench}-{a.split}" / name / "data" / f"{s}.txt", res.rows)
-            total_s += res.seconds
-            total_f += res.n_frames
-        timing[name] = {"frames": total_f, "track_seconds": round(total_s, 4),
-                        "track_ms_per_frame": round(1000 * total_s / max(total_f, 1), 4)}
-
-    scores = run_trackeval(gt_root, trk_root, a.bench, a.split, a.trackers, seqs, num_cores=8)
+    scores, timing, seqs = evaluate_trackers(a.bench, a.split, a.detector, a.trackers, params,
+                                             out, a.det_root, a.min_conf)
     config = {"bench": a.bench, "split": a.split, "detector": a.detector, "trackers": a.trackers,
               "params": params, "min_conf": a.min_conf, "seqs": seqs, "fps_assumed": 10.0}
     result = {"run_id": a.run_id, **run_metadata(config), "cpu": platform.processor() or platform.machine(),
               "scores": scores, "timing": timing}
     (out / "metrics.json").write_text(json.dumps(result, indent=2) + "\n")
-    shutil.rmtree(gt_root)  # only symlinks; GT stays in DATA
 
     print(f"{a.run_id}: {a.bench} {a.split} detector={a.detector} ({len(seqs)} seqs)")
     print(f"{'tracker':<10} {'HOTA':>6} {'DetA':>6} {'AssA':>6} {'IDF1':>6} {'MOTA':>7} {'IDSW':>6} {'ms/f':>7}")
