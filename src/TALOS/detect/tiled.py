@@ -67,6 +67,11 @@ Implemented directly, not with the ``sahi`` library (0.14.0 on Polaris):
 
     The detector is pluggable (``backend`` / ``full_backend``: any callable
     images -> list of (k, 6) arrays), so tests run with a fake model, no GPU.
+    ``backend`` may also name a runtime, with ``weights`` pointing at its artifact:
+    "torch" (default; Ultralytics on the .pt), "onnx" (ONNX Runtime on an end2end
+    .onnx, ``onnx_backend.py``; ``ort_provider`` cpu | cuda | tensorrt, fp16 on
+    tensorrt with ``half``) or "trt" (Ultralytics on a TensorRT .engine). Tiling and
+    merge are the same code for every backend.
 """
 from __future__ import annotations
 
@@ -272,13 +277,42 @@ class UltralyticsBackend:
                 "predict_kwargs": {k: v for k, v in self.kw.items() if k != "device"}}
 
 
+BACKENDS = ("torch", "onnx", "trt")
+
+
+def make_backend(kind: str, weights, imgsz: int | None, conf: float = 0.1, end2end: bool | None = True,
+                 device: str = "cuda:0", half: bool = False, classes: list[int] | None = None, max_det: int = 300,
+                 ort_provider: str | None = None, threads: int | None = None, trt_max_batch: int = 64):
+    """Build a named detector backend; every one maps a list of BGR images to (k, 6) arrays."""
+    if kind == "torch":
+        return UltralyticsBackend(weights, imgsz=imgsz, conf=conf, end2end=end2end, device=device, half=half,
+                                  classes=classes, max_det=max_det)
+    if kind == "trt":
+        if not str(weights).endswith(".engine"):
+            raise ValueError(f"backend 'trt' runs a TensorRT .engine, got {weights}")
+        # precision and head are baked into the engine (exported with nms=False = end2end)
+        return UltralyticsBackend(weights, imgsz=imgsz, conf=conf, end2end=None, device=device, half=False,
+                                  classes=classes, max_det=max_det)
+    if kind == "onnx":
+        from src.TALOS.detect.onnx_backend import OnnxBackend
+        if end2end is False:
+            raise ValueError("the ONNX backend only runs end2end (NMS-free) graphs")
+        prov = ort_provider or ("cuda" if str(device).startswith("cuda") else "cpu")
+        dev_id = int(str(device).split(":")[1]) if str(device).startswith("cuda:") else 0
+        return OnnxBackend(str(weights), provider=prov, imgsz=imgsz, conf=conf, classes=classes, max_det=max_det,
+                           device_id=dev_id, threads=threads, fp16=half and prov == "tensorrt",
+                           trt_max_batch=trt_max_batch)
+    raise ValueError(f"backend must be a callable or one of {BACKENDS}, got {kind!r}")
+
+
 class TiledDetector:
     """Sliced inference over full frames. ``predict(frames)`` -> list of (k, 6)
     [x1, y1, x2, y2, conf, cls] in full-frame pixels, one array per frame.
 
     ``batch`` is the number of images (tiles) per detector call; tiles of several
     frames share a call. Pass ``backend`` / ``full_backend`` to inject a model
-    (tests); otherwise Ultralytics backends are built from ``weights``.
+    (tests), or name a runtime in ``backend`` ("torch" | "onnx" | "trt", see ``make_backend``);
+    the default builds Ultralytics backends from ``weights``.
     """
 
     def __init__(self, weights=None, tile: int = 640, overlap: float = 0.2, imgsz: int | None = None,
@@ -286,19 +320,23 @@ class TiledDetector:
                  with_full_frame: bool = False, full_imgsz: int | None = None, half: bool = False,
                  classes: list[int] | None = None, max_det: int = 300,
                  iou_thr: float = 0.5, ios_thr: float = 0.6, span_iou: float = 0.5, edge_margin: float = 3.0,
-                 gpu_tiling: bool = False, backend=None, full_backend=None):
+                 gpu_tiling: bool = False, backend=None, full_backend=None,
+                 ort_provider: str | None = None, threads: int | None = None):
         self.tile, self.overlap, self.batch = int(tile), float(overlap), int(batch)
         self.device = device
         self.with_full_frame = with_full_frame
         self.iou_thr, self.ios_thr, self.span_iou, self.edge_margin = iou_thr, ios_thr, span_iou, edge_margin
         self.imgsz = imgsz or self.tile
         self.full_imgsz = full_imgsz or self.imgsz
-        common = dict(conf=conf, end2end=end2end, device=device, half=half, classes=classes, max_det=max_det)
-        self.backend = backend or UltralyticsBackend(weights, imgsz=self.imgsz, **common)
+        kind = backend if isinstance(backend, str) else ("torch" if backend is None else None)
+        self.backend_kind = kind or "custom"
+        common = dict(conf=conf, end2end=end2end, device=device, half=half, classes=classes, max_det=max_det,
+                      ort_provider=ort_provider, threads=threads, trt_max_batch=self.batch)
+        self.backend = make_backend(kind, weights, self.imgsz, **common) if kind else backend
         self.full_backend = None
         if with_full_frame:
             # separate model instance: one predictor per input size, no re-setup between calls
-            self.full_backend = full_backend or UltralyticsBackend(weights, imgsz=self.full_imgsz, **common)
+            self.full_backend = full_backend or make_backend(kind or "torch", weights, self.full_imgsz, **common)
         self.timing = {"tile_infer_s": 0.0, "full_infer_s": 0.0, "merge_s": 0.0, "frames": 0, "tiles": 0}
         # Optional: crop tiles on the GPU and hand the model a ready (B,3,T,T) tensor. Off by default:
         # on the A100 it removed ~5 ms/frame of preprocess but ultralytics then copies the tensor batch
@@ -376,7 +414,8 @@ class TiledDetector:
         return out
 
     def describe(self) -> dict:
-        d = {"tile": self.tile, "overlap": self.overlap, "imgsz": self.imgsz, "batch_tiles": self.batch,
+        d = {"backend": self.backend_kind,
+             "tile": self.tile, "overlap": self.overlap, "imgsz": self.imgsz, "batch_tiles": self.batch,
              "gpu_tiling": self.gpu_tiling,
              "with_full_frame": self.with_full_frame, "full_imgsz": self.full_imgsz if self.with_full_frame else None,
              "merge": {"rule": "class-aware greedy clusters, uncut-first; dup = IoU or mutual centre containment; "

@@ -235,11 +235,18 @@ def main() -> None:
     ap.add_argument("--batch", type=int, default=4, help="frames per detector call")
     ap.add_argument("--max-frames", type=int)
     ap.add_argument("--no-video", action="store_true")
+    ap.add_argument("--backend", choices=["torch", "onnx", "trt"], default="torch",
+                    help="detector runtime; --weights names its .pt / .onnx / .engine")
+    ap.add_argument("--ort-provider", choices=["cpu", "cuda", "tensorrt"], default=None,
+                    help="onnx backend: execution provider (default cuda on a GPU device, else cpu)")
+    ap.add_argument("--threads", type=int, default=None, help="onnx on CPU: intra-op threads")
+    ap.add_argument("--half", action="store_true", help="fp16 (torch, or onnx with tensorrt)")
     a = ap.parse_args()
     cfg = json.loads(CONFIG.read_text())
     d = cfg["detector"]
     det = TiledDetector(str(Path(a.weights or d["weights"]).expanduser()), tile=d["tile"], overlap=d["overlap"],
-                        imgsz=d["imgsz"], conf=d["conf"], device=a.device)
+                        imgsz=d["imgsz"], conf=d["conf"], device=a.device, backend=a.backend,
+                        ort_provider=a.ort_provider, threads=a.threads, half=a.half)
     pipe = Pipeline(det, fps=a.fps, zone=parse_zone(a), config=cfg)
     timing = run_video(a.video, a.out, pipe, batch=a.batch, max_frames=a.max_frames,
                        write_video=not a.no_video)

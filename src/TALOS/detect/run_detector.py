@@ -30,6 +30,13 @@ single-bench flags (``--bench --bench-dir --cls``) behave as before.
         --name coco_y26s_tiled --mode tiled --tile 640 --overlap 0.2 \
         --classes 4:AIRMOT_plane,8:AIRMOT_ship --mot-root ~/talos/data/mot \
         --split val --end2end true --out-root ~/talos/data/dets
+
+Backends (tiled mode). ``--backend torch`` (default) runs Ultralytics on the .pt;
+``--backend onnx`` runs ONNX Runtime on an end2end .onnx (``--ort-provider cpu |
+cuda | tensorrt``; ``--half`` = TensorRT fp16; ``--threads`` = CPU intra-op
+threads) and needs neither torch nor ultralytics; ``--backend trt`` runs
+Ultralytics on a TensorRT .engine. ``--weights`` names the artifact. ``--device
+cpu`` runs without a GPU (torch or onnx).
 """
 from __future__ import annotations
 
@@ -44,11 +51,17 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-import torch
 
 from src.TALOS.data.mot import read_seqinfo
 from src.TALOS.detect import cache
-from src.TALOS.detect.tiled import TiledDetector, UltralyticsBackend
+from src.TALOS.detect.tiled import BACKENDS, TiledDetector, UltralyticsBackend
+
+torch = None  # imported only when a torch-based backend or the GPU is used
+
+
+def _sync() -> None:
+    if torch is not None and torch.cuda.is_available():
+        torch.cuda.synchronize()
 
 
 def sha256(path: Path) -> str:
@@ -65,6 +78,28 @@ def frame_paths(seq_dir: Path) -> list[Path]:
     if len(frames) != info.length:
         raise RuntimeError(f"{seq_dir.name}: {len(frames)} *{info.img_ext} frames, seqLength={info.length}")
     return frames
+
+
+def _cpu_model() -> str | None:
+    try:
+        for line in Path("/proc/cpuinfo").read_text().splitlines():
+            if line.startswith("model name"):
+                return line.split(":", 1)[1].strip()
+    except OSError:
+        pass
+    import platform
+    return platform.processor() or None
+
+
+def _gpu_name() -> str | None:
+    import subprocess
+    try:
+        out = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader", "-i",
+                              os.environ.get("CUDA_VISIBLE_DEVICES", "0").split(",")[0]],
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+        return out.splitlines()[0] if out else None
+    except (OSError, subprocess.SubprocessError):
+        return None
 
 
 def resolve_seqs(a, bench_dir: Path, strict: bool = True) -> list[str]:
@@ -127,17 +162,36 @@ def main() -> None:
                     help="tiled: crop tiles on the GPU and pass a tensor (no net speed gain measured; default off)")
     ap.add_argument("--out-root", type=Path, required=True)
     ap.add_argument("--batch", type=int, default=16, help="frames per call (full) / tiles per call (tiled)")
-    ap.add_argument("--half", action="store_true", help="fp16 (v1 ran fp32)")
+    ap.add_argument("--half", action="store_true", help="fp16 (v1 ran fp32); onnx: TensorRT fp16")
+    ap.add_argument("--backend", choices=BACKENDS, default="torch",
+                    help="tiled: torch (.pt) | onnx (ONNX Runtime, .onnx) | trt (Ultralytics TensorRT .engine)")
+    ap.add_argument("--ort-provider", choices=["cpu", "cuda", "tensorrt"], default=None,
+                    help="onnx backend execution provider (default: cuda on --device cuda, else cpu)")
+    ap.add_argument("--threads", type=int, default=None, help="onnx on CPU: intra-op threads")
+    ap.add_argument("--device", default="cuda:0", help="cuda:0 (the one GPU Slurm gave us) or cpu")
     ap.add_argument("--end2end", choices=["auto", "true", "false"], default="auto",
                     help="YOLO26 head. ultralytics 8.4.210 loads v1's checkpoint with end2end=False "
                          "(one2many head + NMS); v1 ran on 8.4.14, which used the end2end head, so "
                          "reproducing v1 needs 'true'")
     a = ap.parse_args()
 
-    import ultralytics
-
-    assert torch.cuda.is_available(), "CUDA not available"
-    device = "cuda:0"  # the one GPU Slurm gave us
+    global torch
+    if a.backend != "torch" and a.mode != "tiled":
+        raise SystemExit("--backend onnx/trt needs --mode tiled")
+    device = a.device
+    ort_cpu = a.backend == "onnx" and (a.ort_provider == "cpu" or (a.ort_provider is None and device == "cpu"))
+    if a.backend != "onnx":  # the onnx backend runs without torch (ORT calls are synchronous)
+        import torch as _t
+        torch = _t
+    if device.startswith("cuda") and a.backend != "onnx":
+        assert torch.cuda.is_available(), "CUDA not available"
+    try:
+        import ultralytics
+        ul_version = ultralytics.__version__
+    except ImportError:
+        if a.backend != "onnx":
+            raise
+        ul_version = None
 
     # ---- which classes go to which bench, and where each bench lives
     if a.classes:
@@ -177,7 +231,8 @@ def main() -> None:
         det = TiledDetector(a.weights, tile=a.tile, overlap=a.overlap, imgsz=a.imgsz, conf=a.conf, end2end=e2e,
                             device=device, batch=a.batch, with_full_frame=a.with_full_frame,
                             full_imgsz=a.full_imgsz, half=a.half, classes=sorted(bench_of), max_det=a.max_det,
-                            gpu_tiling=a.gpu_tiling)
+                            gpu_tiling=a.gpu_tiling, backend=a.backend, ort_provider=a.ort_provider,
+                            threads=a.threads)
         info0 = read_seqinfo(seq_dir[seqs[0]])
         n_tiles = len(det.grid(info0.width, info0.height))
         frames_per_call = max(1, -(-a.batch // n_tiles))
@@ -186,12 +241,12 @@ def main() -> None:
     first = cv2.imread(str(frame_paths(seq_dir[seqs[0]])[0]))
     for _ in range(3):
         det.predict([first] * frames_per_call) if a.mode == "tiled" else det([first] * frames_per_call)
-    torch.cuda.synchronize()
+    _sync()
     desc = det.describe()
     if a.mode == "tiled":
         det.timing = {k: 0 * v for k, v in det.timing.items()}
         for bk in (det.backend, det.full_backend):
-            if isinstance(bk, UltralyticsBackend):
+            if hasattr(bk, "speed_ms"):
                 bk.speed_ms = {k: 0.0 for k in bk.speed_ms}
                 bk.images_seen = 0
         tb = desc["tile_backend"]
@@ -218,10 +273,10 @@ def main() -> None:
             imgs = [cv2.imread(str(p)) for p in frames[s:s + frames_per_call]]
             if any(im is None for im in imgs):
                 raise FileNotFoundError(frames[s:s + frames_per_call])
-            torch.cuda.synchronize()
+            _sync()
             tp = time.perf_counter()
             res = det.predict(imgs) if a.mode == "tiled" else det(imgs)
-            torch.cuda.synchronize()
+            _sync()
             sp += time.perf_counter() - tp
             for j, d in enumerate(res):
                 if len(d) == 0:
@@ -276,12 +331,20 @@ def main() -> None:
         "end2end_arg": a.end2end, "head_end2end_used": head_e2e,
         "max_det": a.max_det,
         "predict_kwargs": desc.get("predict_kwargs") or desc["tile_backend"]["predict_kwargs"],
-        "tiling": {k: v for k, v in desc.items() if k not in ("tile_backend",)} if a.mode == "tiled" else None,
-        "ultralytics": ultralytics.__version__, "torch": torch.__version__,
-        "cuda": torch.version.cuda, "gpu": torch.cuda.get_device_name(0),
+        "tiling": {k: v for k, v in desc.items() if k not in ("tile_backend", "backend")} if a.mode == "tiled" else None,
+        "ultralytics": ul_version, "torch": torch.__version__ if torch else None,
+        "cuda": torch.version.cuda if torch else None,
+        "gpu": None if ort_cpu or not device.startswith("cuda") else (
+            torch.cuda.get_device_name(0) if torch else _gpu_name()),
         "frame_index": "1-based position in sorted img1/*<imExt>, == seqLength",
         "cache_format": "<root>/<detector>/<bench>/<seq>.npy, (N,6) [frame,x1,y1,x2,y2,conf]",
     }
+    if a.backend != "torch":  # absent key = torch (caches written before backends existed)
+        common["backend"] = a.backend
+        common["backend_detail"] = {k: v for k, v in desc["tile_backend"].items() if k != "predict_kwargs"}
+    if device == "cpu" or ort_cpu:
+        common["cpu"] = _cpu_model()
+        common["threads"] = a.threads
     if len(bench_of) == 1 and not a.classes:
         common["class_kept"] = a.cls  # legacy key
     meta_path = a.out_root / a.name / "meta.json"
