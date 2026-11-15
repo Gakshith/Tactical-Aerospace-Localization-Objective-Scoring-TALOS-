@@ -1,0 +1,11 @@
+*
+!src/
+!scripts/
+!configs/
+!tests/
+!results/
+!env/
+!jobs/
+!README.md
+!LICENSE
+**/__pycache__
