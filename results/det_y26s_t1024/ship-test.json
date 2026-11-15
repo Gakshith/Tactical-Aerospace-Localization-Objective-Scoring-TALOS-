@@ -1,0 +1,167 @@
+{
+  "AIRMOT_ship": {
+    "detector": "y26s_t1024",
+    "bench": "AIRMOT_ship",
+    "iou_thr": 0.5,
+    "conf": 0.25,
+    "min_conf_for_ap": 0.1,
+    "size_bins_px_maxwh": {
+      "lt16": [
+        0,
+        16
+      ],
+      "16to32": [
+        16,
+        32
+      ],
+      "gt32": [
+        32,
+        null
+      ]
+    },
+    "matching": "per frame, greedy by conf, IoU>=0.5; AP all-point interpolated",
+    "detector_meta": {
+      "weights": "~/talos/runs/det/y26s_t1024/weights/best.pt",
+      "weights_sha256": "72e36b28087f0d53dccbb12e87ed3be286b9bd37a2aabc9d0ccaeacdf458ca41",
+      "imgsz_used": [
+        1024,
+        1024
+      ],
+      "save_conf": 0.1,
+      "v1_conf": 0.5,
+      "ultralytics": "8.4.210",
+      "torch": "2.11.0+cu128",
+      "gpu": "NVIDIA A100 80GB PCIe"
+    },
+    "splits": {
+      "test": {
+        "seqs": [
+          "airmot-014",
+          "airmot-028",
+          "airmot-050",
+          "airmot-060",
+          "airmot-062",
+          "airmot-095",
+          "airmot-096"
+        ],
+        "frames": 2281,
+        "gt_boxes": 20153,
+        "dets_all": 44340,
+        "at_conf_0.25": {
+          "dets": 30629,
+          "tp": 15394,
+          "fp": 15235,
+          "fn": 4759,
+          "precision": 0.5026,
+          "recall": 0.76386,
+          "f1": 0.60628
+        },
+        "ap50": 0.58581,
+        "pr_by_conf": {
+          "0.1": {
+            "dets": 44340,
+            "tp": 15792,
+            "fp": 28548,
+            "fn": 4361,
+            "precision": 0.35616,
+            "recall": 0.78361,
+            "f1": 0.48973
+          },
+          "0.25": {
+            "dets": 30629,
+            "tp": 15394,
+            "fp": 15235,
+            "fn": 4759,
+            "precision": 0.5026,
+            "recall": 0.76386,
+            "f1": 0.60628
+          },
+          "0.5": {
+            "dets": 20655,
+            "tp": 13603,
+            "fp": 7052,
+            "fn": 6550,
+            "precision": 0.65858,
+            "recall": 0.67499,
+            "f1": 0.66668
+          }
+        },
+        "recall_by_size": {
+          "lt16": {
+            "gt_boxes": 12808,
+            "recall_at_0.25": 0.88226,
+            "recall_at_min_conf": 0.89062
+          },
+          "16to32": {
+            "gt_boxes": 2346,
+            "recall_at_0.25": 0.87298,
+            "recall_at_min_conf": 0.88747
+          },
+          "gt32": {
+            "gt_boxes": 4999,
+            "recall_at_0.25": 0.40928,
+            "recall_at_min_conf": 0.46069
+          }
+        },
+        "per_seq": {
+          "airmot-014": {
+            "frames": 325,
+            "gt_boxes": 851,
+            "ap50": 0.9036,
+            "dets": 1078,
+            "precision": 0.75696,
+            "recall": 0.95887
+          },
+          "airmot-028": {
+            "frames": 326,
+            "gt_boxes": 4238,
+            "ap50": 0.24545,
+            "dets": 7886,
+            "precision": 0.24461,
+            "recall": 0.45517
+          },
+          "airmot-050": {
+            "frames": 326,
+            "gt_boxes": 326,
+            "ap50": 0.96939,
+            "dets": 401,
+            "precision": 0.80798,
+            "recall": 0.99387
+          },
+          "airmot-060": {
+            "frames": 326,
+            "gt_boxes": 2734,
+            "ap50": 0.44422,
+            "dets": 2894,
+            "precision": 0.59226,
+            "recall": 0.62692
+          },
+          "airmot-062": {
+            "frames": 326,
+            "gt_boxes": 4317,
+            "ap50": 0.64913,
+            "dets": 5185,
+            "precision": 0.62932,
+            "recall": 0.75585
+          },
+          "airmot-095": {
+            "frames": 326,
+            "gt_boxes": 2103,
+            "ap50": 0.819,
+            "dets": 2418,
+            "precision": 0.73201,
+            "recall": 0.84165
+          },
+          "airmot-096": {
+            "frames": 326,
+            "gt_boxes": 5584,
+            "ap50": 0.80917,
+            "dets": 10767,
+            "precision": 0.51806,
+            "recall": 0.99893
+          }
+        }
+      }
+    }
+  }
+}

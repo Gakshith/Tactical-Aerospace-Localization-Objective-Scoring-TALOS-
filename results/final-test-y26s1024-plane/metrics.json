@@ -1,0 +1,155 @@
+{
+  "run_id": "final-test-y26s1024-plane",
+  "git_sha": "853b6842b7330e2aae6815202fda3b7e73b12ffb",
+  "git_dirty": false,
+  "config_hash": "96dd56e94a0b",
+  "config": {
+    "bench": "AIRMOT_plane",
+    "split": "test",
+    "detector": "y26s_t1024",
+    "trackers": [
+      "v1",
+      "sort",
+      "bytetrack",
+      "ocsort",
+      "botsort",
+      "talos"
+    ],
+    "params": {
+      "sort": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "bytetrack": {},
+      "ocsort": {},
+      "botsort": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "talos": {
+        "meas_pos_min": 1.622,
+        "meas_pos_frac": 0.0412,
+        "high_conf": 0.6,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 5,
+        "dup_iou": 0.5
+      }
+    },
+    "min_conf": 0.0,
+    "seqs": [
+      "airmot-005",
+      "airmot-044",
+      "airmot-046",
+      "airmot-050",
+      "airmot-057"
+    ],
+    "fps_assumed": 10.0
+  },
+  "host": "lmn08",
+  "cpu": "x86_64",
+  "scores": {
+    "v1": {
+      "AssA": 81.772,
+      "DetA": 51.591,
+      "HOTA": 64.131,
+      "IDSW": 5.0,
+      "MOTA": 46.452,
+      "IDF1": 76.789,
+      "IDs": 54.0,
+      "GT_IDs": 35.0
+    },
+    "sort": {
+      "AssA": 76.729,
+      "DetA": 64.2,
+      "HOTA": 69.341,
+      "IDSW": 47.0,
+      "MOTA": 76.97,
+      "IDF1": 85.207,
+      "IDs": 60.0,
+      "GT_IDs": 35.0
+    },
+    "bytetrack": {
+      "AssA": 78.937,
+      "DetA": 69.478,
+      "HOTA": 73.186,
+      "IDSW": 42.0,
+      "MOTA": 86.178,
+      "IDF1": 88.716,
+      "IDs": 47.0,
+      "GT_IDs": 35.0
+    },
+    "ocsort": {
+      "AssA": 74.88,
+      "DetA": 70.633,
+      "HOTA": 71.858,
+      "IDSW": 36.0,
+      "MOTA": 88.3,
+      "IDF1": 87.408,
+      "IDs": 55.0,
+      "GT_IDs": 35.0
+    },
+    "botsort": {
+      "AssA": 82.7,
+      "DetA": 69.318,
+      "HOTA": 74.954,
+      "IDSW": 3.0,
+      "MOTA": 86.352,
+      "IDF1": 92.41,
+      "IDs": 42.0,
+      "GT_IDs": 35.0
+    },
+    "talos": {
+      "AssA": 83.778,
+      "DetA": 73.092,
+      "HOTA": 77.38,
+      "IDSW": 0.0,
+      "MOTA": 92.61,
+      "IDF1": 96.372,
+      "IDs": 40.0,
+      "GT_IDs": 35.0
+    }
+  },
+  "timing": {
+    "v1": {
+      "frames": 1449,
+      "track_seconds": 0.7813,
+      "track_ms_per_frame": 0.5392
+    },
+    "sort": {
+      "frames": 1449,
+      "track_seconds": 0.3409,
+      "track_ms_per_frame": 0.2353
+    },
+    "bytetrack": {
+      "frames": 1449,
+      "track_seconds": 0.3419,
+      "track_ms_per_frame": 0.236
+    },
+    "ocsort": {
+      "frames": 1449,
+      "track_seconds": 0.4893,
+      "track_ms_per_frame": 0.3377
+    },
+    "botsort": {
+      "frames": 1449,
+      "track_seconds": 0.519,
+      "track_ms_per_frame": 0.3582
+    },
+    "talos": {
+      "frames": 1449,
+      "track_seconds": 0.71,
+      "track_ms_per_frame": 0.49
+    }
+  }
+}
