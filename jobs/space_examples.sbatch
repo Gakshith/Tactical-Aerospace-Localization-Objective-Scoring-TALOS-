@@ -9,6 +9,6 @@
 # Pre-render the Hugging Face Space's VISO example clips (see scripts/space_examples.py).
 #   cd ~/talos/repo && sbatch jobs/space_examples.sbatch
 source "$HOME/talos/repo/jobs/common.sh"
-python scripts/space_examples.py --out "$TALOS/space_examples"
+PYTHONPATH="$REPO" python scripts/space_examples.py --out "$TALOS/space_examples"
 du -sh "$TALOS/space_examples"
 echo "SPACE EXAMPLES DONE"
