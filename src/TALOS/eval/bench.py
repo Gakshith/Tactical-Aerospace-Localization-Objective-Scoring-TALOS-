@@ -70,7 +70,7 @@ def stage_gt(bench: str, split: str, seqs: list[str], gt_root: Path) -> None:
 
 def evaluate_trackers(bench: str, split: str, detector: str, trackers: list[str], params: dict,
                       out: Path, det_root: Path = DATA / "dets", min_conf: float = 0.0,
-                      num_cores: int = 8) -> tuple[dict, dict, list[str]]:
+                      num_cores: int = int(os.environ.get("SLURM_CPUS_PER_TASK", 8))) -> tuple[dict, dict, list[str]]:
     """Run trackers over cached detections of one split and score them.
     Returns (scores, timing, seqs); MOT output stays under ``out/trk``."""
     seqs = bench_seqs(bench, split)
