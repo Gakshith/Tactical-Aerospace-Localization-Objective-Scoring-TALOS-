@@ -11,8 +11,10 @@ cross-dataset. For each VISO sequence:
   * the full pipeline runs (tiled YOLO26s, per-class TALOS-Track, zone-entry threat).
   * the annotated video is re-encoded to H.264 for browsers.
   * honest per-clip numbers go to summary.json: when the labelled object really enters
-    the zone (from the labels), when the first alert for any track came, the lead time,
-    and detector recall on the labelled (moving) objects at IoU >= 0.3.
+    the zone (from the labels), which predicted track follows it, when that track's first
+    alert came (alerts on other tracks do not count), the lead time, a one-line verdict
+    (warned / late / missed) and detector recall on the labelled (moving) objects at IoU >= 0.3.
+    Clips are listed best first; failures are kept, not dropped.
 """
 from __future__ import annotations
 
@@ -81,6 +83,31 @@ def recall(gt: np.ndarray, tracks_csv: Path, cls: str, thr: float = 0.3) -> floa
     return round(hit / max(len(gt), 1), 3)
 
 
+def matched_track(g: np.ndarray, tracks_csv: Path, thr: float = 0.3):
+    """The predicted (class, id) that overlaps labelled track ``g`` (IoU >= thr) on the most frames."""
+    count = {}
+    for r in tracks_csv.read_text().splitlines()[1:]:
+        x = r.split(",")
+        gg = g[g[:, 0] == int(x[0])]
+        if len(gg):
+            gb = np.c_[gg[:, 2], gg[:, 3], gg[:, 2] + gg[:, 4], gg[:, 3] + gg[:, 5]]
+            if iou(gb, np.array([[float(v) for v in x[3:7]]]))[0, 0] >= thr:
+                count[(x[1], int(x[2]))] = count.get((x[1], int(x[2])), 0) + 1
+    return max(count, key=count.get) if count else None
+
+
+def verdict(r: dict) -> str:
+    if r["zone"] is None:
+        return "no zone (no labelled object moves far enough)"
+    if r["matched_track"] is None:
+        return "missed: the detector never found the labelled object"
+    if r["lead_s"] is None:
+        return "missed: tracked, but no alert before it entered the zone"
+    if r["lead_s"] < 0:
+        return f"late: first alert {-r['lead_s']} s after it entered the zone"
+    return f"warned {r['lead_s']} s before it entered the zone"
+
+
 def main() -> None:
     from src.TALOS.detect.tiled import TiledDetector
 
@@ -106,7 +133,11 @@ def main() -> None:
             pipe = Pipeline(det, fps=info.fps, zone=zone, config=cfg, threat_every=1)
             timing = run_video(seq / "img1", work, pipe, batch=4)
             alerts = [json.loads(x) for x in (work / "alerts.jsonl").read_text().splitlines()]
-            first = min((x["frame"] for x in alerts), default=None)
+            g = gt[gt[:, 1] == tid] if tid is not None else gt[:0]
+            match = matched_track(g, work / "tracks.csv") if len(g) else None
+            # lead time counts only alerts on the track that follows the labelled object
+            first = min((x["frame"] for x in alerts if match and (x["class"], x["id"]) == match), default=None)
+            others = sorted({(x["class"], x["id"]) for x in alerts} - ({match} if match else set()))
             dst = a.out / seq.name
             dst.mkdir(parents=True, exist_ok=True)
             subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", str(work / "annotated.mp4"), "-c:v", "libx264",
@@ -118,12 +149,17 @@ def main() -> None:
                    "fps": info.fps, "gt_tracks": int(len(np.unique(gt[:, 1]))),
                    "zone": None if zone is None else {"centre": [round(v, 1) for v in centre], "radius": RADIUS,
                                                        "placed_on_gt_track": tid},
+                   "matched_track": None if match is None else list(match),
                    "gt_entry_frame": entry, "first_alert_frame": first,
+                   "other_alerting_tracks": [list(o) for o in others],
                    "lead_s": None if (entry is None or first is None) else round((entry - first) / info.fps, 1),
                    "alerts": len(alerts), "recall_iou0.3": recall(gt, work / "tracks.csv", cls),
                    "a100_ms_per_frame": timing["ms_per_frame"]["total"]}
+            row["verdict"] = verdict(row)
             summary.append(row)
             print(json.dumps(row), flush=True)
+    # best first: warned (longest lead), then late, then missed
+    summary.sort(key=lambda r: (r["lead_s"] is None, -(r["lead_s"] or 0), -r["recall_iou0.3"]))
     (a.out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
 
 
