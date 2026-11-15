@@ -1,0 +1,3936 @@
+{
+  "run_id": "d4-tune-y26m-ship-val",
+  "git_sha": "9394bf80a4064bd6588e8f8b466c4ce84880535a",
+  "git_dirty": false,
+  "config_hash": "9297d7951724",
+  "config": {
+    "bench": "AIRMOT_ship",
+    "detector": "y26m_t640",
+    "split": "val",
+    "budget": 30,
+    "seed": 0,
+    "objective": "HOTA",
+    "fixed": {
+      "talos": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427
+      }
+    },
+    "seqs": [
+      "airmot-021",
+      "airmot-024",
+      "airmot-027",
+      "airmot-061",
+      "airmot-067",
+      "airmot-099"
+    ]
+  },
+  "host": "lmn01",
+  "best": {
+    "sort": {
+      "config_name": "sort:c03",
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 62.302,
+        "DetA": 27.383,
+        "HOTA": 41.202,
+        "IDSW": 85.0,
+        "MOTA": 6.309,
+        "IDF1": 47.52,
+        "IDs": 94.0,
+        "GT_IDs": 47.0
+      },
+      "default_scores": {
+        "AssA": 54.49,
+        "DetA": 26.806,
+        "HOTA": 37.96,
+        "IDSW": 150.0,
+        "MOTA": -32.216,
+        "IDF1": 42.648,
+        "IDs": 201.0,
+        "GT_IDs": 47.0
+      }
+    },
+    "bytetrack": {
+      "config_name": "bytetrack:c24",
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 69.846,
+        "DetA": 28.421,
+        "HOTA": 44.412,
+        "IDSW": 20.0,
+        "MOTA": 11.037,
+        "IDF1": 52.628,
+        "IDs": 68.0,
+        "GT_IDs": 47.0
+      },
+      "default_scores": {
+        "AssA": 77.898,
+        "DetA": 8.329,
+        "HOTA": 25.467,
+        "IDSW": 12.0,
+        "MOTA": 4.452,
+        "IDF1": 17.697,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      }
+    },
+    "ocsort": {
+      "config_name": "ocsort:c15",
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 55.675,
+        "DetA": 29.739,
+        "HOTA": 40.489,
+        "IDSW": 103.0,
+        "MOTA": 8.871,
+        "IDF1": 49.348,
+        "IDs": 167.0,
+        "GT_IDs": 47.0
+      },
+      "default_scores": {
+        "AssA": 54.832,
+        "DetA": 4.937,
+        "HOTA": 16.439,
+        "IDSW": 12.0,
+        "MOTA": 4.281,
+        "IDF1": 10.543,
+        "IDs": 18.0,
+        "GT_IDs": 47.0
+      }
+    },
+    "botsort": {
+      "config_name": "botsort:c04",
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 63.327,
+        "DetA": 28.632,
+        "HOTA": 42.423,
+        "IDSW": 13.0,
+        "MOTA": 12.343,
+        "IDF1": 49.47,
+        "IDs": 77.0,
+        "GT_IDs": 47.0
+      },
+      "default_scores": {
+        "AssA": 78.821,
+        "DetA": 8.561,
+        "HOTA": 25.971,
+        "IDSW": 0.0,
+        "MOTA": 9.12,
+        "IDF1": 18.387,
+        "IDs": 7.0,
+        "GT_IDs": 47.0
+      }
+    },
+    "talos": {
+      "config_name": "talos:c21",
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.3,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 68.635,
+        "DetA": 27.852,
+        "HOTA": 43.443,
+        "IDSW": 28.0,
+        "MOTA": -6.017,
+        "IDF1": 51.332,
+        "IDs": 89.0,
+        "GT_IDs": 47.0
+      },
+      "default_scores": {
+        "AssA": 68.4,
+        "DetA": 18.338,
+        "HOTA": 35.399,
+        "IDSW": 36.0,
+        "MOTA": 12.747,
+        "IDF1": 35.915,
+        "IDs": 22.0,
+        "GT_IDs": 47.0
+      }
+    }
+  },
+  "all": {
+    "sort:c00": {
+      "params": {},
+      "scores": {
+        "AssA": 54.49,
+        "DetA": 26.806,
+        "HOTA": 37.96,
+        "IDSW": 150.0,
+        "MOTA": -32.216,
+        "IDF1": 42.648,
+        "IDs": 201.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.637,
+        "track_ms_per_frame": 0.3747
+      }
+    },
+    "sort:c01": {
+      "params": {
+        "track_activation_threshold": 0.1,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 48.955,
+        "DetA": 23.671,
+        "HOTA": 33.87,
+        "IDSW": 293.0,
+        "MOTA": -70.466,
+        "IDF1": 35.723,
+        "IDs": 325.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.9244,
+        "track_ms_per_frame": 0.5438
+      }
+    },
+    "sort:c02": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 59.372,
+        "DetA": 21.095,
+        "HOTA": 35.37,
+        "IDSW": 89.0,
+        "MOTA": 3.129,
+        "IDF1": 37.113,
+        "IDs": 63.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3076,
+        "track_ms_per_frame": 0.181
+      }
+    },
+    "sort:c03": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 62.302,
+        "DetA": 27.383,
+        "HOTA": 41.202,
+        "IDSW": 85.0,
+        "MOTA": 6.309,
+        "IDF1": 47.52,
+        "IDs": 94.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3982,
+        "track_ms_per_frame": 0.2342
+      }
+    },
+    "sort:c04": {
+      "params": {
+        "track_activation_threshold": 0.25,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 53.0,
+        "DetA": 26.937,
+        "HOTA": 37.564,
+        "IDSW": 147.0,
+        "MOTA": -32.242,
+        "IDF1": 42.157,
+        "IDs": 205.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6361,
+        "track_ms_per_frame": 0.3742
+      }
+    },
+    "sort:c05": {
+      "params": {
+        "track_activation_threshold": 0.1,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 48.366,
+        "DetA": 24.795,
+        "HOTA": 34.371,
+        "IDSW": 227.0,
+        "MOTA": -54.298,
+        "IDF1": 36.42,
+        "IDs": 268.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8973,
+        "track_ms_per_frame": 0.5278
+      }
+    },
+    "sort:c06": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 65.227,
+        "DetA": 20.907,
+        "HOTA": 36.9,
+        "IDSW": 90.0,
+        "MOTA": 5.647,
+        "IDF1": 39.532,
+        "IDs": 47.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.299,
+        "track_ms_per_frame": 0.1759
+      }
+    },
+    "sort:c07": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 52.839,
+        "DetA": 25.87,
+        "HOTA": 36.754,
+        "IDSW": 174.0,
+        "MOTA": -44.688,
+        "IDF1": 40.365,
+        "IDs": 268.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.7017,
+        "track_ms_per_frame": 0.4128
+      }
+    },
+    "sort:c08": {
+      "params": {
+        "track_activation_threshold": 0.25,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 55.711,
+        "DetA": 25.508,
+        "HOTA": 37.462,
+        "IDSW": 203.0,
+        "MOTA": -46.476,
+        "IDF1": 42.23,
+        "IDs": 236.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6921,
+        "track_ms_per_frame": 0.4071
+      }
+    },
+    "sort:c09": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 62.018,
+        "DetA": 26.823,
+        "HOTA": 40.703,
+        "IDSW": 80.0,
+        "MOTA": 2.089,
+        "IDF1": 47.158,
+        "IDs": 84.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4136,
+        "track_ms_per_frame": 0.2433
+      }
+    },
+    "sort:c10": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 58.828,
+        "DetA": 27.622,
+        "HOTA": 40.13,
+        "IDSW": 142.0,
+        "MOTA": -23.251,
+        "IDF1": 46.678,
+        "IDs": 177.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5824,
+        "track_ms_per_frame": 0.3426
+      }
+    },
+    "sort:c11": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 65.01,
+        "DetA": 20.672,
+        "HOTA": 36.619,
+        "IDSW": 105.0,
+        "MOTA": 1.642,
+        "IDF1": 38.81,
+        "IDs": 56.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.311,
+        "track_ms_per_frame": 0.1829
+      }
+    },
+    "sort:c12": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 61.89,
+        "DetA": 26.805,
+        "HOTA": 40.654,
+        "IDSW": 91.0,
+        "MOTA": 1.582,
+        "IDF1": 47.394,
+        "IDs": 81.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4187,
+        "track_ms_per_frame": 0.2463
+      }
+    },
+    "sort:c13": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 59.009,
+        "DetA": 21.384,
+        "HOTA": 35.5,
+        "IDSW": 70.0,
+        "MOTA": 5.381,
+        "IDF1": 37.252,
+        "IDs": 79.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2982,
+        "track_ms_per_frame": 0.1754
+      }
+    },
+    "sort:c14": {
+      "params": {
+        "track_activation_threshold": 0.25,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 54.563,
+        "DetA": 25.834,
+        "HOTA": 37.355,
+        "IDSW": 154.0,
+        "MOTA": -40.528,
+        "IDF1": 41.48,
+        "IDs": 236.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6511,
+        "track_ms_per_frame": 0.383
+      }
+    },
+    "sort:c15": {
+      "params": {
+        "track_activation_threshold": 0.1,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 45.002,
+        "DetA": 25.107,
+        "HOTA": 33.39,
+        "IDSW": 189.0,
+        "MOTA": -48.444,
+        "IDF1": 34.575,
+        "IDs": 330.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8777,
+        "track_ms_per_frame": 0.5163
+      }
+    },
+    "sort:c16": {
+      "params": {
+        "track_activation_threshold": 0.25,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 49.734,
+        "DetA": 27.763,
+        "HOTA": 36.987,
+        "IDSW": 96.0,
+        "MOTA": -20.07,
+        "IDF1": 41.433,
+        "IDs": 207.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5929,
+        "track_ms_per_frame": 0.3488
+      }
+    },
+    "sort:c17": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 58.099,
+        "DetA": 27.442,
+        "HOTA": 39.734,
+        "IDSW": 112.0,
+        "MOTA": -19.795,
+        "IDF1": 46.398,
+        "IDs": 140.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5671,
+        "track_ms_per_frame": 0.3336
+      }
+    },
+    "sort:c18": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 62.213,
+        "DetA": 21.029,
+        "HOTA": 36.142,
+        "IDSW": 82.0,
+        "MOTA": 4.702,
+        "IDF1": 38.766,
+        "IDs": 48.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3097,
+        "track_ms_per_frame": 0.1822
+      }
+    },
+    "sort:c19": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 62.22,
+        "DetA": 26.681,
+        "HOTA": 40.676,
+        "IDSW": 95.0,
+        "MOTA": -0.438,
+        "IDF1": 46.546,
+        "IDs": 109.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4177,
+        "track_ms_per_frame": 0.2457
+      }
+    },
+    "sort:c20": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 58.927,
+        "DetA": 27.421,
+        "HOTA": 40.141,
+        "IDSW": 57.0,
+        "MOTA": 6.12,
+        "IDF1": 46.382,
+        "IDs": 101.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4016,
+        "track_ms_per_frame": 0.2362
+      }
+    },
+    "sort:c21": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 57.656,
+        "DetA": 27.194,
+        "HOTA": 39.413,
+        "IDSW": 119.0,
+        "MOTA": -22.684,
+        "IDF1": 45.56,
+        "IDs": 158.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.573,
+        "track_ms_per_frame": 0.3371
+      }
+    },
+    "sort:c22": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 63.421,
+        "DetA": 20.952,
+        "HOTA": 36.425,
+        "IDSW": 84.0,
+        "MOTA": 6.197,
+        "IDF1": 38.498,
+        "IDs": 50.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.296,
+        "track_ms_per_frame": 0.1741
+      }
+    },
+    "sort:c23": {
+      "params": {
+        "track_activation_threshold": 0.25,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 52.392,
+        "DetA": 26.107,
+        "HOTA": 36.8,
+        "IDSW": 171.0,
+        "MOTA": -38.379,
+        "IDF1": 40.424,
+        "IDs": 300.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.644,
+        "track_ms_per_frame": 0.3788
+      }
+    },
+    "sort:c24": {
+      "params": {
+        "track_activation_threshold": 0.1,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 47.747,
+        "DetA": 23.134,
+        "HOTA": 33.007,
+        "IDSW": 304.0,
+        "MOTA": -77.342,
+        "IDF1": 34.103,
+        "IDs": 477.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.921,
+        "track_ms_per_frame": 0.5418
+      }
+    },
+    "sort:c25": {
+      "params": {
+        "track_activation_threshold": 0.1,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 44.516,
+        "DetA": 25.042,
+        "HOTA": 33.169,
+        "IDSW": 188.0,
+        "MOTA": -48.358,
+        "IDF1": 34.267,
+        "IDs": 329.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8768,
+        "track_ms_per_frame": 0.5158
+      }
+    },
+    "sort:c26": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 62.207,
+        "DetA": 26.834,
+        "HOTA": 40.771,
+        "IDSW": 102.0,
+        "MOTA": 1.023,
+        "IDF1": 46.606,
+        "IDs": 89.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4218,
+        "track_ms_per_frame": 0.2481
+      }
+    },
+    "sort:c27": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 63.66,
+        "DetA": 21.055,
+        "HOTA": 36.569,
+        "IDSW": 97.0,
+        "MOTA": 2.871,
+        "IDF1": 38.974,
+        "IDs": 57.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3107,
+        "track_ms_per_frame": 0.1828
+      }
+    },
+    "sort:c28": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 58.993,
+        "DetA": 27.15,
+        "HOTA": 39.839,
+        "IDSW": 153.0,
+        "MOTA": -25.503,
+        "IDF1": 46.576,
+        "IDs": 144.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6055,
+        "track_ms_per_frame": 0.3562
+      }
+    },
+    "sort:c29": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 60.224,
+        "DetA": 21.187,
+        "HOTA": 35.704,
+        "IDSW": 80.0,
+        "MOTA": 3.98,
+        "IDF1": 37.693,
+        "IDs": 68.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3037,
+        "track_ms_per_frame": 0.1787
+      }
+    },
+    "bytetrack:c00": {
+      "params": {},
+      "scores": {
+        "AssA": 77.898,
+        "DetA": 8.329,
+        "HOTA": 25.467,
+        "IDSW": 12.0,
+        "MOTA": 4.452,
+        "IDF1": 17.697,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1632,
+        "track_ms_per_frame": 0.096
+      }
+    },
+    "bytetrack:c01": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 72.703,
+        "DetA": 12.723,
+        "HOTA": 30.393,
+        "IDSW": 16.0,
+        "MOTA": 5.372,
+        "IDF1": 25.886,
+        "IDs": 20.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2279,
+        "track_ms_per_frame": 0.134
+      }
+    },
+    "bytetrack:c02": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 68.333,
+        "DetA": 28.034,
+        "HOTA": 43.623,
+        "IDSW": 32.0,
+        "MOTA": 9.025,
+        "IDF1": 51.248,
+        "IDs": 67.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4558,
+        "track_ms_per_frame": 0.2681
+      }
+    },
+    "bytetrack:c03": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 68.567,
+        "DetA": 28.161,
+        "HOTA": 43.816,
+        "IDSW": 33.0,
+        "MOTA": 8.028,
+        "IDF1": 51.613,
+        "IDs": 72.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4626,
+        "track_ms_per_frame": 0.2721
+      }
+    },
+    "bytetrack:c04": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 67.544,
+        "DetA": 21.751,
+        "HOTA": 38.287,
+        "IDSW": 20.0,
+        "MOTA": 8.277,
+        "IDF1": 41.706,
+        "IDs": 37.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3461,
+        "track_ms_per_frame": 0.2036
+      }
+    },
+    "bytetrack:c05": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 63.033,
+        "DetA": 27.544,
+        "HOTA": 41.424,
+        "IDSW": 74.0,
+        "MOTA": -20.999,
+        "IDF1": 48.951,
+        "IDs": 122.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6372,
+        "track_ms_per_frame": 0.3748
+      }
+    },
+    "bytetrack:c06": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 68.644,
+        "DetA": 21.111,
+        "HOTA": 38.031,
+        "IDSW": 61.0,
+        "MOTA": 4.813,
+        "IDF1": 40.556,
+        "IDs": 49.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3497,
+        "track_ms_per_frame": 0.2057
+      }
+    },
+    "bytetrack:c07": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 68.84,
+        "DetA": 27.578,
+        "HOTA": 43.422,
+        "IDSW": 53.0,
+        "MOTA": 5.596,
+        "IDF1": 50.389,
+        "IDs": 75.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4684,
+        "track_ms_per_frame": 0.2755
+      }
+    },
+    "bytetrack:c08": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 66.9,
+        "DetA": 8.24,
+        "HOTA": 23.472,
+        "IDSW": 21.0,
+        "MOTA": 3.361,
+        "IDF1": 16.151,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1702,
+        "track_ms_per_frame": 0.1001
+      }
+    },
+    "bytetrack:c09": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 70.163,
+        "DetA": 21.931,
+        "HOTA": 39.175,
+        "IDSW": 23.0,
+        "MOTA": 9.575,
+        "IDF1": 42.779,
+        "IDs": 43.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3449,
+        "track_ms_per_frame": 0.2029
+      }
+    },
+    "bytetrack:c10": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 66.154,
+        "DetA": 28.204,
+        "HOTA": 43.075,
+        "IDSW": 26.0,
+        "MOTA": 10.375,
+        "IDF1": 50.549,
+        "IDs": 70.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4505,
+        "track_ms_per_frame": 0.265
+      }
+    },
+    "bytetrack:c11": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 73.164,
+        "DetA": 12.572,
+        "HOTA": 30.308,
+        "IDSW": 34.0,
+        "MOTA": 4.117,
+        "IDF1": 25.515,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2344,
+        "track_ms_per_frame": 0.1379
+      }
+    },
+    "bytetrack:c12": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 65.696,
+        "DetA": 21.888,
+        "HOTA": 37.88,
+        "IDSW": 21.0,
+        "MOTA": 10.22,
+        "IDF1": 40.912,
+        "IDs": 38.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3401,
+        "track_ms_per_frame": 0.2001
+      }
+    },
+    "bytetrack:c13": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 77.019,
+        "DetA": 12.583,
+        "HOTA": 31.112,
+        "IDSW": 6.0,
+        "MOTA": 4.504,
+        "IDF1": 26.312,
+        "IDs": 18.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.229,
+        "track_ms_per_frame": 0.1347
+      }
+    },
+    "bytetrack:c14": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 61.571,
+        "DetA": 12.624,
+        "HOTA": 27.872,
+        "IDSW": 23.0,
+        "MOTA": 4.384,
+        "IDF1": 22.759,
+        "IDs": 23.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2357,
+        "track_ms_per_frame": 0.1387
+      }
+    },
+    "bytetrack:c15": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 72.203,
+        "DetA": 8.256,
+        "HOTA": 24.411,
+        "IDSW": 27.0,
+        "MOTA": 4.513,
+        "IDF1": 17.018,
+        "IDs": 8.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1636,
+        "track_ms_per_frame": 0.0962
+      }
+    },
+    "bytetrack:c16": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 77.738,
+        "DetA": 8.271,
+        "HOTA": 25.352,
+        "IDSW": 14.0,
+        "MOTA": 3.653,
+        "IDF1": 17.564,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1668,
+        "track_ms_per_frame": 0.0981
+      }
+    },
+    "bytetrack:c17": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 68.109,
+        "DetA": 27.556,
+        "HOTA": 43.185,
+        "IDSW": 57.0,
+        "MOTA": 5.45,
+        "IDF1": 50.122,
+        "IDs": 79.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4656,
+        "track_ms_per_frame": 0.2739
+      }
+    },
+    "bytetrack:c18": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 67.234,
+        "DetA": 21.628,
+        "HOTA": 38.092,
+        "IDSW": 20.0,
+        "MOTA": 8.673,
+        "IDF1": 41.607,
+        "IDs": 36.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3469,
+        "track_ms_per_frame": 0.204
+      }
+    },
+    "bytetrack:c19": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 66.367,
+        "DetA": 8.131,
+        "HOTA": 23.226,
+        "IDSW": 31.0,
+        "MOTA": 1.539,
+        "IDF1": 15.93,
+        "IDs": 12.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1746,
+        "track_ms_per_frame": 0.1027
+      }
+    },
+    "bytetrack:c20": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 66.524,
+        "DetA": 12.234,
+        "HOTA": 28.518,
+        "IDSW": 50.0,
+        "MOTA": 1.633,
+        "IDF1": 24.143,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2463,
+        "track_ms_per_frame": 0.1449
+      }
+    },
+    "bytetrack:c21": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 66.526,
+        "DetA": 12.236,
+        "HOTA": 28.521,
+        "IDSW": 50.0,
+        "MOTA": 1.65,
+        "IDF1": 24.146,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2445,
+        "track_ms_per_frame": 0.1438
+      }
+    },
+    "bytetrack:c22": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 76.562,
+        "DetA": 12.465,
+        "HOTA": 30.873,
+        "IDSW": 14.0,
+        "MOTA": 2.965,
+        "IDF1": 25.977,
+        "IDs": 18.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2373,
+        "track_ms_per_frame": 0.1396
+      }
+    },
+    "bytetrack:c23": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 59.938,
+        "DetA": 26.921,
+        "HOTA": 39.906,
+        "IDSW": 103.0,
+        "MOTA": -34.159,
+        "IDF1": 45.433,
+        "IDs": 173.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.7457,
+        "track_ms_per_frame": 0.4386
+      }
+    },
+    "bytetrack:c24": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 69.846,
+        "DetA": 28.421,
+        "HOTA": 44.412,
+        "IDSW": 20.0,
+        "MOTA": 11.037,
+        "IDF1": 52.628,
+        "IDs": 68.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4498,
+        "track_ms_per_frame": 0.2646
+      }
+    },
+    "bytetrack:c25": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 72.202,
+        "DetA": 12.539,
+        "HOTA": 30.072,
+        "IDSW": 48.0,
+        "MOTA": 3.739,
+        "IDF1": 25.319,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2415,
+        "track_ms_per_frame": 0.142
+      }
+    },
+    "bytetrack:c26": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 70.965,
+        "DetA": 12.794,
+        "HOTA": 30.11,
+        "IDSW": 13.0,
+        "MOTA": 6.24,
+        "IDF1": 25.176,
+        "IDs": 23.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2242,
+        "track_ms_per_frame": 0.1319
+      }
+    },
+    "bytetrack:c27": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 76.657,
+        "DetA": 12.583,
+        "HOTA": 31.038,
+        "IDSW": 12.0,
+        "MOTA": 4.083,
+        "IDF1": 26.21,
+        "IDs": 19.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2307,
+        "track_ms_per_frame": 0.1357
+      }
+    },
+    "bytetrack:c28": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 67.346,
+        "DetA": 21.721,
+        "HOTA": 38.21,
+        "IDSW": 31.0,
+        "MOTA": 9.386,
+        "IDF1": 40.579,
+        "IDs": 44.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3367,
+        "track_ms_per_frame": 0.1981
+      }
+    },
+    "bytetrack:c29": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 66.931,
+        "DetA": 8.247,
+        "HOTA": 23.488,
+        "IDSW": 21.0,
+        "MOTA": 3.455,
+        "IDF1": 16.164,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1687,
+        "track_ms_per_frame": 0.0993
+      }
+    },
+    "ocsort:c00": {
+      "params": {},
+      "scores": {
+        "AssA": 54.832,
+        "DetA": 4.937,
+        "HOTA": 16.439,
+        "IDSW": 12.0,
+        "MOTA": 4.281,
+        "IDF1": 10.543,
+        "IDs": 18.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2019,
+        "track_ms_per_frame": 0.1187
+      }
+    },
+    "ocsort:c01": {
+      "params": {
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 52.83,
+        "DetA": 22.716,
+        "HOTA": 34.572,
+        "IDSW": 28.0,
+        "MOTA": 21.532,
+        "IDF1": 41.177,
+        "IDs": 77.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8065,
+        "track_ms_per_frame": 0.4744
+      }
+    },
+    "ocsort:c02": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 55.093,
+        "DetA": 7.948,
+        "HOTA": 20.899,
+        "IDSW": 19.0,
+        "MOTA": 6.679,
+        "IDF1": 16.044,
+        "IDs": 35.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.308,
+        "track_ms_per_frame": 0.1812
+      }
+    },
+    "ocsort:c03": {
+      "params": {
+        "high_conf_det_threshold": 0.1,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 47.931,
+        "DetA": 22.879,
+        "HOTA": 32.825,
+        "IDSW": 383.0,
+        "MOTA": -81.434,
+        "IDF1": 33.563,
+        "IDs": 790.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.864,
+        "track_ms_per_frame": 1.0965
+      }
+    },
+    "ocsort:c04": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 49.793,
+        "DetA": 29.551,
+        "HOTA": 38.167,
+        "IDSW": 91.0,
+        "MOTA": 13.289,
+        "IDF1": 45.32,
+        "IDs": 188.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0766,
+        "track_ms_per_frame": 0.6333
+      }
+    },
+    "ocsort:c05": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 5,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 44.643,
+        "DetA": 8.769,
+        "HOTA": 19.766,
+        "IDSW": 42.0,
+        "MOTA": 7.134,
+        "IDF1": 14.896,
+        "IDs": 73.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2802,
+        "track_ms_per_frame": 0.1648
+      }
+    },
+    "ocsort:c06": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 56.969,
+        "DetA": 28.941,
+        "HOTA": 40.385,
+        "IDSW": 204.0,
+        "MOTA": -4.728,
+        "IDF1": 48.009,
+        "IDs": 266.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.1884,
+        "track_ms_per_frame": 0.6991
+      }
+    },
+    "ocsort:c07": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 40.348,
+        "DetA": 14.752,
+        "HOTA": 24.266,
+        "IDSW": 25.0,
+        "MOTA": 14.466,
+        "IDF1": 22.817,
+        "IDs": 61.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4686,
+        "track_ms_per_frame": 0.2757
+      }
+    },
+    "ocsort:c08": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 52.107,
+        "DetA": 6.993,
+        "HOTA": 19.065,
+        "IDSW": 9.0,
+        "MOTA": 5.888,
+        "IDF1": 14.383,
+        "IDs": 25.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2996,
+        "track_ms_per_frame": 0.1762
+      }
+    },
+    "ocsort:c09": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 53.526,
+        "DetA": 28.226,
+        "HOTA": 38.697,
+        "IDSW": 52.0,
+        "MOTA": 16.684,
+        "IDF1": 48.6,
+        "IDs": 127.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.1871,
+        "track_ms_per_frame": 0.6983
+      }
+    },
+    "ocsort:c10": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.0,
+        "delta_t": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 52.382,
+        "DetA": 29.248,
+        "HOTA": 38.897,
+        "IDSW": 185.0,
+        "MOTA": -1.796,
+        "IDF1": 43.97,
+        "IDs": 465.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.9315,
+        "track_ms_per_frame": 0.5479
+      }
+    },
+    "ocsort:c11": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 53.197,
+        "DetA": 29.796,
+        "HOTA": 39.544,
+        "IDSW": 102.0,
+        "MOTA": 9.146,
+        "IDF1": 45.904,
+        "IDs": 281.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.019,
+        "track_ms_per_frame": 0.5994
+      }
+    },
+    "ocsort:c12": {
+      "params": {
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 58.647,
+        "DetA": 24.863,
+        "HOTA": 38.097,
+        "IDSW": 30.0,
+        "MOTA": 22.194,
+        "IDF1": 47.323,
+        "IDs": 85.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8573,
+        "track_ms_per_frame": 0.5043
+      }
+    },
+    "ocsort:c13": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 55.586,
+        "DetA": 29.466,
+        "HOTA": 40.281,
+        "IDSW": 93.0,
+        "MOTA": 13.28,
+        "IDF1": 49.82,
+        "IDs": 146.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.1831,
+        "track_ms_per_frame": 0.6959
+      }
+    },
+    "ocsort:c14": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 1,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 49.887,
+        "DetA": 7.919,
+        "HOTA": 19.848,
+        "IDSW": 28.0,
+        "MOTA": 6.524,
+        "IDF1": 14.868,
+        "IDs": 41.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2988,
+        "track_ms_per_frame": 0.1758
+      }
+    },
+    "ocsort:c15": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 55.675,
+        "DetA": 29.739,
+        "HOTA": 40.489,
+        "IDSW": 103.0,
+        "MOTA": 8.871,
+        "IDF1": 49.348,
+        "IDs": 167.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.1824,
+        "track_ms_per_frame": 0.6955
+      }
+    },
+    "ocsort:c16": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 3,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 49.12,
+        "DetA": 29.698,
+        "HOTA": 38.025,
+        "IDSW": 86.0,
+        "MOTA": 13.246,
+        "IDF1": 43.94,
+        "IDs": 225.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0166,
+        "track_ms_per_frame": 0.598
+      }
+    },
+    "ocsort:c17": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 42.858,
+        "DetA": 20.075,
+        "HOTA": 29.182,
+        "IDSW": 79.0,
+        "MOTA": 16.598,
+        "IDF1": 30.196,
+        "IDs": 140.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4876,
+        "track_ms_per_frame": 0.2868
+      }
+    },
+    "ocsort:c18": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.0,
+        "delta_t": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 54.147,
+        "DetA": 28.805,
+        "HOTA": 39.294,
+        "IDSW": 37.0,
+        "MOTA": 17.466,
+        "IDF1": 48.734,
+        "IDs": 124.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0822,
+        "track_ms_per_frame": 0.6366
+      }
+    },
+    "ocsort:c19": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.0,
+        "delta_t": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 54.06,
+        "DetA": 8.747,
+        "HOTA": 21.709,
+        "IDSW": 22.0,
+        "MOTA": 7.212,
+        "IDF1": 17.47,
+        "IDs": 33.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3058,
+        "track_ms_per_frame": 0.1799
+      }
+    },
+    "ocsort:c20": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 2,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 53.757,
+        "DetA": 8.814,
+        "HOTA": 21.734,
+        "IDSW": 27.0,
+        "MOTA": 7.229,
+        "IDF1": 17.483,
+        "IDs": 32.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3507,
+        "track_ms_per_frame": 0.2063
+      }
+    },
+    "ocsort:c21": {
+      "params": {
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 53.757,
+        "DetA": 7.919,
+        "HOTA": 20.606,
+        "IDSW": 28.0,
+        "MOTA": 6.55,
+        "IDF1": 15.68,
+        "IDs": 49.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.29,
+        "track_ms_per_frame": 0.1706
+      }
+    },
+    "ocsort:c22": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 1,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 41.334,
+        "DetA": 16.485,
+        "HOTA": 25.986,
+        "IDSW": 49.0,
+        "MOTA": 15.721,
+        "IDF1": 26.253,
+        "IDs": 78.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4882,
+        "track_ms_per_frame": 0.2872
+      }
+    },
+    "ocsort:c23": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.1,
+        "delta_t": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 42.641,
+        "DetA": 20.075,
+        "HOTA": 29.109,
+        "IDSW": 83.0,
+        "MOTA": 16.589,
+        "IDF1": 30.127,
+        "IDs": 143.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4903,
+        "track_ms_per_frame": 0.2884
+      }
+    },
+    "ocsort:c24": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 50.673,
+        "DetA": 20.17,
+        "HOTA": 31.841,
+        "IDSW": 92.0,
+        "MOTA": 16.263,
+        "IDF1": 35.21,
+        "IDs": 99.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.542,
+        "track_ms_per_frame": 0.3188
+      }
+    },
+    "ocsort:c25": {
+      "params": {
+        "high_conf_det_threshold": 0.1,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 5,
+        "lost_track_buffer": 120
+      },
+      "scores": {
+        "AssA": 44.739,
+        "DetA": 26.432,
+        "HOTA": 34.211,
+        "IDSW": 148.0,
+        "MOTA": -17.947,
+        "IDF1": 38.117,
+        "IDs": 275.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 2.4336,
+        "track_ms_per_frame": 1.4315
+      }
+    },
+    "ocsort:c26": {
+      "params": {
+        "high_conf_det_threshold": 0.1,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 3,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 3,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 40.634,
+        "DetA": 26.553,
+        "HOTA": 32.654,
+        "IDSW": 216.0,
+        "MOTA": -31.571,
+        "IDF1": 33.811,
+        "IDs": 607.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.6209,
+        "track_ms_per_frame": 0.9535
+      }
+    },
+    "ocsort:c27": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.3,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.2,
+        "delta_t": 1,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 47.628,
+        "DetA": 28.872,
+        "HOTA": 36.923,
+        "IDSW": 61.0,
+        "MOTA": 17.346,
+        "IDF1": 42.628,
+        "IDs": 216.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.9649,
+        "track_ms_per_frame": 0.5676
+      }
+    },
+    "ocsort:c28": {
+      "params": {
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold": 0.2,
+        "minimum_consecutive_frames": 1,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 44.726,
+        "DetA": 20.104,
+        "HOTA": 29.86,
+        "IDSW": 84.0,
+        "MOTA": 16.417,
+        "IDF1": 31.55,
+        "IDs": 117.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5043,
+        "track_ms_per_frame": 0.2966
+      }
+    },
+    "ocsort:c29": {
+      "params": {
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold": 0.1,
+        "minimum_consecutive_frames": 5,
+        "direction_consistency_weight": 0.5,
+        "delta_t": 5,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 47.539,
+        "DetA": 28.825,
+        "HOTA": 36.876,
+        "IDSW": 59.0,
+        "MOTA": 17.346,
+        "IDF1": 44.962,
+        "IDs": 154.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0704,
+        "track_ms_per_frame": 0.6297
+      }
+    },
+    "botsort:c00": {
+      "params": {},
+      "scores": {
+        "AssA": 78.821,
+        "DetA": 8.561,
+        "HOTA": 25.971,
+        "IDSW": 0.0,
+        "MOTA": 9.12,
+        "IDF1": 18.387,
+        "IDs": 7.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1681,
+        "track_ms_per_frame": 0.0989
+      }
+    },
+    "botsort:c01": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.2,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 73.373,
+        "DetA": 8.504,
+        "HOTA": 24.971,
+        "IDSW": 4.0,
+        "MOTA": 7.581,
+        "IDF1": 17.442,
+        "IDs": 12.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1826,
+        "track_ms_per_frame": 0.1074
+      }
+    },
+    "botsort:c02": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 74.525,
+        "DetA": 11.756,
+        "HOTA": 29.57,
+        "IDSW": 0.0,
+        "MOTA": 10.65,
+        "IDF1": 24.94,
+        "IDs": 11.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.242,
+        "track_ms_per_frame": 0.1423
+      }
+    },
+    "botsort:c03": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 71.108,
+        "DetA": 8.626,
+        "HOTA": 24.757,
+        "IDSW": 0.0,
+        "MOTA": 7.418,
+        "IDF1": 18.593,
+        "IDs": 8.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2056,
+        "track_ms_per_frame": 0.1209
+      }
+    },
+    "botsort:c04": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 63.327,
+        "DetA": 28.632,
+        "HOTA": 42.423,
+        "IDSW": 13.0,
+        "MOTA": 12.343,
+        "IDF1": 49.47,
+        "IDs": 77.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.7165,
+        "track_ms_per_frame": 0.4215
+      }
+    },
+    "botsort:c05": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.2,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 67.218,
+        "DetA": 11.392,
+        "HOTA": 27.648,
+        "IDSW": 15.0,
+        "MOTA": 7.753,
+        "IDF1": 22.381,
+        "IDs": 20.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2571,
+        "track_ms_per_frame": 0.1512
+      }
+    },
+    "botsort:c06": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 64.002,
+        "DetA": 18.456,
+        "HOTA": 34.327,
+        "IDSW": 12.0,
+        "MOTA": 13.28,
+        "IDF1": 35.108,
+        "IDs": 32.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3724,
+        "track_ms_per_frame": 0.2191
+      }
+    },
+    "botsort:c07": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.2,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 78.856,
+        "DetA": 8.533,
+        "HOTA": 25.934,
+        "IDSW": 0.0,
+        "MOTA": 8.458,
+        "IDF1": 18.303,
+        "IDs": 5.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1745,
+        "track_ms_per_frame": 0.1026
+      }
+    },
+    "botsort:c08": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 79.227,
+        "DetA": 8.609,
+        "HOTA": 26.111,
+        "IDSW": 0.0,
+        "MOTA": 8.793,
+        "IDF1": 18.471,
+        "IDs": 6.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1724,
+        "track_ms_per_frame": 0.1014
+      }
+    },
+    "botsort:c09": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.2,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 71.574,
+        "DetA": 11.313,
+        "HOTA": 28.429,
+        "IDSW": 17.0,
+        "MOTA": 5.604,
+        "IDF1": 23.618,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2815,
+        "track_ms_per_frame": 0.1656
+      }
+    },
+    "botsort:c10": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 60
+      },
+      "scores": {
+        "AssA": 66.05,
+        "DetA": 11.596,
+        "HOTA": 27.648,
+        "IDSW": 14.0,
+        "MOTA": 8.02,
+        "IDF1": 22.731,
+        "IDs": 19.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2674,
+        "track_ms_per_frame": 0.1573
+      }
+    },
+    "botsort:c11": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 49.3,
+        "DetA": 24.943,
+        "HOTA": 34.89,
+        "IDSW": 39.0,
+        "MOTA": 20.096,
+        "IDF1": 37.815,
+        "IDs": 139.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0316,
+        "track_ms_per_frame": 0.6068
+      }
+    },
+    "botsort:c12": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 74.273,
+        "DetA": 11.295,
+        "HOTA": 28.936,
+        "IDSW": 8.0,
+        "MOTA": 5.174,
+        "IDF1": 23.936,
+        "IDs": 25.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2777,
+        "track_ms_per_frame": 0.1634
+      }
+    },
+    "botsort:c13": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 73.237,
+        "DetA": 21.561,
+        "HOTA": 39.703,
+        "IDSW": 2.0,
+        "MOTA": 14.234,
+        "IDF1": 42.498,
+        "IDs": 27.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4232,
+        "track_ms_per_frame": 0.2489
+      }
+    },
+    "botsort:c14": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 70.775,
+        "DetA": 8.551,
+        "HOTA": 24.591,
+        "IDSW": 0.0,
+        "MOTA": 7.332,
+        "IDF1": 18.455,
+        "IDs": 8.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2035,
+        "track_ms_per_frame": 0.1197
+      }
+    },
+    "botsort:c15": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.5,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 74.434,
+        "DetA": 11.241,
+        "HOTA": 28.904,
+        "IDSW": 5.0,
+        "MOTA": 6.619,
+        "IDF1": 23.727,
+        "IDs": 31.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2659,
+        "track_ms_per_frame": 0.1564
+      }
+    },
+    "botsort:c16": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 70.746,
+        "DetA": 24.149,
+        "HOTA": 41.257,
+        "IDSW": 6.0,
+        "MOTA": 20.793,
+        "IDF1": 46.129,
+        "IDs": 34.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4867,
+        "track_ms_per_frame": 0.2863
+      }
+    },
+    "botsort:c17": {
+      "params": {
+        "track_activation_threshold": 0.6,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 62.599,
+        "DetA": 10.232,
+        "HOTA": 25.28,
+        "IDSW": 18.0,
+        "MOTA": 7.169,
+        "IDF1": 19.215,
+        "IDs": 29.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.24,
+        "track_ms_per_frame": 0.1412
+      }
+    },
+    "botsort:c18": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 79.639,
+        "DetA": 8.607,
+        "HOTA": 26.175,
+        "IDSW": 0.0,
+        "MOTA": 8.054,
+        "IDF1": 18.449,
+        "IDs": 9.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1785,
+        "track_ms_per_frame": 0.105
+      }
+    },
+    "botsort:c19": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.5,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 79.586,
+        "DetA": 8.566,
+        "HOTA": 26.104,
+        "IDSW": 0.0,
+        "MOTA": 7.822,
+        "IDF1": 18.374,
+        "IDs": 7.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1798,
+        "track_ms_per_frame": 0.1058
+      }
+    },
+    "botsort:c20": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 61.756,
+        "DetA": 18.809,
+        "HOTA": 34.038,
+        "IDSW": 5.0,
+        "MOTA": 15.188,
+        "IDF1": 34.712,
+        "IDs": 36.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3563,
+        "track_ms_per_frame": 0.2096
+      }
+    },
+    "botsort:c21": {
+      "params": {
+        "track_activation_threshold": 0.7,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 78.763,
+        "DetA": 8.556,
+        "HOTA": 25.954,
+        "IDSW": 0.0,
+        "MOTA": 8.63,
+        "IDF1": 18.344,
+        "IDs": 7.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1761,
+        "track_ms_per_frame": 0.1036
+      }
+    },
+    "botsort:c22": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.3,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 64.07,
+        "DetA": 21.058,
+        "HOTA": 36.686,
+        "IDSW": 9.0,
+        "MOTA": 14.509,
+        "IDF1": 38.194,
+        "IDs": 32.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4168,
+        "track_ms_per_frame": 0.2452
+      }
+    },
+    "botsort:c23": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.5,
+        "minimum_iou_threshold_first_assoc": 0.1,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 69.138,
+        "DetA": 17.229,
+        "HOTA": 34.473,
+        "IDSW": 2.0,
+        "MOTA": 14.483,
+        "IDF1": 34.673,
+        "IDs": 24.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.339,
+        "track_ms_per_frame": 0.1994
+      }
+    },
+    "botsort:c24": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 73.341,
+        "DetA": 10.905,
+        "HOTA": 28.262,
+        "IDSW": 1.0,
+        "MOTA": 10.168,
+        "IDF1": 23.085,
+        "IDs": 10.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2225,
+        "track_ms_per_frame": 0.1309
+      }
+    },
+    "botsort:c25": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.2,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.1,
+        "minimum_consecutive_frames": 5,
+        "lost_track_buffer": 10
+      },
+      "scores": {
+        "AssA": 48.275,
+        "DetA": 24.836,
+        "HOTA": 34.439,
+        "IDSW": 37.0,
+        "MOTA": 21.876,
+        "IDF1": 36.777,
+        "IDs": 106.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.664,
+        "track_ms_per_frame": 0.3906
+      }
+    },
+    "botsort:c26": {
+      "params": {
+        "track_activation_threshold": 0.5,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.2,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 1,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 74.209,
+        "DetA": 11.289,
+        "HOTA": 28.915,
+        "IDSW": 8.0,
+        "MOTA": 5.157,
+        "IDF1": 23.922,
+        "IDs": 26.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2775,
+        "track_ms_per_frame": 0.1633
+      }
+    },
+    "botsort:c27": {
+      "params": {
+        "track_activation_threshold": 0.4,
+        "high_conf_det_threshold": 0.4,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.05,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 30
+      },
+      "scores": {
+        "AssA": 66.679,
+        "DetA": 24.382,
+        "HOTA": 40.233,
+        "IDSW": 7.0,
+        "MOTA": 17.346,
+        "IDF1": 44.579,
+        "IDs": 46.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5086,
+        "track_ms_per_frame": 0.2992
+      }
+    },
+    "botsort:c28": {
+      "params": {
+        "track_activation_threshold": 0.3,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.3,
+        "minimum_iou_threshold_second_assoc": 0.3,
+        "minimum_consecutive_frames": 3,
+        "lost_track_buffer": 5
+      },
+      "scores": {
+        "AssA": 68.375,
+        "DetA": 10.791,
+        "HOTA": 27.14,
+        "IDSW": 2.0,
+        "MOTA": 9.971,
+        "IDF1": 21.995,
+        "IDs": 12.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2226,
+        "track_ms_per_frame": 0.1309
+      }
+    },
+    "botsort:c29": {
+      "params": {
+        "track_activation_threshold": 0.2,
+        "high_conf_det_threshold": 0.6,
+        "minimum_iou_threshold_first_assoc": 0.05,
+        "minimum_iou_threshold_second_assoc": 0.5,
+        "minimum_consecutive_frames": 2,
+        "lost_track_buffer": 20
+      },
+      "scores": {
+        "AssA": 74.499,
+        "DetA": 11.028,
+        "HOTA": 28.646,
+        "IDSW": 2.0,
+        "MOTA": 9.429,
+        "IDF1": 23.395,
+        "IDs": 13.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2327,
+        "track_ms_per_frame": 0.1369
+      }
+    },
+    "talos:c00": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427
+      },
+      "scores": {
+        "AssA": 68.4,
+        "DetA": 18.338,
+        "HOTA": 35.399,
+        "IDSW": 36.0,
+        "MOTA": 12.747,
+        "IDF1": 35.915,
+        "IDs": 22.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3467,
+        "track_ms_per_frame": 0.204
+      }
+    },
+    "talos:c01": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.05,
+        "n_init": 3,
+        "max_age_s": 4.0,
+        "gate_p": 0.95,
+        "accel_std": 10.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 62.973,
+        "DetA": 24.308,
+        "HOTA": 38.846,
+        "IDSW": 102.0,
+        "MOTA": -59.429,
+        "IDF1": 44.875,
+        "IDs": 150.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.683,
+        "track_ms_per_frame": 0.99
+      }
+    },
+    "talos:c02": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.15,
+        "n_init": 3,
+        "max_age_s": 0.5,
+        "gate_p": 0.999,
+        "accel_std": 10.0,
+        "coast_output": false,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 57.987,
+        "DetA": 28.655,
+        "HOTA": 40.479,
+        "IDSW": 202.0,
+        "MOTA": -6.894,
+        "IDF1": 46.696,
+        "IDs": 199.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0509,
+        "track_ms_per_frame": 0.6182
+      }
+    },
+    "talos:c03": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.05,
+        "n_init": 1,
+        "max_age_s": 0.5,
+        "gate_p": 0.999,
+        "accel_std": 40.0,
+        "coast_output": true,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 73.001,
+        "DetA": 20.749,
+        "HOTA": 38.871,
+        "IDSW": 2.0,
+        "MOTA": 5.905,
+        "IDF1": 40.979,
+        "IDs": 45.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4658,
+        "track_ms_per_frame": 0.274
+      }
+    },
+    "talos:c04": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.999,
+        "accel_std": 5.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 75.475,
+        "DetA": 15.597,
+        "HOTA": 34.3,
+        "IDSW": 0.0,
+        "MOTA": 13.349,
+        "IDF1": 31.936,
+        "IDs": 12.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2422,
+        "track_ms_per_frame": 0.1425
+      }
+    },
+    "talos:c05": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.6,
+        "low_conf": 0.05,
+        "n_init": 3,
+        "max_age_s": 1.0,
+        "gate_p": 0.95,
+        "accel_std": 5.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 77.646,
+        "DetA": 12.206,
+        "HOTA": 30.778,
+        "IDSW": 0.0,
+        "MOTA": 11.062,
+        "IDF1": 25.491,
+        "IDs": 8.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1738,
+        "track_ms_per_frame": 0.1023
+      }
+    },
+    "talos:c06": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.3,
+        "low_conf": 0.15,
+        "n_init": 2,
+        "max_age_s": 1.0,
+        "gate_p": 0.95,
+        "accel_std": 10.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 63.466,
+        "DetA": 28.585,
+        "HOTA": 42.372,
+        "IDSW": 142.0,
+        "MOTA": 1.831,
+        "IDF1": 50.113,
+        "IDs": 125.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.9278,
+        "track_ms_per_frame": 0.5458
+      }
+    },
+    "talos:c07": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.15,
+        "n_init": 2,
+        "max_age_s": 1.0,
+        "gate_p": 0.99,
+        "accel_std": 10.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 67.522,
+        "DetA": 24.938,
+        "HOTA": 40.96,
+        "IDSW": 63.0,
+        "MOTA": 12.24,
+        "IDF1": 46.043,
+        "IDs": 65.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5704,
+        "track_ms_per_frame": 0.3355
+      }
+    },
+    "talos:c08": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 1.0,
+        "gate_p": 0.95,
+        "accel_std": 5.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 72.568,
+        "DetA": 23.851,
+        "HOTA": 41.547,
+        "IDSW": 15.0,
+        "MOTA": 20.389,
+        "IDF1": 45.97,
+        "IDs": 31.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4054,
+        "track_ms_per_frame": 0.2385
+      }
+    },
+    "talos:c09": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.1,
+        "n_init": 1,
+        "max_age_s": 1.0,
+        "gate_p": 0.99,
+        "accel_std": 5.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 69.174,
+        "DetA": 20.966,
+        "HOTA": 38.044,
+        "IDSW": 36.0,
+        "MOTA": 7.427,
+        "IDF1": 39.714,
+        "IDs": 46.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4842,
+        "track_ms_per_frame": 0.2848
+      }
+    },
+    "talos:c10": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.6,
+        "low_conf": 0.1,
+        "n_init": 2,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 5.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 74.956,
+        "DetA": 12.094,
+        "HOTA": 30.101,
+        "IDSW": 31.0,
+        "MOTA": 8.14,
+        "IDF1": 24.607,
+        "IDs": 10.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2141,
+        "track_ms_per_frame": 0.126
+      }
+    },
+    "talos:c11": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.15,
+        "n_init": 1,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 66.711,
+        "DetA": 27.176,
+        "HOTA": 42.462,
+        "IDSW": 149.0,
+        "MOTA": 8.871,
+        "IDF1": 48.698,
+        "IDs": 84.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.7681,
+        "track_ms_per_frame": 0.4518
+      }
+    },
+    "talos:c12": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.3,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 40.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 67.124,
+        "DetA": 27.52,
+        "HOTA": 42.863,
+        "IDSW": 24.0,
+        "MOTA": 16.4,
+        "IDF1": 50.03,
+        "IDs": 73.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6163,
+        "track_ms_per_frame": 0.3625
+      }
+    },
+    "talos:c13": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.1,
+        "n_init": 1,
+        "max_age_s": 2.0,
+        "gate_p": 0.999,
+        "accel_std": 5.0,
+        "coast_output": true,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 69.13,
+        "DetA": 21.372,
+        "HOTA": 38.373,
+        "IDSW": 42.0,
+        "MOTA": 4.117,
+        "IDF1": 40.523,
+        "IDs": 44.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5511,
+        "track_ms_per_frame": 0.3242
+      }
+    },
+    "talos:c14": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.1,
+        "n_init": 1,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 10.0,
+        "coast_output": true,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 56.187,
+        "DetA": 22.197,
+        "HOTA": 35.03,
+        "IDSW": 386.0,
+        "MOTA": -91.413,
+        "IDF1": 38.137,
+        "IDs": 350.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 2.2803,
+        "track_ms_per_frame": 1.3414
+      }
+    },
+    "talos:c15": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.05,
+        "n_init": 1,
+        "max_age_s": 4.0,
+        "gate_p": 0.99,
+        "accel_std": 40.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 69.812,
+        "DetA": 21.384,
+        "HOTA": 38.546,
+        "IDSW": 19.0,
+        "MOTA": -0.352,
+        "IDF1": 41.371,
+        "IDs": 43.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6058,
+        "track_ms_per_frame": 0.3563
+      }
+    },
+    "talos:c16": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 1.0,
+        "gate_p": 0.999,
+        "accel_std": 10.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 65.596,
+        "DetA": 26.441,
+        "HOTA": 41.279,
+        "IDSW": 48.0,
+        "MOTA": -37.76,
+        "IDF1": 46.964,
+        "IDs": 158.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.3194,
+        "track_ms_per_frame": 0.7761
+      }
+    },
+    "talos:c17": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.15,
+        "n_init": 2,
+        "max_age_s": 2.0,
+        "gate_p": 0.95,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 66.439,
+        "DetA": 20.309,
+        "HOTA": 36.714,
+        "IDSW": 78.0,
+        "MOTA": 14.26,
+        "IDF1": 38.3,
+        "IDs": 28.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.3895,
+        "track_ms_per_frame": 0.2291
+      }
+    },
+    "talos:c18": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 2.0,
+        "gate_p": 0.999,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 67.957,
+        "DetA": 25.281,
+        "HOTA": 41.365,
+        "IDSW": 87.0,
+        "MOTA": 14.647,
+        "IDF1": 46.57,
+        "IDs": 48.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.5589,
+        "track_ms_per_frame": 0.3288
+      }
+    },
+    "talos:c19": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.05,
+        "n_init": 1,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 10.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 66.889,
+        "DetA": 27.11,
+        "HOTA": 42.446,
+        "IDSW": 144.0,
+        "MOTA": 5.157,
+        "IDF1": 48.474,
+        "IDs": 83.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.8277,
+        "track_ms_per_frame": 0.4869
+      }
+    },
+    "talos:c20": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.5,
+        "low_conf": 0.05,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 40.0,
+        "coast_output": false,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 76.055,
+        "DetA": 15.735,
+        "HOTA": 34.583,
+        "IDSW": 0.0,
+        "MOTA": 13.478,
+        "IDF1": 32.179,
+        "IDs": 12.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2436,
+        "track_ms_per_frame": 0.1433
+      }
+    },
+    "talos:c21": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.3,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 2.0,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 68.635,
+        "DetA": 27.852,
+        "HOTA": 43.443,
+        "IDSW": 28.0,
+        "MOTA": -6.017,
+        "IDF1": 51.332,
+        "IDs": 89.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.951,
+        "track_ms_per_frame": 0.5594
+      }
+    },
+    "talos:c22": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.05,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.95,
+        "accel_std": 10.0,
+        "coast_output": false,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 61.697,
+        "DetA": 27.401,
+        "HOTA": 40.905,
+        "IDSW": 158.0,
+        "MOTA": -10.418,
+        "IDF1": 48.239,
+        "IDs": 140.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 1.0551,
+        "track_ms_per_frame": 0.6206
+      }
+    },
+    "talos:c23": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.3,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 65.85,
+        "DetA": 27.609,
+        "HOTA": 42.533,
+        "IDSW": 30.0,
+        "MOTA": 16.735,
+        "IDF1": 49.168,
+        "IDs": 74.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6114,
+        "track_ms_per_frame": 0.3597
+      }
+    },
+    "talos:c24": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.15,
+        "n_init": 1,
+        "max_age_s": 0.5,
+        "gate_p": 0.95,
+        "accel_std": 40.0,
+        "coast_output": true,
+        "coast_frames": 5
+      },
+      "scores": {
+        "AssA": 68.568,
+        "DetA": 25.892,
+        "HOTA": 41.962,
+        "IDSW": 18.0,
+        "MOTA": 3.017,
+        "IDF1": 46.711,
+        "IDs": 111.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.6735,
+        "track_ms_per_frame": 0.3962
+      }
+    },
+    "talos:c25": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.6,
+        "low_conf": 0.05,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.999,
+        "accel_std": 20.0,
+        "coast_output": true,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 75.424,
+        "DetA": 9.894,
+        "HOTA": 27.314,
+        "IDSW": 0.0,
+        "MOTA": 8.002,
+        "IDF1": 20.982,
+        "IDs": 7.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.1515,
+        "track_ms_per_frame": 0.0891
+      }
+    },
+    "talos:c26": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.2,
+        "low_conf": 0.15,
+        "n_init": 1,
+        "max_age_s": 4.0,
+        "gate_p": 0.999,
+        "accel_std": 40.0,
+        "coast_output": true,
+        "coast_frames": 3
+      },
+      "scores": {
+        "AssA": 56.379,
+        "DetA": 21.775,
+        "HOTA": 34.767,
+        "IDSW": 210.0,
+        "MOTA": -92.677,
+        "IDF1": 38.044,
+        "IDs": 294.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 2.3586,
+        "track_ms_per_frame": 1.3874
+      }
+    },
+    "talos:c27": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.6,
+        "low_conf": 0.1,
+        "n_init": 1,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 77.41,
+        "DetA": 12.205,
+        "HOTA": 30.727,
+        "IDSW": 25.0,
+        "MOTA": 4.126,
+        "IDF1": 25.225,
+        "IDs": 22.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.251,
+        "track_ms_per_frame": 0.1476
+      }
+    },
+    "talos:c28": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.6,
+        "low_conf": 0.15,
+        "n_init": 1,
+        "max_age_s": 1.0,
+        "gate_p": 0.99,
+        "accel_std": 40.0,
+        "coast_output": false,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 72.984,
+        "DetA": 12.202,
+        "HOTA": 29.83,
+        "IDSW": 50.0,
+        "MOTA": 4.736,
+        "IDF1": 24.445,
+        "IDs": 21.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.2548,
+        "track_ms_per_frame": 0.1499
+      }
+    },
+    "talos:c29": {
+      "params": {
+        "meas_pos_min": 0.611,
+        "meas_pos_frac": 0.0427,
+        "high_conf": 0.4,
+        "low_conf": 0.1,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.999,
+        "accel_std": 20.0,
+        "coast_output": true,
+        "coast_frames": 1
+      },
+      "scores": {
+        "AssA": 73.565,
+        "DetA": 24.381,
+        "HOTA": 42.279,
+        "IDSW": 1.0,
+        "MOTA": 20.947,
+        "IDF1": 46.655,
+        "IDs": 32.0,
+        "GT_IDs": 47.0
+      },
+      "timing": {
+        "frames": 1700,
+        "track_seconds": 0.4087,
+        "track_ms_per_frame": 0.2404
+      }
+    }
+  }
+}
