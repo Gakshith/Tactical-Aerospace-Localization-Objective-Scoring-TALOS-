@@ -10,7 +10,11 @@
 # runtime over AIR-MOT val on this one GPU and score each with det_metrics, so speed and
 # accuracy come from the same frames and the same node. Submit from the repo root:
 #   cd ~/talos/repo && sbatch jobs/export_parity.sbatch
-# Env: SRC_PT (default: configs/talos_v2.json weights), SPLITS (val), SKIP_EXPORT=1.
+# Env: SRC_PT (default: configs/talos_v2.json weights), SPLITS (val), SKIP_EXPORT=1,
+#      ONLY ("name name ..." = run just these variants).
+# ONNX Runtime on the GPU runs from ~/talos/.venv-ort: the onnxruntime-gpu 1.31 wheel is built for
+# CUDA 13 (+ tensorrt-cu13), while the main venv is CUDA 12 (torch cu128, tensorrt-cu12). That
+# path imports no torch, so it needs no CUDA 12 libraries.
 source "$HOME/talos/repo/jobs/common.sh"
 
 SRC_PT="${SRC_PT:-$TALOS/runs/det/y26s_t1024/weights/best.pt}"
@@ -40,13 +44,19 @@ VARIANTS=(
   "rt_ort_trt_fp16|onnx|${STEM}_u8.onnx|--ort-provider tensorrt --half"
   "rt_trt_fp16|trt|$STEM.engine|"
 )
+ORT_VENV="$TALOS/.venv-ort"
+ORT_SP=$("$ORT_VENV/bin/python" -c "import site; print(site.getsitepackages()[0])")
+ORT_LD="$ORT_SP/tensorrt_libs:$(ls -d "$ORT_SP"/nvidia/*/lib | tr '\n' ':')"
 for v in "${VARIANTS[@]}"; do
   IFS='|' read -r name backend w extra <<<"$v"
+  if [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $name "* ]]; then continue; fi
+  PY=python; ENVV=()
+  if [ "$backend" = onnx ]; then PY="$ORT_VENV/bin/python"; ENVV=(env "LD_LIBRARY_PATH=$ORT_LD${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"); fi
   echo "=== $name ($backend, $(basename "$w"))"
   rm -rf "$DETS/$name"
   for split in ${SPLITS:-val}; do
     # shellcheck disable=SC2086
-    python -m src.TALOS.detect.run_detector --weights "$w" --name "$name" --mode tiled --tile 1024 \
+    "${ENVV[@]}" "$PY" -m src.TALOS.detect.run_detector --weights "$w" --name "$name" --mode tiled --tile 1024 \
       --overlap 0.2 --imgsz 1024 --classes 0:AIRMOT_plane,1:AIRMOT_ship --mot-root "$DATA/mot" \
       --split "$split" --conf 0.1 --v1-conf 0.25 --end2end true --batch 64 --max-det 300 \
       --backend "$backend" --out-root "$DETS" $extra
