@@ -35,7 +35,24 @@ RESULTS = HERE / "results"
 MODEL = HERE / "models" / "talos_y26s_t1024.onnx"
 MAX_FRAMES = 40          # free CPU: keep a run under about a minute
 MAX_SIDE = 1280          # longer sides are downscaled (2 tiles of 1024 instead of 6)
-THREADS = os.cpu_count() or 2
+def cpu_limit() -> int:
+    """CPUs this process may really use. os.cpu_count() reports the whole host (128 on a
+    Polaris node, often the host on Spaces too); oversubscribing ONNX Runtime's spinning
+    threads made a 2-CPU run 25x slower. Uses TALOS_THREADS, else the affinity mask and
+    the cgroup CPU quota, whichever is smaller."""
+    if os.environ.get("TALOS_THREADS"):
+        return max(1, int(os.environ["TALOS_THREADS"]))
+    n = len(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else (os.cpu_count() or 2)
+    try:
+        quota, period = Path("/sys/fs/cgroup/cpu.max").read_text().split()[:2]
+        if quota != "max":
+            n = min(n, max(1, -(-int(quota) // int(period))))
+    except (OSError, ValueError):
+        pass
+    return max(1, n)
+
+
+THREADS = cpu_limit()
 CFG = json.loads(CONFIG.read_text())
 
 _detector = None

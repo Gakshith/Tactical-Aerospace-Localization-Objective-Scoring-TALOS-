@@ -51,6 +51,7 @@ def main() -> None:
     codec = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=codec_name",
                             "-of", "csv=p=0", out], capture_output=True, text=True).stdout.strip()
     assert codec == "h264", codec
+    assert dt < 120, f"live run took {dt:.0f} s on {app.THREADS} threads; the page promises about a minute"
     print(f"live run ok in {dt:.1f} s: {note}")
 
     th = threading.Thread(target=lambda: app.demo.launch(server_port=7861, prevent_thread_lock=True), daemon=True)
