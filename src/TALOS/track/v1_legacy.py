@@ -1,3 +1,7 @@
+"""TALOS v1, kept verbatim as the "before" baseline (see track/v1.py and threat/model.py:v1_score).
+
+Not used by the v2 pipeline. Bugs are intentional: the benchmark measures what v1 actually did.
+"""
 import os
 import cv2
 import torch

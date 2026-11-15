@@ -1,7 +1,7 @@
 """The original (v1) TALOS tracker behind the common interface: the "before"
 baseline.
 
-This wraps ``ModelRun.MultiObjectTracker`` from ``components/model_run.py``
+This wraps ``ModelRun.MultiObjectTracker`` from ``v1_legacy.py`` (the v1 code, moved verbatim)
 unchanged, so the benchmark measures what v1 actually did, bugs included:
 
 - no detections in a frame -> ``update`` returns early, so no predict step;
@@ -22,7 +22,7 @@ from src.TALOS.track.base import register
 
 class V1Tracker:
     def __init__(self, min_conf: float = 0.5, device: str = "cpu"):
-        from src.TALOS.components.model_run import ModelRun  # heavy deps, import lazily
+        from src.TALOS.track.v1_legacy import ModelRun  # heavy deps, import lazily
 
         self.min_conf = min_conf
         self.mot = ModelRun.MultiObjectTracker(dt=1 / 30, device=device)
