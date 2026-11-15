@@ -197,7 +197,7 @@ def main() -> None:
     ap.add_argument("--benches", nargs="+", default=["AIRMOT_plane", "AIRMOT_ship"])
     ap.add_argument("--splits", nargs="+", default=["train", "val"])
     ap.add_argument("--horizon-s", type=float, default=10.0)
-    ap.add_argument("--accel-std", type=float, default=20.0)
+    ap.add_argument("--accel-std", type=float, default=1.0)
     ap.add_argument("--radius", type=float, default=25.0)
     ap.add_argument("--lead-s", type=float, default=8.0)
     ap.add_argument("--out", type=Path)

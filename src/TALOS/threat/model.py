@@ -62,7 +62,11 @@ class Zone:
 class ThreatConfig:
     horizon_s: float = 10.0
     fps: float = 10.0
-    accel_std: float = 20.0   # px/s^2, same meaning as the tracker's process noise
+    # px/s^2 white-acceleration noise. 1.0 was fitted on AIR-MOT train trajectories by
+    # Brier score (grid 1-80; flat between 1 and 5) and confirmed on val: Brier 0.0419 vs
+    # 0.0456 and AUROC 0.855 vs 0.813 against the earlier default of 20.
+    # See results/threat/fit/ and results/threat/d4-threat-val-*.
+    accel_std: float = 1.0
     n_samples: int = 512
     seed: int = 0
 
