@@ -92,7 +92,14 @@ def evaluate(benches, splits, cfg: ThreatConfig, radius=25.0, lead_s=8.0, miss_o
     n_zones = {"on-path": 0, "near-miss": 0}
     for bench in benches:
         for split in splits:
-            for seq in load_split("airmot")[split]:
+            if bench.startswith("VISO"):
+                # cross-dataset only: no split, nothing fitted on it; split must be "all"
+                if split != "all":
+                    continue
+                seqs = sorted(p.name for p in (DATA / "mot" / f"{bench}-all").iterdir() if p.is_dir())
+            else:
+                seqs = load_split("airmot")[split]
+            for seq in seqs:
                 sdir = DATA / "mot" / f"{bench}-all" / seq
                 if not sdir.is_dir():
                     continue
