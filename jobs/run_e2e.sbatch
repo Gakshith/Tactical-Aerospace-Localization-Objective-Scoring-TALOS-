@@ -8,9 +8,9 @@
 #SBATCH --output=logs/slurm-%j.out
 # End-to-end `talos run` over AIR-MOT val sequences, timing every stage.
 # Submit from the repo root:
-#   cd ~/talos/repo && SEQS="AIRMOT_plane/airmot-043 AIRMOT_ship/airmot-099" TAG=a100 \
+#   cd ~/talos/repo && SEQS="AIRMOT_plane-all/airmot-043 AIRMOT_ship-all/airmot-099" TAG=a100 \
 #     sbatch --export=ALL jobs/run_e2e.sbatch
-# Env: SEQS (bench/seq ...), TAG (label for this hardware), DEVICE (cuda:0 | cpu),
+# Env: SEQS (<bench>-all/<seq> ...), TAG (label for this hardware), DEVICE (cuda:0 | cpu),
 #      ZONE ("cx,cy,r", default frame centre r=150), BATCH (4).
 source "$HOME/talos/repo/jobs/common.sh"
 : "${SEQS:?}" "${TAG:?}"
