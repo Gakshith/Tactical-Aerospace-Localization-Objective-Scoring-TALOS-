@@ -1,0 +1,54 @@
+{
+  "detector": {
+    "weights": "~/talos/runs/det/y26s_t1024/weights/best.pt",
+    "tile": 1024,
+    "overlap": 0.2,
+    "imgsz": 1024,
+    "conf": 0.1,
+    "classes": {
+      "0": "plane",
+      "1": "ship"
+    },
+    "source": "chosen on AIR-MOT val full-frame AP50 (results/det_y26s_t1024)"
+  },
+  "tracker": {
+    "plane": {
+      "params": {
+        "meas_pos_min": 1.622,
+        "meas_pos_frac": 0.0412,
+        "high_conf": 0.6,
+        "low_conf": 0.15,
+        "n_init": 5,
+        "max_age_s": 0.5,
+        "gate_p": 0.99,
+        "accel_std": 20.0,
+        "coast_output": false,
+        "coast_frames": 5,
+        "dup_iou": 0.5
+      },
+      "source": "results/d4-tune-talos-dedup-plane-val (best of 30 on val HOTA)"
+    },
+    "ship": {
+      "params": {
+        "meas_pos_min": 0.695,
+        "meas_pos_frac": 0.0667,
+        "high_conf": 0.6,
+        "low_conf": 0.1,
+        "n_init": 3,
+        "max_age_s": 1.0,
+        "gate_p": 0.99,
+        "accel_std": 5.0,
+        "coast_output": true,
+        "coast_frames": 1,
+        "dup_iou": 0.7
+      },
+      "source": "results/d4-tune-talos-dedup-ship-val (best of 30 on val HOTA)"
+    }
+  },
+  "threat": {
+    "accel_std": 1.0,
+    "horizon_s": 10.0,
+    "alert_threshold": 0.1602,
+    "source": "accel_std fitted on train by Brier; threshold = 5% false-alarm rate on AIR-MOT val (results/threat/d4-threat-val-accel1.json)"
+  }
+}
