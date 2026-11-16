@@ -6,6 +6,8 @@ TALOS detects aircraft and ships in satellite video, keeps a stable ID on each o
 
 **Live demo:** [huggingface.co/spaces/dustin-demo/talos-satellite-tracking](https://huggingface.co/spaces/dustin-demo/talos-satellite-tracking). It shows 8 clips from VISO, a satellite dataset the model never trained on, with the misses included.
 
+**API on AWS Lambda:** [`https://a6yezc4gltpzekp4a4tasydyxm0rqdgx.lambda-url.us-east-1.on.aws/`](https://a6yezc4gltpzekp4a4tasydyxm0rqdgx.lambda-url.us-east-1.on.aws/). POST a short clip and get tracks and zone-entry alerts back; see [Call the API](#call-the-api-aws-lambda).
+
 ![TALOS on VISO clip 039: a white zone on the runway; aircraft boxes turn red as entry becomes likely](docs/media/talos-viso-039.gif)
 
 <sub>VISO clip 039, CC BY-NC-SA 4.0 (Yin et al., IEEE TGRS 2021); this annotated GIF is shared under the same license. The plane heading down the runway is flagged 7.3 s before it enters the zone.</sub>
@@ -196,6 +198,25 @@ docker run --rm ghcr.io/gakshith/talos:latest        # README check + tests
 docker build -t talos .                             # or build it yourself
 ```
 
+### Call the API (AWS Lambda)
+
+The same pipeline runs on AWS Lambda (CPU, ONNX Runtime, 3008 MB), behind a public function URL. Send up to 40 frames of a clip (mp4, at most about 4 MB) and an optional zone in the clip's pixels:
+
+```bash
+python - <<'PY'
+import base64, json, urllib.request
+body = {"video_b64": base64.b64encode(open("clip.mp4", "rb").read()).decode(),
+        "zone_circle": [776, 376, 25], "fps": 10}
+req = urllib.request.Request("https://a6yezc4gltpzekp4a4tasydyxm0rqdgx.lambda-url.us-east-1.on.aws/", json.dumps(body).encode(), {"content-type": "application/json"})
+out = json.load(urllib.request.urlopen(req, timeout=150))
+print(out["tracks"], out["alerts"][:3], out["timing"])
+PY
+```
+
+The reply lists each track (class, id, first and last frame, highest entry probability), every alert over the val-tuned threshold, and per-stage timing. `GET` on the URL returns the limits. Frames longer than 1280 px are downscaled first. A 40-frame 1454×750 VISO clip takes about 60 s (1.4 s per frame).
+
+The code is in [`deploy/lambda/`](deploy/lambda/). Every push to `main` that touches the pipeline rebuilds the image, pushes it to ECR and updates the function ([workflow](.github/workflows/deploy-lambda.yml)); GitHub reaches AWS through an OIDC role only `main` can assume, so no AWS keys are stored in GitHub. [`setup_aws.sh`](deploy/lambda/setup_aws.sh) creates the AWS side once.
+
 GPU pins (CUDA 12.8, as used on Polaris) are in [`env/requirements-v2.txt`](env/requirements-v2.txt).
 
 Download the detector (ONNX, 38 MB, YOLO26s fine-tuned on AIR-MOT tiles):
@@ -239,6 +260,7 @@ src/TALOS/
 configs/      tuned settings, split, ablation configs
 data_meta/    dataset conversion reports and the per-video track list used for the split
 docs/data/    dataset notes: format, fixes, caveats
+deploy/       AWS Lambda handler, image and one-time AWS setup
 env/          pinned environments (GPU on Polaris, CPU for CI and Docker)
 jobs/         Slurm scripts
 results/      every metrics file the README reads
@@ -255,6 +277,7 @@ v1 (a fine-tuned YOLO26s on 500 synthetic images, a fixed-gate tracker, a hand-w
 - Ships have many false positives (val precision 0.32), which caps every tracker's ship scores.
 - The detector misses VISO's ships (a few pixels across) and some VISO aircraft. The demo lists these misses.
 - Pixels, not metres; 10 fps assumed for AIR-MOT.
+- The Lambda API runs on CPU at about 1.4 s per frame, so it suits short clips, not a live feed.
 
 ## License
 
