@@ -1,0 +1,77 @@
+name: Deploy Lambda
+
+# Builds deploy/lambda/Dockerfile, pushes it to ECR and points the "talos" function at it
+# (creating the function and its public URL the first time). AWS access is GitHub OIDC
+# into a role that only this repo's main branch may assume; see deploy/lambda/setup_aws.sh.
+on:
+  push:
+    branches: [main]
+    paths: [deploy/lambda/**, src/**, configs/talos_v2.json, .github/workflows/deploy-lambda.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency: deploy-lambda
+
+jobs:
+  deploy:
+    if: vars.AWS_ROLE_ARN != ''
+    runs-on: ubuntu-latest
+    env:
+      FUNC: talos
+      ECR_REPO: talos-lambda
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/lambda/Dockerfile
+          platforms: linux/amd64
+          provenance: false          # Lambda rejects image indexes with attestations
+          push: true
+          tags: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ github.sha }}
+          cache-from: type=gha,scope=lambda
+          cache-to: type=gha,scope=lambda,mode=max
+      - name: Create or update the function
+        env:
+          IMAGE: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ github.sha }}
+        run: |
+          set -euo pipefail
+          ACCT=$(aws sts get-caller-identity --query Account --output text)
+          if aws lambda get-function --function-name "$FUNC" >/dev/null 2>&1; then
+            aws lambda update-function-code --function-name "$FUNC" --image-uri "$IMAGE" >/dev/null
+            aws lambda wait function-updated-v2 --function-name "$FUNC"
+          else
+            aws lambda create-function --function-name "$FUNC" --package-type Image \
+              --code ImageUri="$IMAGE" --role "arn:aws:iam::$ACCT:role/talos-lambda-exec" \
+              --architectures x86_64 --memory-size 3008 --timeout 120 \
+              --description "TALOS aircraft/ship tracking with zone-entry alerts" >/dev/null
+            aws lambda wait function-active-v2 --function-name "$FUNC"
+          fi
+          if ! aws lambda get-function-url-config --function-name "$FUNC" >/dev/null 2>&1; then
+            aws lambda create-function-url-config --function-name "$FUNC" --auth-type NONE >/dev/null
+            aws lambda add-permission --function-name "$FUNC" --statement-id public-url \
+              --action lambda:InvokeFunctionUrl --principal '*' --function-url-auth-type NONE >/dev/null
+            aws lambda add-permission --function-name "$FUNC" --statement-id public-url-invoke \
+              --action lambda:InvokeFunction --principal '*' --invoked-via-function-url >/dev/null
+          fi
+          URL=$(aws lambda get-function-url-config --function-name "$FUNC" --query FunctionUrl --output text)
+          echo "URL=$URL" >> "$GITHUB_ENV"
+          echo "### Deployed: $URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Smoke test (GET usage)
+        run: |
+          for i in 1 2 3 4 5; do
+            if curl -fsS --max-time 60 "$URL" | tee /tmp/usage.json | grep -q '"limits"'; then exit 0; fi
+            sleep 10
+          done
+          cat /tmp/usage.json; exit 1

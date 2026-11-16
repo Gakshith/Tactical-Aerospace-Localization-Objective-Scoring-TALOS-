@@ -1,0 +1,5 @@
+*
+!src/
+!configs/talos_v2.json
+!deploy/lambda/
+**/__pycache__
