@@ -6,6 +6,7 @@
 !results/
 !env/
 !jobs/
+!deploy/
 !README.md
 !LICENSE
 **/__pycache__
