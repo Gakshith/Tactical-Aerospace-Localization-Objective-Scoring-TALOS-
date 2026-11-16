@@ -37,6 +37,7 @@ from src.TALOS.threat.model import Zone
 MODEL = Path(os.environ.get("TALOS_MODEL", "/opt/talos/talos_y26s_t1024.onnx"))
 MAX_FRAMES = int(os.environ.get("TALOS_MAX_FRAMES", "40"))
 MAX_SIDE = int(os.environ.get("TALOS_MAX_SIDE", "1280"))
+TILE_BATCH = int(os.environ.get("TALOS_TILE_BATCH", "2"))
 CFG = json.loads(CONFIG.read_text())
 
 _detector = None
@@ -60,10 +61,15 @@ def detector():
     """Built once per container, so warm calls skip the model load."""
     global _detector
     if _detector is None:
+        from src.TALOS.detect.onnx_backend import OnnxBackend
+
         d = CFG["detector"]
-        _detector = TiledDetector(str(MODEL), tile=d["tile"], overlap=d["overlap"], imgsz=d["imgsz"],
-                                  conf=d["conf"], device="cpu", backend="onnx", ort_provider="cpu",
-                                  threads=cpu_limit(), batch=8)
+        # Lambda kills the function at its memory size (3008 MB). Eight 1024 px tiles per run plus
+        # ORT's CPU arena (which keeps the peak reserved) went over it; 2 tiles, no arena, fits.
+        ort = OnnxBackend(str(MODEL), provider="cpu", imgsz=d["imgsz"], conf=d["conf"], threads=cpu_limit(),
+                          session_options={"enable_cpu_mem_arena": False})
+        _detector = TiledDetector(tile=d["tile"], overlap=d["overlap"], imgsz=d["imgsz"], conf=d["conf"],
+                                  device="cpu", backend=ort, batch=TILE_BATCH)
     return _detector
 
 

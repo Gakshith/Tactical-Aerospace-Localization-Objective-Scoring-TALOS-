@@ -24,6 +24,13 @@ aws ecr describe-repositories --repository-names $ECR_REPO >/dev/null 2>&1 \
 aws ecr put-lifecycle-policy --repository-name $ECR_REPO --lifecycle-policy-text '{"rules":[{"rulePriority":1,
   "description":"keep last 3","selection":{"tagStatus":"any","countType":"imageCountMoreThan","countNumber":3},
   "action":{"type":"expire"}}]}' >/dev/null
+# let the Lambda service pull this repo's images (CreateFunction otherwise fails with AccessDenied)
+aws ecr set-repository-policy --repository-name $ECR_REPO --policy-text "$(cat <<JSON
+{"Version":"2012-10-17","Statement":[{"Sid":"LambdaPull","Effect":"Allow",
+ "Principal":{"Service":"lambda.amazonaws.com"},"Action":["ecr:BatchGetImage","ecr:GetDownloadUrlForLayer"],
+ "Condition":{"StringLike":{"aws:sourceArn":"arn:aws:lambda:$REGION:$ACCT:function:*"}}}]}
+JSON
+)" >/dev/null
 
 # GitHub OIDC provider
 OIDC=arn:aws:iam::$ACCT:oidc-provider/token.actions.githubusercontent.com
