@@ -4,7 +4,7 @@
 
 TALOS detects aircraft and ships in satellite video, keeps a stable ID on each one, and estimates the probability that each will enter a protected zone within the next 10 seconds. An operator gets a warning before the zone is reached.
 
-**Live demo:** [huggingface.co/spaces/dustin-demo/talos-satellite-tracking](https://huggingface.co/spaces/dustin-demo/talos-satellite-tracking). It shows 8 clips from VISO, a satellite dataset the model never trained on, with the misses included.
+**Demo (precomputed clips):** [huggingface.co/spaces/dustin-demo/talos-satellite-tracking](https://huggingface.co/spaces/dustin-demo/talos-satellite-tracking). It shows 8 clips from VISO, a satellite dataset the model never trained on, with the misses included.
 
 **API on AWS Lambda:** [`https://a6yezc4gltpzekp4a4tasydyxm0rqdgx.lambda-url.us-east-1.on.aws/`](https://a6yezc4gltpzekp4a4tasydyxm0rqdgx.lambda-url.us-east-1.on.aws/). POST a short clip and get tracks and zone-entry alerts back; see [Call the API](#call-the-api-aws-lambda).
 
